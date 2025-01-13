@@ -544,7 +544,7 @@ class CBXChangelogHelper {
 	 *
 	 */
 	public static function get_orderby_keys() {
-		return [ 'default', 'date' ];
+		return [ 'default', 'date', 'id' ];
 	}//end method get_orderby_keys
 
 	/**

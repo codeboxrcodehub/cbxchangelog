@@ -105,7 +105,7 @@
 
             //var rendered = Mustache.render($release_template, {increment: $counter, incrementplus: ($counter + 1)});
             var rendered = Mustache.render($release_template, {increment: ($counter - 1), incrementplus: ($counter)});
-            $('#cbxchangelog_wrapper').prepend(rendered);
+            $('#cbxchangelog_wrapper').append(rendered);
 
             $counter++;
             $this.attr('data-counter', $counter);

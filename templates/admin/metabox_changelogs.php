@@ -155,7 +155,8 @@ $meta_extra['orderby']       = $order_by = isset( $meta_extra['orderby'] ) ? san
         <label for="sort_orderby" class="orderby_wrap">
 			<?php esc_html_e( 'Order By', 'cbxchangelog' ); ?>
             <select name="cbxchangelog_extra[orderby]" id="sort_orderby">
-                <option value="order" <?php selected( $order_by, 'order' ); ?> ><?php esc_html_e( 'Default', 'cbxchangelog' ); ?></option>
+                <option value="order" <?php selected( $order_by, 'order' ); ?> ><?php esc_html_e( 'Default(Index)', 'cbxchangelog' ); ?></option>
+                <option value="id" <?php selected( $order_by, 'id' ); ?> ><?php esc_html_e( 'Release No/ID', 'cbxchangelog' ); ?></option>
                 <option value="date" <?php selected( $order_by, 'date' ); ?> ><?php esc_html_e( 'Date', 'cbxchangelog' ); ?></option>
             </select>
         </label>
@@ -170,41 +171,25 @@ $meta_extra['orderby']       = $order_by = isset( $meta_extra['orderby'] ) ? san
     <div class="clear clearfix"></div>
 
 <?php
-
 $meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
 $meta      = $meta_data->getAll();
 $nextIndex = $counter = $meta_data->getNextIndex();
-
-
-//$meta = get_post_meta( $post_id, '_cbxchangelog', true );
-
-
-//$counter = 0;
-/*if ( $meta !== false && is_array( $meta ) ) {
-	$meta    = array_filter( $meta );
-	$counter = sizeof( $meta );
-} else {
-	$meta = [];
-}*/
 ?>
+
+
     <a href="#" data-counter="<?php echo absint( $counter ); ?>" class="button primary cbxchangelog_add_release"><?php esc_html_e( 'Add New Release', 'cbxchangelog' ); ?></a>
+    <p style="color: #fff;">
+        <span><?php esc_html_e('Note: In dashboard releases are displayed as per index. Display index and release id/no is not same. Drag adn drop sorting changes index but id doesn\'t change.', 'cbxchangelog'); ?></span>
+    </p>
+
 
     <div id="cbxchangelog_wrapper">
 		<?php
 		if ( sizeof( $meta ) > 0 ) {
 
 			$boxes = $meta;
-			//$j = sizeof($boxes) - 1;
 
-			// Move the pointer to the last element
-			end($boxes);
-
-			//foreach ( $boxes as $b_index => $box ) {
-			while (($index = key($boxes)) !== null) { // Get the current index
-				//$index =  $j;
-
-                $box = $boxes[$index];
-
+			foreach ( $boxes as $index => $box ) {
 				$id           = isset( $box['id'] ) ? absint( $box['id'] ) : 0; //note $id and $inde
 				$version      = isset( $box['version'] ) ? sanitize_text_field( $box['version'] ) : '';
 				$url          = isset( $box['url'] ) ? esc_url( $box['url'] ) : '';
@@ -228,10 +213,10 @@ $nextIndex = $counter = $meta_data->getNextIndex();
                         </div>   				        
 					    <div class="release-toolbar-right">
 					        <span data-post-id="'.absint($post_id).'" data-id="'.absint($id).'" data-balloon-pos="up" aria-label="'.esc_attr__('Click to delete', 'cbxchangelog').'"  class="cbx-icon cbx-icon-delete-white trash-release" role="button" title="' . esc_html__( 'Delete Release', 'cbxchangelog' ) . '"></span>
-					        <span data-balloon-pos="up" aria-label="'.esc_attr__('Click to show/hide', 'cbxchangelog').'" class="cbx-icon cbx-icon-minus-white toggle-release" role="button" title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
+					        <span data-balloon-pos="up" aria-label="'.esc_attr__('Click to show/hide', 'cbxchangelog').'" class="cbx-icon cbx-icon-plus-white toggle-release" role="button" title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
                         </div>															    
                     </div>
-                    <div class="release-content">
+                    <div class="release-content" style="display: none;">
                         <div class="release-note">
                             <p class="release-label release-note-markdown">' . esc_html__( 'Release Note(Supports markdown syntax, if enabled in settings)', 'cbxchangelog' ) . '</p>
                             <textarea  placeholder="' . esc_html__( 'Brief release note(Supports markdown syntax, if enabled in settings)', 'cbxchangelog' ) . '" class="cbxchangelog_input cbxchangelog_input_textarea cbxchangelog_input_note large-text" name="cbxchangelog_logs[' . absint( $index ) . '][note]">' . esc_textarea( $release_note ) . '</textarea>

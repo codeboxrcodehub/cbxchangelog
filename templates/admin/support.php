@@ -102,6 +102,13 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 1.1.7</p>
+                            <ul>
+                                <li>[fixed] Fixed the order issue in changelog edit screen</li>
+                                <li>[new] Added new order by param 'id', here is release id, please note, release id and dashboard display index is not same.</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 1.1.6</p>
                             <ul>
                                 <li>[new] New dashboard style</li>

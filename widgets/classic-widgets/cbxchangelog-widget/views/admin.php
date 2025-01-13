@@ -82,6 +82,7 @@ do_action( 'cbxchangelog_form_admin_start', $instance, $this );
         <select class="widefat" name="<?php echo esc_attr($this->get_field_name( 'orderby' )); ?>"
                 id="<?php echo esc_attr($this->get_field_id( 'orderby' )); ?>">
             <option value="default" <?php selected( 'default', $orderby ); ?> ><?php esc_html_e( 'Default', 'cbxchangelog' ); ?></option>
+            <option value="id" <?php selected( 'id', $orderby ); ?> ><?php esc_html_e( 'Release No/ID', 'cbxchangelog' ); ?></option>
             <option value="date" <?php selected( 'date', $orderby ); ?> ><?php esc_html_e( 'Date', 'cbxchangelog' ); ?></option>
         </select>
     </p>

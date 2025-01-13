@@ -1143,6 +1143,5 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
             </div>
 			<?php
 		}//end show_forms
-
 	}//end class CBXChangelogSettings
 endif;

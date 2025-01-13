@@ -124,25 +124,6 @@ class CBXChangelogOptionAsArray {
 		throw new OutOfBoundsException("Row with primary key $key does not exist."); //phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 	}
 
-	// Get all rows with optional sorting
-	public function getAll($orderBy = null, $order = 'asc') {
-		$data = $this->data;
-
-		// Apply sorting if column is provided
-		if ($orderBy !== null) {
-			usort($data, function ($a, $b) use ($orderBy, $order) {
-				if (!isset($a[$orderBy]) || !isset($b[$orderBy])) {
-					return 0; // Skip sorting if column doesn't exist
-				}
-				$comparison = $a[$orderBy] <=> $b[$orderBy];
-
-				return $order === 'desc' ? -$comparison : $comparison;
-			});
-		}
-
-		return array_values($data);
-	}
-
 	// Get the total number of rows
 	public function getTotalRows() {
 		return count($this->data);
@@ -192,8 +173,27 @@ class CBXChangelogOptionAsArray {
 		return null; // No previous row
 	}
 
+	// Get all rows with optional sorting
+	/*public function getAll($orderBy = null, $order = 'asc') {
+		$data = $this->data;
+
+		// Apply sorting if column is provided
+		if ($orderBy !== null) {
+			usort($data, function ($a, $b) use ($orderBy, $order) {
+				if (!isset($a[$orderBy]) || !isset($b[$orderBy])) {
+					return 0; // Skip sorting if column doesn't exist
+				}
+				$comparison = $a[$orderBy] <=> $b[$orderBy];
+
+				return $order === 'desc' ? -$comparison : $comparison;
+			});
+		}
+
+		return array_values($data);
+	}*/
+
 	// Get paginated rows with sorting
-	public function getPaginatedRows($page = 1, $perPage = 10, $orderBy = null, $order = 'asc') {
+	/*public function getPaginatedRows($page = 1, $perPage = 10, $orderBy = null, $order = 'asc') {
 		$data = $this->data;
 
 		// Apply sorting if column is provided
@@ -220,7 +220,79 @@ class CBXChangelogOptionAsArray {
 			'perPage'     => $perPage,
 			'totalPages'  => ceil($totalRows / $perPage),
 		];
-	}
+	}*/
+	// Get all rows with optional sorting
+	public function getAll( $orderBy = null, $order = 'asc' ) {
+		$data = $this->data;
+
+		// Apply sorting if column is provided
+		if ( $orderBy !== null ) {
+			usort( $data, function ( $a, $b ) use ( $orderBy, $order ) {
+				if ( ! isset( $a[ $orderBy ] ) || ! isset( $b[ $orderBy ] ) ) {
+					return 0; // Skip sorting if column doesn't exist
+				}
+
+				// Check if the field is a date type
+				$isDate = ($orderBy === 'date' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $a[ $orderBy ]) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $b[ $orderBy ]));
+
+				if ( $isDate ) {
+					$comparison = strtotime( $a[ $orderBy ] ) <=> strtotime( $b[ $orderBy ] );
+				} else {
+					$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+				}
+
+				return $order === 'desc' ? - $comparison : $comparison;
+			} );
+		}
+		else{
+			// Sort by natural index if no column is provided
+			$data = $order === 'desc' ? array_reverse( $data ) : $data;
+		}
+
+		return array_values( $data );
+	}//end method getAll
+
+	// Get paginated rows with sorting
+	public function getPaginatedRows( $page = 1, $perPage = 10, $orderBy = null, $order = 'asc' ) {
+		$data = $this->data;
+
+		// Apply sorting if column is provided
+		if ( $orderBy !== null ) {
+			usort( $data, function ( $a, $b ) use ( $orderBy, $order ) {
+				if ( ! isset( $a[ $orderBy ] ) || ! isset( $b[ $orderBy ] ) ) {
+					return 0; // Skip sorting if column doesn't exist
+				}
+
+				// Check if the field is a date type
+				$isDate = ($orderBy === 'date' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $a[ $orderBy ]) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $b[ $orderBy ]));
+
+				if ( $isDate ) {
+					$comparison = strtotime( $a[ $orderBy ] ) <=> strtotime( $b[ $orderBy ] );
+				} else {
+					$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+				}
+
+				return $order === 'desc' ? - $comparison : $comparison;
+			} );
+		}
+		else{
+			// Sort by natural index if no column is provided
+			$data = $order === 'desc' ? array_reverse( $data ) : $data;
+		}
+
+		// Paginate the data
+		$totalRows     = count( $data );
+		$start         = ( $page - 1 ) * $perPage;
+		$paginatedData = array_slice( $data, $start, $perPage );
+
+		return [
+			'data'        => $paginatedData,
+			'totalRows'   => $totalRows,
+			'currentPage' => $page,
+			'perPage'     => $perPage,
+			'totalPages'  => ceil( $totalRows / $perPage ),
+		];
+	}//end method getPaginatedRows
 
 	// Set the primary key for each row based on its index, starting from 1
 	public function setPrimaryKeyFromIndex() {
@@ -231,4 +303,12 @@ class CBXChangelogOptionAsArray {
 		// Save the updated data
 		$this->saveData();
 	}
+
+	// Reset all rows and properties to their initial state
+	public function resetRows() {
+		$this->data = [];
+		$this->usedKeys = [];
+		$this->nextIndex = 1;
+		$this->saveData();
+	}//end method resetRows
 }//end class CBXChangelogOptionAsArray

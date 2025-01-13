@@ -175,6 +175,7 @@ class CBXChangeLog_ElemWidget extends \Elementor\Widget_Base {
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'options' => [
 					'default' => esc_html__( 'Default', 'cbxchangelog' ),
+					'id'      => esc_html__( 'Release No/ID', 'cbxchangelog' ),
 					'date'    => esc_html__( 'Date', 'cbxchangelog' ),
 				],
 				'default' => 'default',
@@ -227,6 +228,17 @@ class CBXChangeLog_ElemWidget extends \Elementor\Widget_Base {
 		if ( $order == '' ) {
 			$order = 'desc';
 		}
+
+		$order_keys = cbxchangelog_get_order_keys();
+		if ( ! in_array( $order, $order_keys ) ) {
+			$order = 'desc';
+		}
+
+		$order_by_keys = cbxchangelog_get_orderby_keys();
+		if ( ! in_array( $orderby, $order_by_keys ) ) {
+			$order_by = 'default';
+		}
+
 
 		if ( intval( $id ) <= 0 && ( false !== get_post_status( $id ) ) ) {
 			esc_html_e( 'Set Post ID(Change log post type or other supported)', 'cbxchangelog' );

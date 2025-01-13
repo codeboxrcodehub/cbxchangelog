@@ -132,7 +132,7 @@ class CBXChangelogMetaAsArray {
 	}//end method delete
 
 	// Get all rows with optional sorting
-	public function getAll( $orderBy = null, $order = 'asc' ) {
+	/*public function getAll( $orderBy = null, $order = 'asc' ) {
 		$data = $this->data;
 
 		// Apply sorting if column is provided
@@ -148,7 +148,39 @@ class CBXChangelogMetaAsArray {
 		}
 
 		return array_values( $data );
-	}//end method getAll
+	}//end method getAll*/
+
+	// Get paginated rows with sorting
+	/*public function getPaginatedRows( $page = 1, $perPage = 10, $orderBy = null, $order = 'asc' ) {
+		$data = $this->data;
+
+		// Apply sorting if column is provided
+		if ( $orderBy !== null ) {
+			usort( $data, function ( $a, $b ) use ( $orderBy, $order ) {
+				if ( ! isset( $a[ $orderBy ] ) || ! isset( $b[ $orderBy ] ) ) {
+					return 0; // Skip sorting if column doesn't exist
+				}
+				$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+
+				return $order === 'desc' ? - $comparison : $comparison;
+			} );
+		}
+
+		// Paginate the data
+		$totalRows     = count( $data );
+		$start         = ( $page - 1 ) * $perPage;
+		$paginatedData = array_slice( $data, $start, $perPage );
+
+		return [
+			'data'        => $paginatedData,
+			'totalRows'   => $totalRows,
+			'currentPage' => $page,
+			'perPage'     => $perPage,
+			'totalPages'  => ceil( $totalRows / $perPage ),
+		];
+	}//end method getPaginatedRows*/
+
+
 
 	// Get the total number of rows
 	public function getTotalRows() {
@@ -199,6 +231,37 @@ class CBXChangelogMetaAsArray {
 		return null; // No previous row
 	}//end method getPrevRow
 
+	// Get all rows with optional sorting
+	public function getAll( $orderBy = null, $order = 'asc' ) {
+		$data = $this->data;
+
+		// Apply sorting if column is provided
+		if ( $orderBy !== null ) {
+			usort( $data, function ( $a, $b ) use ( $orderBy, $order ) {
+				if ( ! isset( $a[ $orderBy ] ) || ! isset( $b[ $orderBy ] ) ) {
+					return 0; // Skip sorting if column doesn't exist
+				}
+
+				// Check if the field is a date type
+				$isDate = ($orderBy === 'date' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $a[ $orderBy ]) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $b[ $orderBy ]));
+
+				if ( $isDate ) {
+					$comparison = strtotime( $a[ $orderBy ] ) <=> strtotime( $b[ $orderBy ] );
+				} else {
+					$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+				}
+
+				return $order === 'desc' ? - $comparison : $comparison;
+			} );
+		}
+		else{
+			// Sort by natural index if no column is provided
+			$data = $order === 'desc' ? array_reverse( $data ) : $data;
+		}
+
+		return array_values( $data );
+	}//end method getAll
+
 	// Get paginated rows with sorting
 	public function getPaginatedRows( $page = 1, $perPage = 10, $orderBy = null, $order = 'asc' ) {
 		$data = $this->data;
@@ -209,10 +272,22 @@ class CBXChangelogMetaAsArray {
 				if ( ! isset( $a[ $orderBy ] ) || ! isset( $b[ $orderBy ] ) ) {
 					return 0; // Skip sorting if column doesn't exist
 				}
-				$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+
+				// Check if the field is a date type
+				$isDate = ($orderBy === 'date' || preg_match('/^\d{4}-\d{2}-\d{2}$/', $a[ $orderBy ]) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $b[ $orderBy ]));
+
+				if ( $isDate ) {
+					$comparison = strtotime( $a[ $orderBy ] ) <=> strtotime( $b[ $orderBy ] );
+				} else {
+					$comparison = $a[ $orderBy ] <=> $b[ $orderBy ];
+				}
 
 				return $order === 'desc' ? - $comparison : $comparison;
 			} );
+		}
+		else{
+			// Sort by natural index if no column is provided
+			$data = $order === 'desc' ? array_reverse( $data ) : $data;
 		}
 
 		// Paginate the data
@@ -238,4 +313,12 @@ class CBXChangelogMetaAsArray {
 		// Save the updated data
 		$this->saveData();
 	}
+
+	// Reset all rows and properties to their initial state
+	public function resetRows() {
+		$this->data = [];
+		$this->usedKeys = [];
+		$this->nextIndex = 1;
+		$this->saveData();
+	}//end method resetRows
 }//end class CBXChangelogMetaAsArray

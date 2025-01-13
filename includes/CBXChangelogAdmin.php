@@ -268,7 +268,7 @@ class CBXChangelogAdmin {
 
 
 	/**
-	 * Save meta box for cbxchangelog
+	 * Save meta box
 	 *
 	 * @param $post_id
 	 * @param $post
@@ -321,7 +321,8 @@ class CBXChangelogAdmin {
 
 			$meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
 			$used_keys = $meta_data->getUsedKeys();
-
+			//let's reset as we need to honor the index order to display
+			$meta_data->resetRows();
 
 			foreach ( $submitted_values as $value ) {
 				$valid_change_log = [];
@@ -332,11 +333,6 @@ class CBXChangelogAdmin {
 				$valid_change_log['url']     = isset( $value['url'] ) ? esc_url_raw( wp_unslash( $value['url'] ) ) : '';
 				$valid_change_log['date']    = isset( $value['date'] ) ? sanitize_text_field( wp_unslash( $value['date'] ) ) : '';
 				$valid_change_log['note']    = isset( $value['note'] ) ? sanitize_textarea_field( wp_unslash( $value['note'] ) ) : '';
-
-				//$valid_change_log['version'] = $version;
-				//$valid_change_log['url']     = $url;
-				//$valid_change_log['date']    = $date;
-				//$valid_change_log['note']    = $note;
 
 				//labels
 				if ( isset( $value['label'] ) && is_array( $value['label'] ) ) {
@@ -378,14 +374,22 @@ class CBXChangelogAdmin {
 				//end features
 
 				//if ( $id > 0 && in_array( $id, $used_keys ) ) {
-				if ( $id > 0 ) {
+				/*if ( $id > 0 ) {
 					//update
 					$meta_data->update( $id, $valid_change_log );
 				} else {
 					//add
 					$meta_data->insert( $valid_change_log );
 					//$used_keys = $meta_data->getUsedKeys();
+				}*/
+
+
+				if($id > 0){
+					$valid_change_log['id'] = $id;
 				}
+
+				$meta_data->insert( $valid_change_log );
+
 
 				unset( $valid_change_log );
 				//$valid_change_logs[] = $valid_change_log;
@@ -406,9 +410,17 @@ class CBXChangelogAdmin {
 			$extras['show_label']    = isset( $extras['show_label'] ) ? intval( $extras['show_label'] ) : 1;
 			$extras['show_date']     = isset( $extras['show_date'] ) ? intval( $extras['show_date'] ) : 1;
 			$extras['relative_date'] = isset( $extras['relative_date'] ) ? intval( $extras['relative_date'] ) : 0;
-			$extras['layout']        = isset( $extras['layout'] ) ? esc_attr( wp_unslash( $extras['layout'] ) ) : 'prepros';
-			$extras['order']         = isset( $extras['order'] ) ? esc_attr( wp_unslash( $extras['order'] ) ) : 'desc';
-			$extras['orderby']       = isset( $extras['orderby'] ) ? esc_attr( wp_unslash( $extras['orderby'] ) ) : 'order';
+			$extras['layout']        = isset( $extras['layout'] ) ? sanitize_text_field( wp_unslash( $extras['layout'] ) ) : 'prepros';
+			$extras['order']         = isset( $extras['order'] ) ? sanitize_text_field( wp_unslash( $extras['order'] ) ) : 'desc';
+			$extras['orderby']       = isset( $extras['orderby'] ) ? sanitize_text_field( wp_unslash( $extras['orderby'] ) ) : 'order'; //'order' == 'default'
+
+			if(!in_array($extras['orderby'], ['order', 'id', 'date'])){
+				$extras['orderby'] = 'order';
+			}
+
+			if(!in_array($extras['order'], ['desc', 'asc'])){
+				$extras['order'] = 'desc';
+			}
 
 			//now update post meta
 			update_post_meta( $post_id, '_cbxchangelog_extra', $extras );
@@ -420,7 +432,6 @@ class CBXChangelogAdmin {
 
 
 		do_action( 'cbxchangelog_meta_save', $post_id, $post, $update );
-
 	}//end metabox_save
 
 	/**
@@ -961,15 +972,16 @@ class CBXChangelogAdmin {
 		}
 
 		$pro_addon_version = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
+		$pro_latest_version  = '1.1.6';
 
 
-		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, '1.1.6', '<' ) ) {
+		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {
 			// Custom message to display
 			$plugin_manual_update = 'https://codeboxr.com/manual-update-pro-addon/';
 
 			/* translators:translators: %s: plugin setting url for licence */
-			$custom_message = wp_kses( sprintf( __( '<strong>Note:</strong> CBX Changelog Pro Addon is custom plugin. This plugin can not be auto update from dashboard/plugin manager. For manual update please check <a target="_blank" href="%1$s">documentation</a>. <strong style="color: red;">It seems this plugin\'s current version is older than 1.1.6 . To get the latest pro addon features, this plugin needs to upgrade to 1.1.6 or later.</strong>', 'cbxchangelog' ),
-				esc_url( $plugin_manual_update ) ), [ 'strong' => [ 'style' => [] ], 'a' => [ 'href' => [], 'target' => [] ] ] );
+			$custom_message = wp_kses( sprintf( __( '<strong>Note:</strong> CBX Changelog Pro Addon is custom plugin. This plugin can not be auto update from dashboard/plugin manager. For manual update please check <a target="_blank" href="%1$s">documentation</a>. <strong style="color: red;">It seems this plugin\'s current version is older than %2$s . To get the latest pro addon features, this plugin needs to upgrade to %2$s or later.</strong>', 'cbxchangelog' ),
+				esc_url( $plugin_manual_update ), $pro_latest_version ), [ 'strong' => [ 'style' => [] ], 'a' => [ 'href' => [], 'target' => [] ] ] );
 
 			// Output a row with custom content
 			echo '<tr class="plugin-update-tr">
@@ -1166,6 +1178,11 @@ class CBXChangelogAdmin {
 		];
 
 		$orderby_options[] = [
+			'label' => esc_html__( 'Release No/ID', 'cbxchangelog' ),
+			'value' => 'id',
+		];
+
+		$orderby_options[] = [
 			'label' => esc_html__( 'Date', 'cbxchangelog' ),
 			'value' => 'date',
 		];
@@ -1301,9 +1318,14 @@ class CBXChangelogAdmin {
 		$params['relative_date'] = ( $params['relative_date'] == 'true' ) ? 1 : 0;
 
 
-		$params['layout']  = isset( $attr['layout'] ) ? sanitize_text_field( $attr['layout'] ) : 'prepros';
-		$params['order']   = isset( $attr['order'] ) ? sanitize_text_field( $attr['order'] ) : 'desc';
-		$params['orderby'] = isset( $attr['orderby'] ) ? sanitize_text_field( $attr['orderby'] ) : 'default';
+		$params['layout']  = isset( $attr['layout'] ) ? sanitize_text_field( wp_unslash($attr['layout']) ) : 'prepros';
+		$params['order']   = isset( $attr['order'] ) ? sanitize_text_field( wp_unslash($attr['order']) ) : 'desc';
+		$params['orderby'] = isset( $attr['orderby'] ) ? sanitize_text_field( wp_unslash($attr['orderby']) ) : 'default';
+
+		if($params['orderby'] === 'order'){
+			$params['orderby'] = 'default';
+		}
+
 
 		$params = apply_filters( 'cbxchangelog_shortcode_builder_block_attr', $params, $attr );
 

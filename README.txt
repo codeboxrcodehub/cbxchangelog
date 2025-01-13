@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.1
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,11 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 1.1.7 =
+* [fixed] Fixed the order issue in changelog edit screen
+* [new] Added new order by param 'id', here is release id, please note, release id and dashboard display index is not same.
+
+
 = 1.1.6 =
 * [new] New dashboard style
 * [new] Plugin check version V1.3.1 compatible

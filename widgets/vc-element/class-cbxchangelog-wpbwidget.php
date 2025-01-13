@@ -113,6 +113,7 @@ class CBXChangeLog_WPBWidget extends WPBakeryShortCode {
 						"param_name"  => "orderby",
 						'value'       => [
 							esc_html__( 'Default', 'cbxchangelog' ) => 'default',
+							esc_html__( 'Release No/ID', 'cbxchangelog' ) => 'id',
 							esc_html__( 'Date', 'cbxchangelog' )    => 'date',
 						],
 						'std'         => 'default',
