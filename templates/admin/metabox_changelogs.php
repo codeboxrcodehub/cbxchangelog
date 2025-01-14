@@ -25,14 +25,14 @@ echo '<!-- mustache template -->
 	    <input type="hidden" name="cbxchangelog_logs[{{increment}}][id]" value="0"  />
 	    <div class="release-toolbar">
 	        <div class="release-toolbar-left">
-                <span data-balloon-pos="up" aria-label="'.esc_attr__('Drag and drop for sort', 'cbxchangelog').'" class="cbx-icon cbx-icon-move-white move-release" role="button" title="' . esc_html__( 'Sort Releases', 'cbxchangelog' ) . '"></span>
-                <span data-balloon-pos="up" aria-label="'.esc_attr__('Release ID/No', 'cbxchangelog').'" class="release_no">#{{incrementplus}}</span>
+                <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" class="cbx-icon cbx-icon-move-white move-release" role="button" title="' . esc_html__( 'Sort Releases', 'cbxchangelog' ) . '"></span>
+                <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Release ID/No', 'cbxchangelog' ) . '" class="release_no">'.esc_html__('Release No', 'cbxchangelog').'#{{incrementplus}}</span>
                 <input required class="cbxchangelog_input cbxchangelog_input_text cbxchangelog_input_version"  type="text" name="cbxchangelog_logs[{{increment}}][version]" value="" placeholder="' . esc_html__( 'Version', 'cbxchangelog' ) . '" />
                 <input class="cbxchangelog_input cbxchangelog_input_text cbxchangelog_input_date cbxchangelog_datepicker" autocomplete="new-password" type="text" name="cbxchangelog_logs[{{increment}}][date]" value="" placeholder="' . esc_html__( 'Release Date', 'cbxchangelog' ) . '" />
 	        </div>            
             <div class="release-toolbar-right">			
-                <span data-id="0" data-balloon-pos="up" aria-label="'.esc_attr__('Click to delete', 'cbxchangelog').'" class="cbx-icon cbx-icon-delete-white trash-release" role="button"  title="' . esc_html__( 'Delete Release', 'cbxchangelog' ) . '"></span>
-                <span data-balloon-pos="up" aria-label="'.esc_attr__('Click to show/hide', 'cbxchangelog').'" class="cbx-icon cbx-icon-minus-white toggle-release" role="button"   title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
+                <span data-id="0" data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" class="cbx-icon cbx-icon-delete-white trash-release" role="button"  title="' . esc_html__( 'Delete Release', 'cbxchangelog' ) . '"></span>
+                <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to show/hide', 'cbxchangelog' ) . '" class="cbx-icon cbx-icon-minus-white toggle-release" role="button"   title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
             </div>
 	    </div>	    
 		<div class="release-content">
@@ -58,9 +58,9 @@ foreach ( $label_options as $label_key => $label_name ) {
 
 }
 echo '</select>
-                    <a data-balloon-pos="up" aria-label="'.esc_attr__('Drag and drop for sort', 'cbxchangelog').'"  href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
-                    <a data-balloon-pos="up" aria-label="'.esc_attr__('Click to delete', 'cbxchangelog').'" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
-                    <a data-balloon-pos="up" aria-label="'.esc_attr__('Click to add new', 'cbxchangelog').'" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
+                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '"  href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
+                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
+                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
                 </p>
             </div>
             <div class="clearfix"></div>
@@ -81,9 +81,9 @@ foreach ( $label_options as $label_key => $label_name ) {
 
 }
 echo '</select>
-		<a data-balloon-pos="up" aria-label="'.esc_attr__('Drag and drop for sort', 'cbxchangelog').'" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
-		<a data-balloon-pos="up" aria-label="'.esc_attr__('Click to delete', 'cbxchangelog').'" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
-		<a data-balloon-pos="up" aria-label="'.esc_attr__('Click to add new', 'cbxchangelog').'" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
+		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
+		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
+		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
 	</p>
 </script>
 ';
@@ -107,11 +107,13 @@ $meta_extra['relative_date'] = $relative_date = isset( $meta_extra['relative_dat
 $meta_extra['layout']        = $layout = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
 $meta_extra['order']         = $order = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
 $meta_extra['orderby']       = $order_by = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'order';
+$meta_extra['count']         = $count = isset( $meta_extra['count'] ) ? absint( $meta_extra['count'] ) : 0;
 
 
 ?>
 
 <?php do_action( 'cbxchangelog_before_meta_display', $post ); ?>
+    <p style="color: #fff;"><?php esc_html_e( 'Note: Following general setting are applied in frontend.', 'cbxchangelog' ); ?></p>
     <div id="cbxchangelog_toolbar">
         <label for="show_label" class="show_label_wrap">
 			<?php esc_html_e( 'Show Label', 'cbxchangelog' ); ?>
@@ -167,6 +169,10 @@ $meta_extra['orderby']       = $order_by = isset( $meta_extra['orderby'] ) ? san
                 <option value="asc" <?php selected( $order, 'asc' ); ?> ><?php esc_html_e( 'Ascending', 'cbxchangelog' ); ?></option>
             </select>
         </label>
+        <label for="count" class="show_count">
+		    <?php esc_html_e( 'Count(0 = all)', 'cbxchangelog' ); ?>
+            <input id="count" type="number" min="0" step="1" name="cbxchangelog_extra[count]" value="<?php echo absint($count); ?>" />
+        </label>
     </div>
     <div class="clear clearfix"></div>
 
@@ -177,13 +183,14 @@ $nextIndex = $counter = $meta_data->getNextIndex();
 ?>
 
 
-    <a href="#" data-counter="<?php echo absint( $counter ); ?>" class="button primary cbxchangelog_add_release"><?php esc_html_e( 'Add New Release', 'cbxchangelog' ); ?></a>
+    <a href="#" data-position="bottom" class="button primary cbxchangelog_add_release"><?php esc_html_e( 'Add New Release(Bottom)', 'cbxchangelog' ); ?></a>
+    <a href="#" data-position="top" class="button primary cbxchangelog_add_release"><?php esc_html_e( 'Add New Release(Top)', 'cbxchangelog' ); ?></a>
     <p style="color: #fff;">
-        <span><?php esc_html_e('Note: In dashboard releases are displayed as per index. Display index and release id/no is not same. Drag adn drop sorting changes index but id doesn\'t change.', 'cbxchangelog'); ?></span>
+        <span><?php esc_html_e( 'Note: In dashboard releases are displayed as per index. Display index and release id/no is not same. Drag adn drop sorting changes index but id doesn\'t change.', 'cbxchangelog' ); ?></span>
     </p>
 
 
-    <div id="cbxchangelog_wrapper">
+    <div id="cbxchangelog_wrapper" data-counter="<?php echo absint( $counter ); ?>">
 		<?php
 		if ( sizeof( $meta ) > 0 ) {
 
@@ -196,24 +203,24 @@ $nextIndex = $counter = $meta_data->getNextIndex();
 				$date         = isset( $box['date'] ) ? sanitize_text_field( $box['date'] ) : '';
 				$release_note = isset( $box['note'] ) ? sanitize_textarea_field( $box['note'] ) : '';
 
-				$feature = isset( $box['feature'] ) ? wp_unslash($box['feature']) : [];
-				$label   = isset( $box['label'] ) ? wp_unslash($box['label']) : [];
+				$feature = isset( $box['feature'] ) ? wp_unslash( $box['feature'] ) : [];
+				$label   = isset( $box['label'] ) ? wp_unslash( $box['label'] ) : [];
 				$feature = ( ! is_array( $feature ) ) ? [] : array_filter( $feature );
 				$label   = ( ! is_array( $label ) ) ? [] : array_filter( $label );
 
 				echo '
 				<div class="cbxchangelog_release" data-boxincrement="' . absint( $index ) . '">
-				    <input type="hidden" name="cbxchangelog_logs[' . absint( $index ) . '][id]" value="'.absint($id).'"  />
+				    <input type="hidden" name="cbxchangelog_logs[' . absint( $index ) . '][id]" value="' . absint( $id ) . '"  />
 				    <div class="release-toolbar">
 				        <div class="release-toolbar-left">
-				            <span data-balloon-pos="up" aria-label="'.esc_attr__('Drag and drop for sort', 'cbxchangelog').'" class="cbx-icon cbx-icon-move-white move-release" role="button" title="' . esc_html__( 'Sort Releases', 'cbxchangelog' ) . '"></span>
-					        <span data-balloon-pos="up" aria-label="'.esc_attr__('Release ID/No', 'cbxchangelog').'" title="'.esc_attr__('Release ID/No', 'cbxchangelog').'" class="release_no">#' . absint( $id ) . '</span>
+				            <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" class="cbx-icon cbx-icon-move-white move-release" role="button" title="' . esc_html__( 'Sort Releases', 'cbxchangelog' ) . '"></span>
+					        <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Release ID/No', 'cbxchangelog' ) . '" title="' . esc_attr__( 'Release ID/No', 'cbxchangelog' ) . '" class="release_no">'.esc_html__('Release No', 'cbxchangelog').'#' . absint( $id ) . '</span>
 					        <input required class="cbxchangelog_input cbxchangelog_input_text cbxchangelog_input_version"   type="text" name="cbxchangelog_logs[' . absint( $index ) . '][version]" value="' . esc_attr( $version ) . '" placeholder="' . esc_html__( 'Version', 'cbxchangelog' ) . '" />
 					        <input class="cbxchangelog_input cbxchangelog_input_text cbxchangelog_input_date cbxchangelog_datepicker" autocomplete="new-password"  type="text" name="cbxchangelog_logs[' . absint( $index ) . '][date]" value="' . esc_attr( $date ) . '" placeholder="' . esc_html__( 'Release Date', 'cbxchangelog' ) . '" />
                         </div>   				        
 					    <div class="release-toolbar-right">
-					        <span data-post-id="'.absint($post_id).'" data-id="'.absint($id).'" data-balloon-pos="up" aria-label="'.esc_attr__('Click to delete', 'cbxchangelog').'"  class="cbx-icon cbx-icon-delete-white trash-release" role="button" title="' . esc_html__( 'Delete Release', 'cbxchangelog' ) . '"></span>
-					        <span data-balloon-pos="up" aria-label="'.esc_attr__('Click to show/hide', 'cbxchangelog').'" class="cbx-icon cbx-icon-plus-white toggle-release" role="button" title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
+					        <span data-post-id="' . absint( $post_id ) . '" data-id="' . absint( $id ) . '" data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-delete-white trash-release" role="button" title="' . esc_html__( 'Delete Release', 'cbxchangelog' ) . '"></span>
+					        <span data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to show/hide', 'cbxchangelog' ) . '" class="cbx-icon cbx-icon-plus-white toggle-release" role="button" title="' . esc_attr__( 'Show/hide', 'cbxchangelog' ) . '"></span>
                         </div>															    
                     </div>
                     <div class="release-content" style="display: none;">
@@ -261,7 +268,7 @@ $nextIndex = $counter = $meta_data->getNextIndex();
 
 				//$counter --;
 
-				prev($boxes); // Move the pointer to the previous element
+				prev( $boxes ); // Move the pointer to the previous element
 			}//end for loop
 		}
 		?>

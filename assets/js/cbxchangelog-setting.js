@@ -17,10 +17,7 @@
         };
 
         $('.setting-color-picker-wrapper').each(function (index, element) {
-            //console.log(element);
-
             var $color_field_wrap = $(element);
-            //console.log($color_field);
             var $color_field = $color_field_wrap.find('.setting-color-picker');
             var $color_field_fire = $color_field_wrap.find('.setting-color-picker-fire');
 
@@ -202,16 +199,11 @@
             activetab = $('.setting-tabs-nav').find('a.active').attr('href');
         }
 
-        //console.log(activetab);
-
         if (activetab !== null) {
             var activetab_whash = activetab.replace('#', '');
 
             $('.setting-select-nav').val(activetab_whash);
             $('.setting-select-nav').trigger('change');
-        }
-        else{
-            //console.log('hi there change');
         }
 
 

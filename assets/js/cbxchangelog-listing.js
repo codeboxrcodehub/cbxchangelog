@@ -19,10 +19,6 @@
     }
 
     $(document.body).ready(function ($) {
-
-        //console.log('hi there');
-
-
         /*var awn_options = {
             labels: {
                 tip          : cbxchangelog_listing.awn_options.tip,

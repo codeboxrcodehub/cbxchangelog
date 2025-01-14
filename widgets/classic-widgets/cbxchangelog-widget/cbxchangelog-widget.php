@@ -57,9 +57,7 @@ class CBXChangelogWidget extends WP_Widget {
 	/**
 	 * Return the widget slug.
 	 *
-	 * @return    Plugin slug variable.
-	 * @since    1.0.0
-	 *
+	 * @return string
 	 */
 	public function get_widget_slug() {
 		return $this->widget_slug;
@@ -93,13 +91,16 @@ class CBXChangelogWidget extends WP_Widget {
 
 		$instance['post_id']       = $post_id = isset( $instance['post_id'] ) ? absint( $instance['post_id'] ) : 0;
 		$instance['release']       = $release = isset( $instance['release'] ) ? absint( $instance['release'] ) : 0;
-		$instance['show_label']    = $show_label = isset( $instance['show_label'] ) ? absint( wp_unslash( $instance['show_label'] ) ) : 1;
-		$instance['show_url']      = $show_url = isset( $instance['show_url'] ) ? absint( wp_unslash( $instance['show_url'] ) ) : 1;
-		$instance['show_date']     = $show_date = isset( $instance['show_date'] ) ? absint( wp_unslash( $instance['show_date'] ) ) : 1;
-		$instance['relative_date'] = $relative_date = isset( $instance['relative_date'] ) ? absint( wp_unslash( $instance['relative_date'] ) ) : 0;
+
+		$instance['show_label']    = $show_label = isset( $instance['show_label'] ) ? sanitize_text_field( wp_unslash( $instance['show_label'] ) ) : 1;
+		$instance['show_url']      = $show_url = isset( $instance['show_url'] ) ? sanitize_text_field( wp_unslash( $instance['show_url'] ) ) : 1;
+		$instance['show_date']     = $show_date = isset( $instance['show_date'] ) ? sanitize_text_field( wp_unslash( $instance['show_date'] ) ) : 1;
+		$instance['relative_date'] = $relative_date = isset( $instance['relative_date'] ) ? sanitize_text_field( wp_unslash( $instance['relative_date'] ) ) : 0;
 		$instance['layout']        = $layout = isset( $instance['layout'] ) ? sanitize_text_field( wp_unslash( $instance['layout'] ) ) : 'prepros';
 		$instance['orderby']       = $orderby = isset( $instance['orderby'] ) ? sanitize_text_field( wp_unslash( $instance['orderby'] ) ) : 'default';
-		$instance['order']         = $order = isset( $instance['order'] ) ? sanitize_text_field( esc_attr( wp_unslash( $instance['order'] ) ) ) : 'desc';
+		$instance['order']         = $order = isset( $instance['order'] ) ? sanitize_text_field( wp_unslash( $instance['order'] ) ) : 'desc';
+
+		$instance['count']         = $count = isset( $instance['count'] ) ?  intval($instance['count']) : 0;
 
 
 		extract( $instance );
@@ -125,7 +126,7 @@ class CBXChangelogWidget extends WP_Widget {
 
 
 		if ( absint( $post_id ) > 0 && ( false !== get_post_status( $post_id ) ) ) {
-			$widget_string .= do_shortcode( '[cbxchangelog orderby="' . $orderby . '" order="' . $order . '" id="' . $post_id . '" release="' . $release . '"  show_label="' . $show_label . '"  show_url="' . $show_url . '" show_date="' . $show_date . '" relative_date="' . $relative_date . '" layout="' . $layout . '"]' );
+			$widget_string .= do_shortcode( '[cbxchangelog count="'.$count.'" orderby="' . $orderby . '" order="' . $order . '" id="' . $post_id . '" release="' . $release . '"  show_label="' . $show_label . '"  show_url="' . $show_url . '" show_date="' . $show_date . '" relative_date="' . $relative_date . '" layout="' . $layout . '"]' );
 		} else {
 			$widget_string .= '<p class="cbxchangelog-info cbxchangelog_missing">' . esc_html__( 'Changelog id missing or changelog doesn\'t exists', 'cbxchangelog' ) . '</p>';
 		}
@@ -149,14 +150,17 @@ class CBXChangelogWidget extends WP_Widget {
 
 		$instance['post_id']       = absint( $new_instance['post_id'] );
 		$instance['release']       = absint( $new_instance['release'] );
-		$instance['show_label']    = absint( $new_instance['show_label'] );
-		$instance['show_url']      = absint( $new_instance['show_url'] );
-		$instance['show_date']     = absint( $new_instance['show_date'] );
-		$instance['relative_date'] = absint( $new_instance['relative_date'] );
 
+		//allow to choose from post meta , so don't use intval or absint
+		$instance['show_label']    = sanitize_text_field( wp_unslash($new_instance['show_label'] ) );
+		$instance['show_url']      = sanitize_text_field( wp_unslash($new_instance['show_url'] ) );
+		$instance['show_date']     = sanitize_text_field( wp_unslash($new_instance['show_date'] ) );
+		$instance['relative_date'] = sanitize_text_field( wp_unslash($new_instance['relative_date'] ) );
 		$instance['layout']        = sanitize_text_field( wp_unslash($new_instance['layout']) );
 		$instance['orderby']       = sanitize_text_field( wp_unslash($new_instance['orderby']) );
-		$instance['order']         = strtolower( sanitize_text_field( wp_unslash($new_instance['order']) ) );
+		$instance['order']         = sanitize_text_field( wp_unslash($new_instance['order']) );
+
+		$instance['count']         = intval($new_instance['count']);
 
 
 		return apply_filters( 'cbxchangelog_widget_update', $instance, $new_instance );
@@ -173,9 +177,7 @@ class CBXChangelogWidget extends WP_Widget {
 		$show_label_default    = absint($setting->get_field( 'show_label', 'cbxchangelog_general', 1 ));
 		$show_date_default     = absint($setting->get_field( 'show_date', 'cbxchangelog_general', 1 ));
 		$relative_date_default = absint($setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ));
-
-
-		$layout_default        = sanitize_text_field(wp_unslash($setting->get_field( 'layout', 'cbxchangelog_general', 'classic_plain' )));
+		$layout_default        = sanitize_text_field(wp_unslash($setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' )));
 
 		$fields = [
 			'title'         => esc_html__( 'Changelog Display', 'cbxchangelog' ),
@@ -188,6 +190,7 @@ class CBXChangelogWidget extends WP_Widget {
 			'layout'        => $layout_default,
 			'orderby'       => 'default',// 'default = saved order, date = sort by date
 			'order'         => 'desc',
+			'count'         => 0 //0 = all
 		];
 
 		$fields = apply_filters( 'cbxchangelog_widget_form_fields', $fields );

@@ -96,18 +96,28 @@
 
         });
 
+        var $changelog_wrapper = $('#cbxchangelog_wrapper');
+
         $('#cbxchangelog_metabox').on('click', 'a.cbxchangelog_add_release', function (e) {
             e.preventDefault();
 
-            var $this    = $(this);
-            var $counter = Number($this.attr('data-counter'));
+            var $this              = $(this);
+            var $position          = $this.data('position');
+
+            //var $counter           = Number($this.attr('data-counter'));
+            var $counter           = Number($changelog_wrapper.data('counter'));
 
             //var rendered = Mustache.render($release_template, {increment: $counter, incrementplus: ($counter + 1)});
             var rendered = Mustache.render($release_template, {increment: ($counter - 1), incrementplus: ($counter)});
-            $('#cbxchangelog_wrapper').append(rendered);
+
+            if (typeof $position === 'undefined' || $position === 'bottom') {
+                $changelog_wrapper.append(rendered);
+            } else {
+                $changelog_wrapper.prepend(rendered);
+            }
 
             $counter++;
-            $this.attr('data-counter', $counter);
+            $changelog_wrapper.data('counter', $counter);
 
             //sorting single feature
             $('#cbxchangelog_wrapper .release-feature-wrap').each(function (index, element) {
@@ -129,7 +139,7 @@
         });
 
         //remove any release
-        $('#cbxchangelog_wrapper').on('click', '.trash-release', function (e) {
+        $changelog_wrapper.on('click', '.trash-release', function (e) {
             e.preventDefault();
 
             var $this       = $(this);
@@ -188,7 +198,7 @@
         });
 
         //add new feature
-        $('#cbxchangelog_wrapper').on('click', '.add-feature', function (e) {
+        $changelog_wrapper.on('click', '.add-feature', function (e) {
             e.preventDefault();
 
             var $this    = $(this);
@@ -201,7 +211,7 @@
         });
 
         //remove any feature
-        $('#cbxchangelog_wrapper').on('click', '.trash-feature', function (e) {
+        $changelog_wrapper.on('click', '.trash-feature', function (e) {
             e.preventDefault();
 
             var $this = $(this);
@@ -244,7 +254,7 @@
         });
 
         //sorting releases
-        $('#cbxchangelog_wrapper').sortable({
+        $changelog_wrapper.sortable({
             group            : 'cbxchangelog_releases',
             nested           : false,
             vertical         : true,

@@ -134,7 +134,7 @@ class CBXChangelogAdmin {
 			'label'               => __( 'Changelog', 'cbxchangelog' ),
 			'description'         => __( 'Changelog', 'cbxchangelog' ),
 			'labels'              => $labels,
-			//'supports'            => [ 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'comments' ],
+			'supports'            => [ 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'comments' ],
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
@@ -384,7 +384,7 @@ class CBXChangelogAdmin {
 				}*/
 
 
-				if($id > 0){
+				if ( $id > 0 ) {
 					$valid_change_log['id'] = $id;
 				}
 
@@ -413,12 +413,13 @@ class CBXChangelogAdmin {
 			$extras['layout']        = isset( $extras['layout'] ) ? sanitize_text_field( wp_unslash( $extras['layout'] ) ) : 'prepros';
 			$extras['order']         = isset( $extras['order'] ) ? sanitize_text_field( wp_unslash( $extras['order'] ) ) : 'desc';
 			$extras['orderby']       = isset( $extras['orderby'] ) ? sanitize_text_field( wp_unslash( $extras['orderby'] ) ) : 'order'; //'order' == 'default'
+			$extras['count']         = isset( $extras['count'] ) ? absint( $extras['count'] ) : 0;
 
-			if(!in_array($extras['orderby'], ['order', 'id', 'date'])){
+			if ( ! in_array( $extras['orderby'], [ 'order', 'id', 'date' ] ) ) {
 				$extras['orderby'] = 'order';
 			}
 
-			if(!in_array($extras['order'], ['desc', 'asc'])){
+			if ( ! in_array( $extras['order'], [ 'desc', 'asc' ] ) ) {
 				$extras['order'] = 'desc';
 			}
 
@@ -575,9 +576,9 @@ class CBXChangelogAdmin {
 
 		$allowed_post_types = CBXChangelogHelper::supported_post_types();
 
-		$in_footer = array(
+		$in_footer = [
 			'in_footer' => true,
-		);
+		];
 
 		if ( in_array( $post_type, $allowed_post_types ) && $hook == 'edit.php' && $page == '' ) {
 			wp_register_script( 'cbxchangelog-listing', $js_url_part . 'cbxchangelog-listing.js', [ 'jquery' ], $version, $in_footer );
@@ -629,76 +630,76 @@ class CBXChangelogAdmin {
 			$changelog_id = isset( $post->ID ) ? absint( $post->ID ) : 0;
 
 			wp_localize_script( 'cbxchangelog-edit', 'cbxchangelog_edit', apply_filters( 'cbxchangelog_edit_localize_script',
-					[
-						'deleteconfirm'       => esc_html__( 'Are you sure?', 'cbxchangelog' ),
-						'deleteconfirm_desc'  => esc_html__( 'Are you sure to delete this item?', 'cbxchangelog' ),
-						'deleteconfirmok'     => esc_html__( 'Sure', 'cbxchangelog' ),
-						'deleteconfirmcancel' => esc_html__( 'Oh! No', 'cbxchangelog' ),
-						'deletelastitem'      => esc_html__( 'This only feature can not be deleted. Either edit or delete the total release.', 'cbxchangelog' ),
-						'copycmds'            => [
-							'copy'       => esc_html__( 'Copy', 'cbxchangelog' ),
-							'copied'     => esc_html__( 'Copied', 'cbxchangelog' ),
-							'copy_tip'   => esc_html__( 'Click to copy', 'cbxchangelog' ),
-							'copied_tip' => esc_html__( 'Copied to clipboard', 'cbxchangelog' ),
-						],
-						'placeholder'         => [
-							'select' => esc_html__( 'Please Select', 'cbxchangelog' ),
-							'search' => esc_html__( 'Search...', 'cbxchangelog' ),
-						],
-						'pickr_i18n'          => [
-							// Strings visible in the UI
-							'ui:dialog'       => esc_html__( 'color picker dialog', 'cbxchangelog' ),
-							'btn:toggle'      => esc_html__( 'toggle color picker dialog', 'cbxchangelog' ),
-							'btn:swatch'      => esc_html__( 'color swatch', 'cbxchangelog' ),
-							'btn:last-color'  => esc_html__( 'use previous color', 'cbxchangelog' ),
-							'btn:save'        => esc_html__( 'Save', 'cbxchangelog' ),
-							'btn:cancel'      => esc_html__( 'Cancel', 'cbxchangelog' ),
-							'btn:clear'       => esc_html__( 'Clear', 'cbxchangelog' ),
+				[
+					'deleteconfirm'       => esc_html__( 'Are you sure?', 'cbxchangelog' ),
+					'deleteconfirm_desc'  => esc_html__( 'Are you sure to delete this item?', 'cbxchangelog' ),
+					'deleteconfirmok'     => esc_html__( 'Sure', 'cbxchangelog' ),
+					'deleteconfirmcancel' => esc_html__( 'Oh! No', 'cbxchangelog' ),
+					'deletelastitem'      => esc_html__( 'This only feature can not be deleted. Either edit or delete the total release.', 'cbxchangelog' ),
+					'copycmds'            => [
+						'copy'       => esc_html__( 'Copy', 'cbxchangelog' ),
+						'copied'     => esc_html__( 'Copied', 'cbxchangelog' ),
+						'copy_tip'   => esc_html__( 'Click to copy', 'cbxchangelog' ),
+						'copied_tip' => esc_html__( 'Copied to clipboard', 'cbxchangelog' ),
+					],
+					'placeholder'         => [
+						'select' => esc_html__( 'Please Select', 'cbxchangelog' ),
+						'search' => esc_html__( 'Search...', 'cbxchangelog' ),
+					],
+					'pickr_i18n'          => [
+						// Strings visible in the UI
+						'ui:dialog'       => esc_html__( 'color picker dialog', 'cbxchangelog' ),
+						'btn:toggle'      => esc_html__( 'toggle color picker dialog', 'cbxchangelog' ),
+						'btn:swatch'      => esc_html__( 'color swatch', 'cbxchangelog' ),
+						'btn:last-color'  => esc_html__( 'use previous color', 'cbxchangelog' ),
+						'btn:save'        => esc_html__( 'Save', 'cbxchangelog' ),
+						'btn:cancel'      => esc_html__( 'Cancel', 'cbxchangelog' ),
+						'btn:clear'       => esc_html__( 'Clear', 'cbxchangelog' ),
 
-							// Strings used for aria-labels
-							'aria:btn:save'   => esc_html__( 'save and close', 'cbxchangelog' ),
-							'aria:btn:cancel' => esc_html__( 'cancel and close', 'cbxchangelog' ),
-							'aria:btn:clear'  => esc_html__( 'clear and close', 'cbxchangelog' ),
-							'aria:input'      => esc_html__( 'color input field', 'cbxchangelog' ),
-							'aria:palette'    => esc_html__( 'color selection area', 'cbxchangelog' ),
-							'aria:hue'        => esc_html__( 'hue selection slider', 'cbxchangelog' ),
-							'aria:opacity'    => esc_html__( 'selection slider', 'cbxchangelog' ),
-						],
-						'awn_options'         => [
-							'tip'           => esc_html__( 'Tip', 'cbxchangelog' ),
-							'info'          => esc_html__( 'Info', 'cbxchangelog' ),
-							'success'       => esc_html__( 'Success', 'cbxchangelog' ),
-							'warning'       => esc_html__( 'Attention', 'cbxchangelog' ),
-							'alert'         => esc_html__( 'Error', 'cbxchangelog' ),
-							'async'         => esc_html__( 'Loading', 'cbxchangelog' ),
-							'confirm'       => esc_html__( 'Confirmation', 'cbxchangelog' ),
-							'confirmOk'     => esc_html__( 'OK', 'cbxchangelog' ),
-							'confirmCancel' => esc_html__( 'Cancel', 'cbxchangelog' )
-						],
-						'validation'          => [
-							'required'    => esc_html__( 'This field is required.', 'cbxchangelog' ),
-							'remote'      => esc_html__( 'Please fix this field.', 'cbxchangelog' ),
-							'email'       => esc_html__( 'Please enter a valid email address.', 'cbxchangelog' ),
-							'url'         => esc_html__( 'Please enter a valid URL.', 'cbxchangelog' ),
-							'date'        => esc_html__( 'Please enter a valid date.', 'cbxchangelog' ),
-							'dateISO'     => esc_html__( 'Please enter a valid date ( ISO ).', 'cbxchangelog' ),
-							'number'      => esc_html__( 'Please enter a valid number.', 'cbxchangelog' ),
-							'digits'      => esc_html__( 'Please enter only digits.', 'cbxchangelog' ),
-							'equalTo'     => esc_html__( 'Please enter the same value again.', 'cbxchangelog' ),
-							'maxlength'   => esc_html__( 'Please enter no more than {0} characters.', 'cbxchangelog' ),
-							'minlength'   => esc_html__( 'Please enter at least {0} characters.', 'cbxchangelog' ),
-							'rangelength' => esc_html__( 'Please enter a value between {0} and {1} characters long.', 'cbxchangelog' ),
-							'range'       => esc_html__( 'Please enter a value between {0} and {1}.', 'cbxchangelog' ),
-							'max'         => esc_html__( 'Please enter a value less than or equal to {0}.', 'cbxchangelog' ),
-							'min'         => esc_html__( 'Please enter a value greater than or equal to {0}.', 'cbxchangelog' ),
-							'recaptcha'   => esc_html__( 'Please check the captcha.', 'cbxchangelog' ),
-						],
-						'lang'                => get_user_locale(),
-						//'import_modal'        => $import_modal_html,
-						//'import_modal_progress' => '<p>' . esc_html__( 'Please wait, importing', 'cbxchangelog' ) . '</p>',
-						'nonce'               => wp_create_nonce( 'cbxchangelog_nonce' ),
-						'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-					] ));
+						// Strings used for aria-labels
+						'aria:btn:save'   => esc_html__( 'save and close', 'cbxchangelog' ),
+						'aria:btn:cancel' => esc_html__( 'cancel and close', 'cbxchangelog' ),
+						'aria:btn:clear'  => esc_html__( 'clear and close', 'cbxchangelog' ),
+						'aria:input'      => esc_html__( 'color input field', 'cbxchangelog' ),
+						'aria:palette'    => esc_html__( 'color selection area', 'cbxchangelog' ),
+						'aria:hue'        => esc_html__( 'hue selection slider', 'cbxchangelog' ),
+						'aria:opacity'    => esc_html__( 'selection slider', 'cbxchangelog' ),
+					],
+					'awn_options'         => [
+						'tip'           => esc_html__( 'Tip', 'cbxchangelog' ),
+						'info'          => esc_html__( 'Info', 'cbxchangelog' ),
+						'success'       => esc_html__( 'Success', 'cbxchangelog' ),
+						'warning'       => esc_html__( 'Attention', 'cbxchangelog' ),
+						'alert'         => esc_html__( 'Error', 'cbxchangelog' ),
+						'async'         => esc_html__( 'Loading', 'cbxchangelog' ),
+						'confirm'       => esc_html__( 'Confirmation', 'cbxchangelog' ),
+						'confirmOk'     => esc_html__( 'OK', 'cbxchangelog' ),
+						'confirmCancel' => esc_html__( 'Cancel', 'cbxchangelog' )
+					],
+					'validation'          => [
+						'required'    => esc_html__( 'This field is required.', 'cbxchangelog' ),
+						'remote'      => esc_html__( 'Please fix this field.', 'cbxchangelog' ),
+						'email'       => esc_html__( 'Please enter a valid email address.', 'cbxchangelog' ),
+						'url'         => esc_html__( 'Please enter a valid URL.', 'cbxchangelog' ),
+						'date'        => esc_html__( 'Please enter a valid date.', 'cbxchangelog' ),
+						'dateISO'     => esc_html__( 'Please enter a valid date ( ISO ).', 'cbxchangelog' ),
+						'number'      => esc_html__( 'Please enter a valid number.', 'cbxchangelog' ),
+						'digits'      => esc_html__( 'Please enter only digits.', 'cbxchangelog' ),
+						'equalTo'     => esc_html__( 'Please enter the same value again.', 'cbxchangelog' ),
+						'maxlength'   => esc_html__( 'Please enter no more than {0} characters.', 'cbxchangelog' ),
+						'minlength'   => esc_html__( 'Please enter at least {0} characters.', 'cbxchangelog' ),
+						'rangelength' => esc_html__( 'Please enter a value between {0} and {1} characters long.', 'cbxchangelog' ),
+						'range'       => esc_html__( 'Please enter a value between {0} and {1}.', 'cbxchangelog' ),
+						'max'         => esc_html__( 'Please enter a value less than or equal to {0}.', 'cbxchangelog' ),
+						'min'         => esc_html__( 'Please enter a value greater than or equal to {0}.', 'cbxchangelog' ),
+						'recaptcha'   => esc_html__( 'Please check the captcha.', 'cbxchangelog' ),
+					],
+					'lang'                => get_user_locale(),
+					//'import_modal'        => $import_modal_html,
+					//'import_modal_progress' => '<p>' . esc_html__( 'Please wait, importing', 'cbxchangelog' ) . '</p>',
+					'nonce'               => wp_create_nonce( 'cbxchangelog_nonce' ),
+					'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+				] ) );
 
 
 			wp_enqueue_media();
@@ -964,8 +965,8 @@ class CBXChangelogAdmin {
 			return;
 		}
 
-		$pro_addon_version = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
-		$pro_latest_version  = '1.1.6';
+		$pro_addon_version  = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
+		$pro_latest_version = '1.1.6';
 
 
 		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {
@@ -1140,17 +1141,17 @@ class CBXChangelogAdmin {
 
 
 		$setting               = $this->settings_api;
-		$show_label_default    = intval( $setting->get_option( 'show_label', 'cbxchangelog_general', 1 ) );
-		$show_date_default     = intval( $setting->get_option( 'show_date', 'cbxchangelog_general', 1 ) );
-		$show_url_default      = intval( $setting->get_option( 'show_url', 'cbxchangelog_general', 1 ) );
-		$relative_date_default = intval( $setting->get_option( 'relative_date', 'cbxchangelog_general', 0 ) );
+		$show_label_default    = intval( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
+		$show_date_default     = intval( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
+		$show_url_default      = intval( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
+		$relative_date_default = intval( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
 
-		$layout = $setting->get_option( 'layout', 'cbxchangelog_general', 'prepros' );
+		$layout = $setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' );
 
-		$show_label_default    = ( $show_label_default ) ? true : false;
-		$show_date_default     = ( $show_date_default ) ? true : false;
-		$show_url_default      = ( $show_url_default ) ? true : false;
-		$relative_date_default = ( $relative_date_default ) ? true : false;
+		$show_label_default    = ( $show_label_default ) ? 'true' : '';
+		$show_date_default     = ( $show_date_default ) ? 'true' : '';
+		$show_url_default      = ( $show_url_default ) ? 'true' : '';
+		$relative_date_default = ( $relative_date_default ) ? 'true' : '';
 
 		$order_options = [];
 
@@ -1162,6 +1163,11 @@ class CBXChangelogAdmin {
 		$order_options[] = [
 			'label' => esc_html__( 'Ascending Order', 'cbxchangelog' ),
 			'value' => 'asc',
+		];
+
+		$order_options[] = [
+			'label' => esc_html__( 'Choose from post meta', 'cbxchangelog' ),
+			'value' => '',
 		];
 
 		$orderby_options   = [];
@@ -1180,6 +1186,11 @@ class CBXChangelogAdmin {
 			'value' => 'date',
 		];
 
+		$orderby_options[] = [
+			'label' => esc_html__( 'Choose from post meta', 'cbxchangelog' ),
+			'value' => '',
+		];
+
 		$layouts        = CBXChangelogHelper::get_layouts();
 		$layout_options = [];
 		foreach ( $layouts as $layout_key => $layout_title ) {
@@ -1188,6 +1199,22 @@ class CBXChangelogAdmin {
 				'value' => $layout_key,
 			];
 		}
+
+		$show_label_options   = [];
+		$show_label_options[] = [
+			'label' => esc_html__( 'Yes', 'cbxchangelog' ),
+			'value' => 'true',
+		];
+
+		$show_label_options[] = [
+			'label' => esc_html__( 'no', 'cbxchangelog' ),
+			'value' => '',
+		];
+
+		$show_label_options[] = [
+			'label' => esc_html__( 'From post meta', 'cbxchangelog' ),
+			'value' => 'meta',
+		];
 
 
 		//wp_register_style( 'cbxchangelog-block', $css_url_part . 'cbxchangelog-block.css', [], filemtime( $css_path_part . 'cbxchangelog-block.css' ) );
@@ -1224,6 +1251,8 @@ class CBXChangelogAdmin {
 					'order_options'   => $order_options,
 					'orderby'         => esc_html__( 'Order By', 'cbxchangelog' ),
 					'orderby_options' => $orderby_options,
+					'count'           => esc_html__( 'Count(0 = all, -1 = from post meta)', 'cbxchangelog' ),
+					'show_label_options' => $show_label_options
 				],
 			] );
 
@@ -1247,20 +1276,21 @@ class CBXChangelogAdmin {
 							'type'    => 'integer',
 							'default' => 0,
 						],
+
 						'show_label'    => [
-							'type'    => 'boolean',
+							'type'    => 'string',
 							'default' => $show_label_default,
 						],
 						'show_date'     => [
-							'type'    => 'boolean',
+							'type'    => 'string',
 							'default' => $show_date_default,
 						],
 						'show_url'      => [
-							'type'    => 'boolean',
+							'type'    => 'string',
 							'default' => $show_url_default,
 						],
 						'relative_date' => [
-							'type'    => 'boolean',
+							'type'    => 'string',
 							'default' => $relative_date_default,
 						],
 						'layout'        => [
@@ -1275,7 +1305,10 @@ class CBXChangelogAdmin {
 							'type'    => 'string',
 							'default' => 'default',
 						],
-
+						'count'         => [
+							'type'    => 'integer',
+							'default' => 0,
+						]
 					] ),
 				'render_callback' => [ $this, 'cbxchangelog_block_render' ],
 			] );
@@ -1296,26 +1329,31 @@ class CBXChangelogAdmin {
 		//$params['id']      = isset($attr['id']) ? intval($attr['id']) : 0;
 		$params['id']      = isset( $attr['id'] ) ? absint( $attr['id'] ) : 0;
 		$params['release'] = isset( $attr['release'] ) ? absint( $attr['release'] ) : 0;
+		$params['count'] = isset( $attr['count'] ) ? intval( $attr['count'] ) : 0;
 
 
 		$params['show_label'] = isset( $attr['show_label'] ) ? $attr['show_label'] : 'true';
-		$params['show_label'] = ( $params['show_label'] == 'true' ) ? 1 : 0;
+		//$params['show_label'] = ( $params['show_label'] == 'true' ) ? 1 : 0;
+		$params['show_label'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['show_label'] );
 
 		$params['show_date'] = isset( $attr['show_date'] ) ? $attr['show_date'] : 'true';
-		$params['show_date'] = ( $params['show_date'] == 'true' ) ? 1 : 0;
+		//$params['show_date'] = ( $params['show_date'] == 'true' ) ? 1 : 0;
+		$params['show_date'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['show_date'] );
 
 		$params['show_url'] = isset( $attr['show_url'] ) ? $attr['show_url'] : 'true';
-		$params['show_url'] = ( $params['show_url'] == 'true' ) ? 1 : 0;
+		//$params['show_url'] = ( $params['show_url'] == 'true' ) ? 1 : 0;
+		$params['show_url'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['show_url'] );
 
 		$params['relative_date'] = isset( $attr['relative_date'] ) ? $attr['relative_date'] : 'true';
-		$params['relative_date'] = ( $params['relative_date'] == 'true' ) ? 1 : 0;
+		//$params['relative_date'] = ( $params['relative_date'] == 'true' ) ? 1 : 0;
+		$params['relative_date'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['relative_date'] );
 
 
-		$params['layout']  = isset( $attr['layout'] ) ? sanitize_text_field( wp_unslash($attr['layout']) ) : 'prepros';
-		$params['order']   = isset( $attr['order'] ) ? sanitize_text_field( wp_unslash($attr['order']) ) : 'desc';
-		$params['orderby'] = isset( $attr['orderby'] ) ? sanitize_text_field( wp_unslash($attr['orderby']) ) : 'default';
+		$params['layout']  = isset( $attr['layout'] ) ? sanitize_text_field( wp_unslash( $attr['layout'] ) ) : 'prepros';
+		$params['order']   = isset( $attr['order'] ) ? sanitize_text_field( wp_unslash( $attr['order'] ) ) : 'desc';
+		$params['orderby'] = isset( $attr['orderby'] ) ? sanitize_text_field( wp_unslash( $attr['orderby'] ) ) : 'default';
 
-		if($params['orderby'] === 'order'){
+		if ( $params['orderby'] === 'order' ) {
 			$params['orderby'] = 'default';
 		}
 

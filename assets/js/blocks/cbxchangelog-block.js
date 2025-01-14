@@ -93,7 +93,7 @@
                             type    : 'number',
                             value   : Number(props.attributes.release)
                         }),
-                        el(ToggleControl,
+                        /*el(ToggleControl,
                             {
                                 label   : cbxchangelog_block.general_settings.show_label,
                                 onChange: (value) => {
@@ -102,34 +102,48 @@
                                 type    : 'number',
                                 checked : props.attributes.show_label
                             }
-                        ),
-                        el(ToggleControl,
-                            {
-                                label   : cbxchangelog_block.general_settings.show_date,
-                                onChange: (value) => {
-                                    props.setAttributes({show_date: value});
-                                },
-                                checked : props.attributes.show_date
-                            }
-                        ),
-                        el(ToggleControl,
-                            {
-                                label   : cbxchangelog_block.general_settings.show_url,
-                                onChange: (value) => {
-                                    props.setAttributes({show_url: value});
-                                },
-                                checked : props.attributes.show_url
-                            }
-                        ),
-                        el(ToggleControl,
-                            {
-                                label   : cbxchangelog_block.general_settings.relative_date,
-                                onChange: (value) => {
-                                    props.setAttributes({relative_date: value});
-                                },
-                                checked : props.attributes.relative_date
-                            }
-                        ),
+                        ),*/
+                        el(SelectControl, {
+                            label   : cbxchangelog_block.general_settings.show_label,
+                            options : cbxchangelog_block.general_settings.show_label_options,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    show_label: String(value)
+                                });
+                            },
+                            value   : String(props.attributes.show_label)
+                        }),
+
+                        el(SelectControl, {
+                            label   : cbxchangelog_block.general_settings.show_date,
+                            options : cbxchangelog_block.general_settings.show_label_options,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    show_date: String(value)
+                                });
+                            },
+                            value   : String(props.attributes.show_date)
+                        }),
+                        el(SelectControl, {
+                            label   : cbxchangelog_block.general_settings.show_url,
+                            options : cbxchangelog_block.general_settings.show_label_options,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    show_url: String(value)
+                                });
+                            },
+                            value   : String(props.attributes.show_url)
+                        }),
+                        el(SelectControl, {
+                            label   : cbxchangelog_block.general_settings.relative_date,
+                            options : cbxchangelog_block.general_settings.show_label_options,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    relative_date: String(value)
+                                });
+                            },
+                            value   : String(props.attributes.relative_date)
+                        }),
                         el(SelectControl, {
                             label   : cbxchangelog_block.general_settings.layout,
                             options : cbxchangelog_block.general_settings.layout_options,
@@ -159,6 +173,16 @@
                                 });
                             },
                             value   : props.attributes.orderby
+                        }),
+                        el(TextControl, {
+                            label   : cbxchangelog_block.general_settings.count,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    count: parseInt(value)
+                                });
+                            },
+                            type    : 'number',
+                            value   : Number(props.attributes.count)
                         })
                     )
                 )

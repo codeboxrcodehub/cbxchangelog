@@ -102,6 +102,21 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 1.1.9</p>
+                            <ul>
+                                <li>[new] Added new shortcode param ‘count’ , 0 means all, any value more than 0 show as specific number of changelogs</li>
+                                <li>[new] Dashboard changelog edit screenshot has two buttons for adding change log 1. Add changelog at bottom, 2. Add changelog at top</li>
+                                <li>[update] All type widgets updated for ‘count’</li>
+                                <li>[update] All widget types updated</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
+                            <p>Version - 1.1.8</p>
+                            <ul>
+                                <li>[fixed] Fixed the changelog edit screen error "Connection lost. Saving has been disabled until you are reconnected. This post is being backed up in your browser, just in case."</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 1.1.7</p>
                             <ul>
                                 <li>[fixed] Fixed the order issue in changelog edit screen</li>
@@ -115,18 +130,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[new] Plugin check version V1.3.1 compatible</li>
                                 <li>[updated] WordPress core V6.7.1 compatible</li>
                                 <li>[new] SVG icon added everywhere</li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.5</p>
-                            <ul>
-                                <li>[new] Changelog date in frontend now supports translation format or we used ''date_i18n<li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.4</p>
-                            <ul>
-                                <li>[update] Plugin uninstall method now works fine clearing/deleting options created by this plugin<li>
                             </ul>
                         </div>
                     </div>

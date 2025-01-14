@@ -88,16 +88,20 @@ class CBXChangelogPublic {
 		$atts = array_change_key_case( (array) $atts, CASE_LOWER );
 
 		global $post;
+
 		$setting               = $this->settings_api;
-		$show_label_default    = $setting->get_option( 'show_label', 'cbxchangelog_general', 1 );
-		$show_date_default     = $setting->get_option( 'show_date', 'cbxchangelog_general', 1 );
-		$show_url_default      = $setting->get_option( 'show_url', 'cbxchangelog_general', 1 );
-		$relative_date_default = $setting->get_option( 'relative_date', 'cbxchangelog_general', 0 );
-		$layout                = $setting->get_option( 'layout', 'cbxchangelog_general', 'prepros' );
+		//default values from global settings param
+		$show_label_default    = absint($setting->get_field( 'show_label', 'cbxchangelog_general', 1 ));
+		$show_date_default     = absint($setting->get_field( 'show_date', 'cbxchangelog_general', 1 ));
+		$show_url_default      = absint($setting->get_field( 'show_url', 'cbxchangelog_general', 1 ));
+		$relative_date_default = absint($setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ));
+		$layout                = sanitize_text_field(wp_unslash($setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' )));
+
+
 
 		$atts = shortcode_atts(
 			[
-				'title'         => '',
+				'title' => '',
 				'id'            => 0,//cbxchangelog type post id
 				'release'       => 0,//individual release, index starts from 1
 				'show_label'    => $show_label_default,
@@ -107,8 +111,11 @@ class CBXChangelogPublic {
 				'layout'        => $layout,
 				'orderby'       => 'default',//'default = saved order, date = sort by date
 				'order'         => 'desc',   //asc, desc
+				'count'         => 0 //number of items to show, 0 means unlimited or all
 			],
 			$atts, 'cbxchangelog' );
+
+
 
 
 		if ( $atts['id'] == 0 && is_singular( 'cbxchangelog' ) ) {
@@ -122,6 +129,26 @@ class CBXChangelogPublic {
 		if ( $atts['id'] == 0 ) {
 			return '';
 		}
+
+		$meta_extra = get_post_meta( $atts['id'], '_cbxchangelog_extra', true );
+		$meta_extra['show_url']      = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
+		$meta_extra['show_label']    = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
+		$meta_extra['show_date']     = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
+		$meta_extra['relative_date'] = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
+		$meta_extra['layout']        = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
+		$meta_extra['orderby']       = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'order';
+		$meta_extra['order']         = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
+		$meta_extra['count']         = isset( $meta_extra['count'] ) ? absint( $meta_extra['count'] ) : 0;
+
+
+		if($atts['show_url'] == '') $atts['show_url'] = $meta_extra['show_url'];
+		if($atts['show_label'] == '') $atts['show_label'] = $meta_extra['show_label'];
+		if($atts['show_date'] == '') $atts['show_date'] = $meta_extra['show_date'];
+		if($atts['relative_date'] == '') $atts['relative_date'] = $meta_extra['relative_date'];
+		if($atts['layout'] == '') $atts['layout'] = $meta_extra['layout'];
+		if($atts['orderby'] == '') $atts['orderby'] = $meta_extra['orderby'];
+		if($atts['order'] == '') $atts['order'] = $meta_extra['order'];
+		if($atts['count'] == -1) $atts['count'] = $meta_extra['count'];
 
 
 		$order    = $atts['order'] = strtolower( sanitize_text_field(wp_unslash( $atts['order'] )) );
@@ -149,6 +176,8 @@ class CBXChangelogPublic {
 		if ( ! in_array( $order_by, $order_by_keys ) ) {
 			$order_by = 'default';
 		}
+
+		$atts['count'] = $count = absint( $atts['count'] );
 
 
 		$show_label    = isset( $atts['show_label'] ) ? absint( $atts['show_label'] ) : 1;
@@ -187,7 +216,7 @@ class CBXChangelogPublic {
 			}
 		}
 
-		$use_markdown = intval( $setting->get_option( 'use_markdown', 'cbxchangelog_general', 0 ) );
+		$use_markdown = intval( $setting->get_field( 'use_markdown', 'cbxchangelog_general', 0 ) );
 		if ( $use_markdown ) {
 			//require plugin_dir_path( dirname( __FILE__ ) ) . 'includes/markdown/Michelf/Markdown.inc.php';
 			require plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
@@ -240,7 +269,15 @@ class CBXChangelogPublic {
 			if($order_by_t == 'default'){
 				$order_by_t = null;
 			}
-			$change_logs = $meta->getAll($order_by_t, $order);
+
+			if($count > 0){
+				$change_logs_t = $meta->getPaginatedRows(1, $count, $order_by_t, $order);
+				$change_logs = $change_logs_t['data'];
+			}
+			else{
+				$change_logs = $meta->getAll($order_by_t, $order);
+			}
+
 		}
 
 		$change_logs = apply_filters( 'cbxchangelog_releases_shortcode', $change_logs, $atts );
@@ -366,6 +403,7 @@ class CBXChangelogPublic {
 				$meta_extra['show_url'] = $show_url = isset( $meta_extra['show_url'] ) ? intval( $meta_extra['show_url'] ) : 1;
 				$meta_extra['orderby']  = $order_by = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'default';
 				$meta_extra['order']    = $order = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
+				$meta_extra['count']    = $count = isset( $meta_extra['count'] ) ? absint( $meta_extra['order'] ) : 0;
 
 				if($order_by == 'order') $order_by = 'default';
 				//if(!in_array($orderby, ['default', 'date'])) $orderby = 'default';
@@ -381,7 +419,7 @@ class CBXChangelogPublic {
 					$order_by = 'default';
 				}
 
-				$content_shortcode = do_shortcode( '[cbxchangelog id="' . $post_id . '" show_url="'.$show_url.'" orderby="'.$order_by.'" order="'.$order.'" show_label="' . $show_label . '" show_date="' . $show_date . '" relative_date= "' . $relative_date . '" layout= "' . $layout . '"]' );
+				$content_shortcode = do_shortcode( '[cbxchangelog id="' . $post_id . '" count="'.$count.'" show_url="'.$show_url.'" orderby="'.$order_by.'" order="'.$order.'" show_label="' . $show_label . '" show_date="' . $show_date . '" relative_date= "' . $relative_date . '" layout= "' . $layout . '"]' );
 
 				$content .= '<div class="cbxchangelog_shortcode_content">' . $content_shortcode . '</div>';
 			}
@@ -401,7 +439,6 @@ class CBXChangelogPublic {
 		//process markdown text
 
 		return Markdown::defaultTransform( $text );
-
 	}//end do_parsemarkdown
 
 	/**

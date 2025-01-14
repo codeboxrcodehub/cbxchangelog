@@ -409,19 +409,7 @@ class CBXChangelogHelper {
 						1 => esc_html__( 'Yes', 'cbxchangelog' ),
 						0 => esc_html__( 'No', 'cbxchangelog' ),
 					],
-				],
-				/*'test4'          => [
-					'name'    => 'test4',
-					'label'   => esc_html__( 'Color Field Test 2', 'cbxchangelog' ),
-					'type'    => 'color',
-					'default' => '#000000',
-				],*/
-				/*'file'          => [
-					'name'    => 'file',
-					'label'   => esc_html__( 'Color Field Test 2', 'cbxchangelog' ),
-					'type'    => 'file',
-					'default' => '',
-				]*/
+				]
 
 			],
 			'cbxchangelog_tools'   => [
@@ -595,7 +583,9 @@ class CBXChangelogHelper {
 		}
 
 		//check if already converted
-		if(isset($logs['usedKeys'])) return $logs;
+		if ( isset( $logs['usedKeys'] ) ) {
+			return $logs;
+		}
 
 		$data       = [];
 		$used_keys  = [];
@@ -655,42 +645,54 @@ class CBXChangelogHelper {
 	 * WordPress readme.txt file content parsing for changelog
 	 *
 	 * @param $readmeContent
-	 * @since 1.1.6
+	 *
 	 * @return array
+	 * @since 1.1.6
 	 */
-	public static function parse_wordpress_readme_changelog($readmeContent) {
-		$lines = explode("\n", $readmeContent);
-		$changelog = [];
-		$inChangelog = false;
+	public static function parse_wordpress_readme_changelog( $readmeContent ) {
+		$lines          = explode( "\n", $readmeContent );
+		$changelog      = [];
+		$inChangelog    = false;
 		$currentVersion = null;
 
-		foreach ($lines as $line) {
-			$line = trim($line);
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
 
 			// Check for the start of the changelog section
-			if (preg_match('/^==\s*Changelog\s*==$/i', $line)) {
+			if ( preg_match( '/^==\s*Changelog\s*==$/i', $line ) ) {
 				$inChangelog = true;
 				continue;
 			}
 
 			// Exit if changelog ends (e.g., another section starts)
-			if ($inChangelog && preg_match('/^==\s*.+\s*==$/', $line)) {
+			if ( $inChangelog && preg_match( '/^==\s*.+\s*==$/', $line ) ) {
 				break;
 			}
 
 			// Parse version headings
-			if ($inChangelog && preg_match('/^=\s*([\d.]+)\s*=/', $line, $matches)) {
-				$currentVersion = $matches[1];
-				$changelog[$currentVersion] = [];
+			if ( $inChangelog && preg_match( '/^=\s*([\d.]+)\s*=/', $line, $matches ) ) {
+				$currentVersion               = $matches[1];
+				$changelog[ $currentVersion ] = [];
 				continue;
 			}
 
 			// Add changelog entries
-			if ($inChangelog && $currentVersion && $line !== '') {
-				$changelog[$currentVersion][] = $line;
+			if ( $inChangelog && $currentVersion && $line !== '' ) {
+				$changelog[ $currentVersion ][] = $line;
 			}
 		}
 
 		return $changelog;
 	}//end method parse_wordpress_readme_changelog
+
+	public static function block_editor_true_meta_empty( $value ) {
+		$arr = [
+			'true'  => 1,
+			'false' => 0,
+			'meta'  => '',
+			''      => 0
+		];
+
+		return isset( $arr[ $value ] ) ? $arr[ $value ] : '';
+	}
 }//end method CBXChangelogHelper

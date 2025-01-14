@@ -81,6 +81,7 @@ do_action( 'cbxchangelog_form_admin_start', $instance, $this );
         <label for="<?php echo esc_attr($this->get_field_id( 'orderby' )); ?>"><?php esc_html_e( 'Order By', "cbxchangelog" ); ?></label>
         <select class="widefat" name="<?php echo esc_attr($this->get_field_name( 'orderby' )); ?>"
                 id="<?php echo esc_attr($this->get_field_id( 'orderby' )); ?>">
+            <option value="" <?php selected( '', $orderby ); ?> ><?php esc_html_e( 'Choose from post meta', 'cbxchangelog' ); ?></option>
             <option value="default" <?php selected( 'default', $orderby ); ?> ><?php esc_html_e( 'Default', 'cbxchangelog' ); ?></option>
             <option value="id" <?php selected( 'id', $orderby ); ?> ><?php esc_html_e( 'Release No/ID', 'cbxchangelog' ); ?></option>
             <option value="date" <?php selected( 'date', $orderby ); ?> ><?php esc_html_e( 'Date', 'cbxchangelog' ); ?></option>
@@ -90,9 +91,15 @@ do_action( 'cbxchangelog_form_admin_start', $instance, $this );
         <label for="<?php echo esc_attr($this->get_field_id( 'order' )); ?>"><?php esc_html_e( 'Order', "cbxchangelog" ); ?></label>
         <select class="widefat" name="<?php echo esc_attr($this->get_field_name( 'order' )); ?>"
                 id="<?php echo esc_attr($this->get_field_id( 'order' )); ?>">
+            <option value="" <?php selected( '', $order ); ?> ><?php esc_html_e( 'Choose from post meta', 'cbxchangelog' ); ?></option>
             <option value="desc" <?php selected( 'desc', $order ); ?> ><?php esc_html_e( 'Desc', 'cbxchangelog' ); ?></option>
             <option value="asc" <?php selected( 'asc', $order ); ?> ><?php esc_html_e( 'Asc', 'cbxchangelog' ); ?></option>
         </select>
+    </p>
+    <p>
+        <label for="<?php echo esc_attr($this->get_field_id( 'count' )); ?>"><?php esc_html_e( 'Count(0 = all, -1 = Choose from post meta)', "cbxchangelog" ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'count' )); ?>"
+               name="<?php echo esc_attr($this->get_field_name( 'count' )); ?>" type="number" step="1" min="-1" value="<?php echo intval($count); ?>"/>
     </p>
 
     <input type="hidden" id="<?php echo esc_attr($this->get_field_id( 'submit' )); ?>"

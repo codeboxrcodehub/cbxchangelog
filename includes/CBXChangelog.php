@@ -167,7 +167,7 @@ class CBXChangelog {
 		//add new post type
 		add_action( 'init', [ $plugin_admin, 'init_post_types' ], 0 );
 
-		//create opverview menu page
+		//create overview menu page
 		add_action( 'admin_menu', [ $plugin_admin, 'admin_pages' ], 11 );
 
 

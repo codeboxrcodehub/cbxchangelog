@@ -128,7 +128,15 @@ class CBXChangeLog_WPBWidget extends WPBakeryShortCode {
 							esc_html__( 'Asc', 'cbxchangelog' )  => 'asc',
 						],
 						'std'         => 'desc',
-					]
+					],
+					[
+						'type'        => 'textfield',
+						"class"       => "",
+						'admin_label' => false,
+						'heading'     => esc_html__( 'Count(0 = all, -1 = use from post meta)', 'cbxchangelog' ),
+						'param_name'  => 'count',
+						'std'         => '0',
+					],
 				]
 			)
 		] );
