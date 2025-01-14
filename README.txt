@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.1
-Stable tag: 1.1.10
+Stable tag: 2.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,12 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.0 =
+* [fixed] Fixed saving only single changelog from dashboard edit screen
+* [new] Added new feature to resync release no/id with dashboard edit screen display index(from top to bottom)
+* [new] Added new feature to resync release no/id with dashboard edit screen display index(bottom top to top)
+* [new] Added new feature to delete all releases with one single click from the dashboard edit screen
+
 = 1.1.10 =
 * [fixed] Changelog added at top from edit screen save error fixed! [Sorry for the inconvenience]
 

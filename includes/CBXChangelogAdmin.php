@@ -54,8 +54,8 @@ class CBXChangelogAdmin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param  string  $plugin_name  The name of this plugin.
-	 * @param  string  $version  The version of this plugin.
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
 	 *
 	 * @since    1.0.0
 	 *
@@ -322,15 +322,13 @@ class CBXChangelogAdmin {
 			$meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
 			$meta_data->reindexUsedKeys();//let's confirm the usedKeys are not messed or rearranged
 			$used_keys = $meta_data->getUsedKeys();
-			$nextIndex = max($used_keys) + 1;
 
+			$nextIndex = cbxchangelog_custom_max( $used_keys ) + 1;
 
 
 			//let's reset as we need to honor the index order to display
 			$meta_data->resetRows();
-			$meta_data->settNextIndex($nextIndex);
-
-
+			$meta_data->settNextIndex( $nextIndex );
 
 
 			foreach ( $submitted_values as $value ) {
@@ -391,7 +389,6 @@ class CBXChangelogAdmin {
 					$meta_data->insert( $valid_change_log );
 					//$used_keys = $meta_data->getUsedKeys();
 				}*/
-
 
 
 				$valid_change_log['id'] = $id == 0 ? $meta_data->getNextIndex() : $id;
@@ -639,6 +636,7 @@ class CBXChangelogAdmin {
 				[
 					'deleteconfirm'       => esc_html__( 'Are you sure?', 'cbxchangelog' ),
 					'deleteconfirm_desc'  => esc_html__( 'Are you sure to delete this item?', 'cbxchangelog' ),
+					'deleteconfirm_all_releases'  => esc_html__( 'Note: This process can not be undone. This process is going to delete all releases for this post/article. When done this window will reload.', 'cbxchangelog' ),
 					'deleteconfirmok'     => esc_html__( 'Sure', 'cbxchangelog' ),
 					'deleteconfirmcancel' => esc_html__( 'Oh! No', 'cbxchangelog' ),
 					'deletelastitem'      => esc_html__( 'This only feature can not be deleted. Either edit or delete the total release.', 'cbxchangelog' ),
@@ -705,6 +703,13 @@ class CBXChangelogAdmin {
 					//'import_modal_progress' => '<p>' . esc_html__( 'Please wait, importing', 'cbxchangelog' ) . '</p>',
 					'nonce'               => wp_create_nonce( 'cbxchangelog_nonce' ),
 					'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+					'resync'              => [
+						'confirm'          => esc_html__( 'Are you sure to resync?', 'cbxchangelog' ),
+						'confirm_desc'     => esc_html__( 'Note: This process can not be undone. Resync(top to bottom) will resync release no/ID with changelog index as seen in admin edit screen. First item id will be 1, 2nd will be 2 and so on. When done, this screen will reload.', 'cbxchangelog' ),
+						'confirm_desc_alt' => esc_html__( 'Note: This process can not be undone. Resync(bottom to top) will resync release no/ID with changelog index as seen in admin edit screen. Last item id will be 1, 2nd from last will be 2 and so on. When done, this screen will reload.', 'cbxchangelog' ),
+						'yes'              => esc_html__( 'Yes', 'cbxchangelog' ),
+						'no'               => esc_html__( 'No', 'cbxchangelog' ),
+					],
 				] ) );
 
 
@@ -822,7 +827,7 @@ class CBXChangelogAdmin {
 	/**
 	 * Show action links on the plugin screen.
 	 *
-	 * @param  mixed  $links  Plugin Action links.
+	 * @param mixed $links Plugin Action links.
 	 *
 	 * @return  array
 	 */
@@ -840,10 +845,10 @@ class CBXChangelogAdmin {
 	 *
 	 * @access  public
 	 *
-	 * @param  array  $links_array  An array of the plugin's metadata
-	 * @param  string  $plugin_file_name  Path to the plugin file
-	 * @param  array  $plugin_data  An array of plugin data
-	 * @param  string  $status  Status of the plugin
+	 * @param array $links_array An array of the plugin's metadata
+	 * @param string $plugin_file_name Path to the plugin file
+	 * @param array $plugin_data An array of plugin data
+	 * @param string $status Status of the plugin
 	 *
 	 * @return  array       $links_array
 	 */
@@ -981,7 +986,10 @@ class CBXChangelogAdmin {
 
 			/* translators:translators: %s: plugin setting url for licence */
 			$custom_message = wp_kses( sprintf( __( '<strong>Note:</strong> CBX Changelog Pro Addon is custom plugin. This plugin can not be auto update from dashboard/plugin manager. For manual update please check <a target="_blank" href="%1$s">documentation</a>. <strong style="color: red;">It seems this plugin\'s current version is older than %2$s . To get the latest pro addon features, this plugin needs to upgrade to %2$s or later.</strong>', 'cbxchangelog' ),
-				esc_url( $plugin_manual_update ), $pro_latest_version ), [ 'strong' => [ 'style' => [] ], 'a' => [ 'href' => [], 'target' => [] ] ] );
+				esc_url( $plugin_manual_update ), $pro_latest_version ), [
+				'strong' => [ 'style' => [] ],
+				'a'      => [ 'href' => [], 'target' => [] ]
+			] );
 
 			// Output a row with custom content
 			echo '<tr class="plugin-update-tr">
@@ -1047,7 +1055,13 @@ class CBXChangelogAdmin {
 						esc_attr( CBXCHANGELOG_PLUGIN_VERSION ) ) . '</p>';
 
 				/* translators: 1. Documentation url 2. Log listing dashboard url  */
-				echo '<p>' . sprintf( wp_kses( __( 'Check <a style="color: #6648fe !important; font-weight: bold;" href="%1$s" target="_blank">Documentation</a> | Create <a style="color: #6648fe !important; font-weight: bold;" href="%2$s" target="_blank">Changelog</a>', 'cbxchangelog' ), [ 'a' => [ 'href' => [], 'target' => [], 'style' => [] ] ] ),
+				echo '<p>' . sprintf( wp_kses( __( 'Check <a style="color: #6648fe !important; font-weight: bold;" href="%1$s" target="_blank">Documentation</a> | Create <a style="color: #6648fe !important; font-weight: bold;" href="%2$s" target="_blank">Changelog</a>', 'cbxchangelog' ), [
+						'a' => [
+							'href'   => [],
+							'target' => [],
+							'style'  => []
+						]
+					] ),
 						'https://codeboxr.com/doc/cbxchangelog-doc/',
 						esc_url( admin_url( 'post-new.php?post_type=cbxchangelog' ) ) ) . '</p>';
 				echo '</div>';
@@ -1242,22 +1256,22 @@ class CBXChangelogAdmin {
 				'block_category'   => 'cbxchangelog',
 				'block_icon'       => 'universal-access-alt',
 				'general_settings' => [
-					'heading'         => esc_html__( 'Block Settings', 'cbxchangelog' ),
-					'title'           => esc_html__( 'Title', 'cbxchangelog' ),
-					'title_desc'      => esc_html__( 'Leave empty to hide', 'cbxchangelog' ),
-					'id'              => esc_html__( 'Change Log ID', 'cbxchangelog' ),
-					'release'         => esc_html__( 'Release ID', 'cbxchangelog' ),
-					'show_label'      => esc_html__( 'Show Label', 'cbxchangelog' ),
-					'show_date'       => esc_html__( 'Show Date', 'cbxchangelog' ),
-					'show_url'        => esc_html__( 'Show Url', 'cbxchangelog' ),
-					'relative_date'   => esc_html__( 'Show Relative Date', 'cbxchangelog' ),
-					'layout'          => esc_html__( 'Choose layout', 'cbxchangelog' ),
-					'layout_options'  => $layout_options,
-					'order'           => esc_html__( 'Order', 'cbxchangelog' ),
-					'order_options'   => $order_options,
-					'orderby'         => esc_html__( 'Order By', 'cbxchangelog' ),
-					'orderby_options' => $orderby_options,
-					'count'           => esc_html__( 'Count(0 = all, -1 = from post meta)', 'cbxchangelog' ),
+					'heading'            => esc_html__( 'Block Settings', 'cbxchangelog' ),
+					'title'              => esc_html__( 'Title', 'cbxchangelog' ),
+					'title_desc'         => esc_html__( 'Leave empty to hide', 'cbxchangelog' ),
+					'id'                 => esc_html__( 'Change Log ID', 'cbxchangelog' ),
+					'release'            => esc_html__( 'Release ID', 'cbxchangelog' ),
+					'show_label'         => esc_html__( 'Show Label', 'cbxchangelog' ),
+					'show_date'          => esc_html__( 'Show Date', 'cbxchangelog' ),
+					'show_url'           => esc_html__( 'Show Url', 'cbxchangelog' ),
+					'relative_date'      => esc_html__( 'Show Relative Date', 'cbxchangelog' ),
+					'layout'             => esc_html__( 'Choose layout', 'cbxchangelog' ),
+					'layout_options'     => $layout_options,
+					'order'              => esc_html__( 'Order', 'cbxchangelog' ),
+					'order_options'      => $order_options,
+					'orderby'            => esc_html__( 'Order By', 'cbxchangelog' ),
+					'orderby_options'    => $orderby_options,
+					'count'              => esc_html__( 'Count(0 = all, -1 = from post meta)', 'cbxchangelog' ),
 					'show_label_options' => $show_label_options
 				],
 			] );
@@ -1270,15 +1284,15 @@ class CBXChangelogAdmin {
 				'editor_style'    => 'cbxchangelog-block',
 				'attributes'      => apply_filters( 'cbxchangelog_block_attributes',
 					[
-						'title'         => [
+						'title'   => [
 							'type'    => 'string',
 							'default' => esc_html__( 'Release logs', 'cbxchangelog' ),
 						],
-						'id'            => [
+						'id'      => [
 							'type'    => 'integer',
 							'default' => 0,
 						],
-						'release'       => [
+						'release' => [
 							'type'    => 'integer',
 							'default' => 0,
 						],
@@ -1335,7 +1349,7 @@ class CBXChangelogAdmin {
 		//$params['id']      = isset($attr['id']) ? intval($attr['id']) : 0;
 		$params['id']      = isset( $attr['id'] ) ? absint( $attr['id'] ) : 0;
 		$params['release'] = isset( $attr['release'] ) ? absint( $attr['release'] ) : 0;
-		$params['count'] = isset( $attr['count'] ) ? intval( $attr['count'] ) : 0;
+		$params['count']   = isset( $attr['count'] ) ? intval( $attr['count'] ) : 0;
 
 
 		$params['show_label'] = isset( $attr['show_label'] ) ? $attr['show_label'] : 'true';
@@ -1486,4 +1500,71 @@ class CBXChangelogAdmin {
 
 		wp_send_json( $msg );
 	}//end method release_delete
+
+	public function release_resync() {
+		//security check
+		check_ajax_referer( 'cbxchangelog_nonce', 'security' );
+
+		$msg            = [];
+		$msg['message'] = esc_html__( 'Releases(release no/id) resync with index successfully', 'cbxchangelog' );
+		$msg['success'] = 1;
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$msg['message'] = esc_html__( 'Sorry, you don\'t have enough permission', 'cbxchangelog' );
+			$msg['success'] = 0;
+			wp_send_json( $msg );
+		}
+
+		$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
+		$dir     = isset( $_REQUEST['dir'] ) ? absint( $_REQUEST['dir'] ) : 1;
+
+		if ( $post_id == 0 ) {
+			$msg['message'] = esc_html__( 'Post id or release id wrong.', 'cbxchangelog' );
+			$msg['success'] = 0;
+			wp_send_json( $msg );
+		} else {
+			$meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
+			if ( $dir ) {
+				$meta_data->syncPrimaryKeyWithIndex();
+			} else {
+				$meta_data->syncPrimaryKeyWithIndexReverse();
+			}
+		}
+
+		wp_send_json( $msg );
+	}//end method release_resync
+
+	/**
+	 * Delete all releases for a post
+	 *
+	 * @return void
+	 */
+	public function delete_releases() {
+//security check
+		check_ajax_referer( 'cbxchangelog_nonce', 'security' );
+
+		$msg            = [];
+		$msg['message'] = esc_html__( 'All releases for this current post are deleted successfully', 'cbxchangelog' );
+		$msg['success'] = 1;
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$msg['message'] = esc_html__( 'Sorry, you don\'t have enough permission', 'cbxchangelog' );
+			$msg['success'] = 0;
+			wp_send_json( $msg );
+		}
+
+		$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
+
+		if ( $post_id == 0 ) {
+			$msg['message'] = esc_html__( 'Post id or release id wrong.', 'cbxchangelog' );
+			$msg['success'] = 0;
+			wp_send_json( $msg );
+		} else {
+			$meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
+			$meta_data->resetRows();
+			$meta_data->resetRowsAndSave();
+		}
+
+		wp_send_json( $msg );
+	}//end method delete_releases
 }//end class CBXChangelogAdmin

@@ -3,7 +3,7 @@
 
     function cbxchangelog_copyStringToClipboard(str) {
         // Create new element
-        var el   = document.createElement('textarea');
+        var el = document.createElement('textarea');
         // Set value (string to be copied)
         el.value = str;
         // Set non-editable to avoid focus and move outside of view
@@ -21,14 +21,14 @@
     $(document.body).ready(function ($) {
         var awn_options = {
             labels: {
-                tip          : cbxchangelog_edit.awn_options.tip,
-                info         : cbxchangelog_edit.awn_options.info,
-                success      : cbxchangelog_edit.awn_options.success,
-                warning      : cbxchangelog_edit.awn_options.warning,
-                alert        : cbxchangelog_edit.awn_options.alert,
-                async        : cbxchangelog_edit.awn_options.async,
-                confirm      : cbxchangelog_edit.awn_options.confirm,
-                confirmOk    : cbxchangelog_edit.awn_options.confirmOk,
+                tip: cbxchangelog_edit.awn_options.tip,
+                info: cbxchangelog_edit.awn_options.info,
+                success: cbxchangelog_edit.awn_options.success,
+                warning: cbxchangelog_edit.awn_options.warning,
+                alert: cbxchangelog_edit.awn_options.alert,
+                async: cbxchangelog_edit.awn_options.async,
+                confirm: cbxchangelog_edit.awn_options.confirm,
+                confirmOk: cbxchangelog_edit.awn_options.confirmOk,
                 confirmCancel: cbxchangelog_edit.awn_options.confirmCancel
             }
         };
@@ -83,14 +83,14 @@
 
             //sort sponsor item
             $element.sortable({
-                group            : 'feature_wrap_' + index,
-                nested           : false,
-                vertical         : true,
-                horizontal       : false,
-                pullPlaceholder  : true,
-                handle           : '.move-feature',
-                placeholder      : 'feature_placeholder',
-                itemSelector     : 'p.feature',
+                group: 'feature_wrap_' + index,
+                nested: false,
+                vertical: true,
+                horizontal: false,
+                pullPlaceholder: true,
+                handle: '.move-feature',
+                placeholder: 'feature_placeholder',
+                itemSelector: 'p.feature',
                 containerSelector: $element,
             });
 
@@ -101,11 +101,11 @@
         $('#cbxchangelog_metabox').on('click', 'a.cbxchangelog_add_release', function (e) {
             e.preventDefault();
 
-            var $this              = $(this);
-            var $position          = $this.data('position');
+            var $this = $(this);
+            var $position = $this.data('position');
 
             //var $counter           = Number($this.attr('data-counter'));
-            var $counter           = Number($changelog_wrapper.data('counter'));
+            var $counter = Number($changelog_wrapper.data('counter'));
 
             //var rendered = Mustache.render($release_template, {increment: $counter, incrementplus: ($counter + 1)});
             var rendered = Mustache.render($release_template, {increment: ($counter - 1), incrementplus: ($counter)});
@@ -125,14 +125,14 @@
 
                 //sort sponsor item
                 $element.sortable({
-                    group            : 'feature_wrap_' + index,
-                    nested           : false,
-                    vertical         : true,
-                    horizontal       : false,
-                    pullPlaceholder  : true,
-                    handle           : '.move-feature',
-                    placeholder      : 'feature_placeholder',
-                    itemSelector     : 'p.feature',
+                    group: 'feature_wrap_' + index,
+                    nested: false,
+                    vertical: true,
+                    horizontal: false,
+                    pullPlaceholder: true,
+                    handle: '.move-feature',
+                    placeholder: 'feature_placeholder',
+                    itemSelector: 'p.feature',
                     containerSelector: $element,
                 });
             });
@@ -142,8 +142,8 @@
         $changelog_wrapper.on('click', '.trash-release', function (e) {
             e.preventDefault();
 
-            var $this       = $(this);
-            var $post_id    = Number($this.data('post-id'));
+            var $this = $(this);
+            var $post_id = Number($this.data('post-id'));
             var $relesae_id = Number($this.data('id'));
 
             var notifier = new AWN(awn_options);
@@ -159,16 +159,16 @@
                     });
                 } else {
                     $.ajax({
-                        type    : 'post',
+                        type: 'post',
                         dataType: 'json',
-                        url     : cbxchangelog_edit.ajaxurl,
-                        data    : {
-                            action    : 'cbxchangelog_release_delete',
-                            security  : cbxchangelog_edit.nonce,
-                            post_id   : $post_id,
+                        url: cbxchangelog_edit.ajaxurl,
+                        data: {
+                            action: 'cbxchangelog_release_delete',
+                            security: cbxchangelog_edit.nonce,
+                            post_id: $post_id,
                             release_id: $relesae_id
                         },
-                        success : function (data, textStatus, XMLHttpRequest) {
+                        success: function (data, textStatus, XMLHttpRequest) {
 
                             if (data.success) {
                                 $this.closest('.cbxchangelog_release').fadeOut('slow', function () {
@@ -201,8 +201,8 @@
         $changelog_wrapper.on('click', '.add-feature', function (e) {
             e.preventDefault();
 
-            var $this    = $(this);
-            var $parent  = $this.parents('.release-feature-wrap');
+            var $this = $(this);
+            var $parent = $this.parents('.release-feature-wrap');
             var $counter = $parent.data('boxincrement');
 
             var rendered = Mustache.render($feature_template, {increment: $counter});
@@ -253,16 +253,117 @@
 
         });
 
+        //resync release no/id with index (top to bottom or bottom to top)
+        $('#cbxchangelog_toolbar_extras').on('click', 'a.cbxchangelog_resync_releases', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $post_id = Number($this.data('post-id'));
+            var $dir = Number($this.data('dir'));
+            var $confirm_desc = ($dir) ? cbxchangelog_edit.resync.confirm_desc : cbxchangelog_edit.resync.confirm_desc_alt;
+
+            var notifier = new AWN(awn_options);
+
+            var onCancel = () => {
+            };
+
+            var onOk = () => {
+                $this.prop('disabled', true);
+                $this.addClass('running');
+
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: cbxchangelog_edit.ajaxurl,
+                    data: {
+                        action: 'cbxchangelog_release_resync',
+                        security: cbxchangelog_edit.nonce,
+                        post_id: $post_id,
+                        dir: $dir
+                    },
+                    success: function (data, textStatus, XMLHttpRequest) {
+                        if (data.success) {
+                            new AWN(awn_options).success(data.message);
+
+                            location.reload();
+                        } else {
+                            new AWN(awn_options).alert(data.message);
+                        }
+                    }//end of success
+                });//end of ajax
+            };
+
+            notifier.confirm(
+                $confirm_desc,
+                onOk,
+                onCancel,
+                {
+                    labels: {
+                        confirm: cbxchangelog_edit.resync.confirm
+                    }
+                }
+            );
+        });
+
+        //delete all releases
+        $('#cbxchangelog_toolbar_extras').on('click', 'a.cbxchangelog_delete_releases', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $post_id = Number($this.data('post-id'));
+
+            var notifier = new AWN(awn_options);
+
+            var onCancel = () => {
+            };
+
+            var onOk = () => {
+                $this.prop('disabled', true);
+                $this.addClass('running');
+
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: cbxchangelog_edit.ajaxurl,
+                    data: {
+                        action: 'cbxchangelog_delete_releases',
+                        security: cbxchangelog_edit.nonce,
+                        post_id: $post_id
+                    },
+                    success: function (data, textStatus, XMLHttpRequest) {
+                        if (data.success) {
+                            new AWN(awn_options).success(data.message);
+
+                            location.reload();
+                        } else {
+                            new AWN(awn_options).alert(data.message);
+                        }
+                    }//end of success
+                });//end of ajax
+            };
+
+            notifier.confirm(
+                cbxchangelog_edit.deleteconfirm_all_releases,
+                onOk,
+                onCancel,
+                {
+                    labels: {
+                        confirm: cbxchangelog_edit.deleteconfirm
+                    }
+                }
+            );
+        });
+
         //sorting releases
         $changelog_wrapper.sortable({
-            group            : 'cbxchangelog_releases',
-            nested           : false,
-            vertical         : true,
-            horizontal       : false,
-            pullPlaceholder  : true,
-            handle           : '.move-release',
-            placeholder      : 'cbxchangelog_release_placeholder',
-            itemSelector     : 'div.cbxchangelog_release',
+            group: 'cbxchangelog_releases',
+            nested: false,
+            vertical: true,
+            horizontal: false,
+            pullPlaceholder: true,
+            handle: '.move-release',
+            placeholder: 'cbxchangelog_release_placeholder',
+            itemSelector: 'div.cbxchangelog_release',
             containerSelector: 'div#cbxchangelog_wrapper'
         });
 

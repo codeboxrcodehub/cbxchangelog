@@ -60,7 +60,7 @@ class CBXChangelogMetaAsArray {
 	public function settNextIndex($nextIndex) {
 		//don't allow already used keys as nextIndex
 		if(in_array($nextIndex, $this->usedKeys)){
-			$nextIndex = max($this->usedKeys) + 1;
+			$nextIndex = cbxchangelog_custom_max($this->usedKeys) + 1;
 		}
 
 		$this->nextIndex = $nextIndex;
@@ -85,7 +85,7 @@ class CBXChangelogMetaAsArray {
 			}
 
 			// Update nextIndex if the provided primary key is greater than it
-			$this->nextIndex = max( $this->nextIndex, $row[ $primaryKey ] + 1 );
+			$this->nextIndex = cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
 		}
 
 		// Add the new key to usedKeys if not already present
@@ -119,7 +119,7 @@ class CBXChangelogMetaAsArray {
 			}
 
 			// Update nextIndex if the provided primary key is greater than it
-			$this->nextIndex = max( $this->nextIndex, $row[ $primaryKey ] + 1 );
+			$this->nextIndex = cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
 		}
 
 		// Add the new key to usedKeys if not already present
@@ -236,7 +236,16 @@ class CBXChangelogMetaAsArray {
 		$this->usedKeys  = [];
 		$this->nextIndex = 1;
 		//$this->saveData();
-	}//end method resetRows\
+	}//end method resetRows
+
+	// Reset all rows and properties to their initial state and save
+	public function resetRowsAndSave() {
+		$this->data      = [];
+		$this->usedKeys  = [];
+		$this->nextIndex = 1;
+		$this->saveData();
+	}//end method resetRowsAndSave
+
 
 	// Reindex the usedKeys array based on the primary keys of all rows
 	public function reindexUsedKeys() {
@@ -253,7 +262,7 @@ class CBXChangelogMetaAsArray {
 		}
 
 		// Update nextIndex as max of usedKeys + 1 or reset to 1 if no keys are present
-		$this->nextIndex = ! empty( $this->usedKeys ) ? max( $this->usedKeys ) + 1 : 1;
+		$this->nextIndex = ! empty( $this->usedKeys ) ? cbxchangelog_custom_max( $this->usedKeys ) + 1 : 1;
 
 		// Save the updated data and usedKeys
 		$this->saveData();
@@ -278,4 +287,24 @@ class CBXChangelogMetaAsArray {
 		$this->saveData();
 	}//end method syncPrimaryKeyWithIndex
 
+	// Synchronize the primary key with the row index in reverse order
+	public function syncPrimaryKeyWithIndexReverse() {
+		$this->usedKeys = []; // Reset the usedKeys array
+
+		$totalRows = count($this->data); // Get the total number of rows
+
+		foreach ($this->data as $index => &$row) {
+			// Set the primary key to the reverse index (totalRows - index)
+			$row[$this->primaryKey] = $totalRows - $index;
+
+			// Update the usedKeys array
+			$this->usedKeys[] = $row[$this->primaryKey];
+		}
+
+		// Update nextIndex to the highest primary key + 1
+		$this->nextIndex = $totalRows + 1;
+
+		// Save the updated data and usedKeys
+		$this->saveData();
+	}//end method syncPrimaryKeyWithIndexReverse
 }//end class CBXChangelogMetaAsArray

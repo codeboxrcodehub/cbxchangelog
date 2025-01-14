@@ -212,6 +212,8 @@ class CBXChangelog {
 
 		//remove a specific release from changelogs
 		add_action( 'wp_ajax_cbxchangelog_release_delete', [ $plugin_admin, 'release_delete' ] );
+		add_action( 'wp_ajax_cbxchangelog_release_resync', [ $plugin_admin, 'release_resync' ] );
+		add_action( 'wp_ajax_cbxchangelog_delete_releases', [ $plugin_admin, 'delete_releases' ] );
 	}//end method define_admin_hooks
 
 	/**

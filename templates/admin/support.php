@@ -102,6 +102,15 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.0</p>
+                            <ul>
+                                <li> [fixed] Fixed saving only single changelog from dashboard edit screen</li>
+                                <li> [new] Added new feature to resync release no/id with dashboard edit screen display index(from top to bottom)</li>
+                                <li> [new] Added new feature to resync release no/id with dashboard edit screen display index(bottom top to top)</li>
+                                <li> [new] Added new feature to delete all releases with one single click from the dashboard edit screen</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 1.1.10</p>
                             <ul>
                                 <li>[fixed] Changelog added at top from edit screen save error fixed! [Sorry for the inconvenience]</li>

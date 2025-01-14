@@ -120,3 +120,15 @@ if ( ! function_exists( 'cbxchangelog_icon_path' ) ) {
 		return apply_filters( 'cbxchangelog_icon_path', $directory );
 	}//end method cbxchangelog_icon_path
 }
+
+if(!function_exists('cbxchangelog_custom_max')){
+	function cbxchangelog_custom_max(...$values): int {
+		// If a single array is passed as the first argument
+		if (count($values) === 1 && is_array($values[0])) {
+			$values = $values[0];
+		}
+
+		// If the array is empty or no arguments were passed, return 0
+		return empty($values) ? 0 : max($values);
+	}//end function cbxchangelog_custom_max
+}
