@@ -134,7 +134,7 @@ class CBXChangelogAdmin {
 			'label'               => __( 'Changelog', 'cbxchangelog' ),
 			'description'         => __( 'Changelog', 'cbxchangelog' ),
 			'labels'              => $labels,
-			'supports'            => [ 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'comments' ],
+			//'supports'            => [ 'title', 'editor', 'thumbnail', 'author', 'excerpt', 'comments' ],
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
@@ -575,8 +575,12 @@ class CBXChangelogAdmin {
 
 		$allowed_post_types = CBXChangelogHelper::supported_post_types();
 
+		$in_footer = array(
+			'in_footer' => true,
+		);
+
 		if ( in_array( $post_type, $allowed_post_types ) && $hook == 'edit.php' && $page == '' ) {
-			wp_register_script( 'cbxchangelog-listing', $js_url_part . 'cbxchangelog-listing.js', [ 'jquery' ], $version, true );
+			wp_register_script( 'cbxchangelog-listing', $js_url_part . 'cbxchangelog-listing.js', [ 'jquery' ], $version, $in_footer );
 
 			wp_localize_script( 'cbxchangelog-listing', 'cbxchangelog_listing', apply_filters( 'cbxchangelog_listing_localize_script',
 					[
@@ -600,13 +604,13 @@ class CBXChangelogAdmin {
 		if ( in_array( $post_type, $allowed_post_types ) && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $page == '' ) {
 			wp_enqueue_script( 'jquery' );
 
-			wp_register_script( 'pickr', $vendors_url_part . 'pickr/pickr.min.js', [], $version, true );
-			wp_register_script( 'awesome-notifications', $vendors_url_part . 'awesome-notifications/script.js', [], $version, true );
-			wp_register_script( 'jquery-mustache', $vendors_url_part . 'mustache/jquery.mustache.js', [ 'jquery' ], $version, true );
+			wp_register_script( 'pickr', $vendors_url_part . 'pickr/pickr.min.js', [], $version, $in_footer );
+			wp_register_script( 'awesome-notifications', $vendors_url_part . 'awesome-notifications/script.js', [], $version, $in_footer );
+			wp_register_script( 'jquery-mustache', $vendors_url_part . 'mustache/jquery.mustache.js', [ 'jquery' ], $version, $in_footer );
 			wp_register_script( 'mustache', $vendors_url_part . 'mustache/mustache.min.js', [
 				'jquery-mustache',
 				'jquery'
-			], $version, true );
+			], $version, $in_footer );
 
 			wp_register_script( 'cbxchangelog-edit', $js_url_part . 'cbxchangelog-edit.js', [
 				'jquery',
@@ -619,18 +623,10 @@ class CBXChangelogAdmin {
 
 				'pickr',
 				'awesome-notifications',
-			], $version, true );
+			], $version, $in_footer );
 
 			//$changelog_id =  isset($_REQUEST['id'])? absint($_REQUEST['id']) : 0;
 			$changelog_id = isset( $post->ID ) ? absint( $post->ID ) : 0;
-
-
-			/*$import_modal_html = '<div id="changelog_import_modal_wrap" class="cbx-chota">';
-			$import_modal_html .= '<h2>' . esc_html__( 'Import Setting: Json file', 'cbxchangelog' ) . '</h2>';
-			$import_modal_html .= '<form method="post" id="changelog_import_form" data-post-id="' . absint($changelog_id) . '">';
-			$import_modal_html .= '<input type="file" name="file" id="changelog_import_file" data-post-id="' . absint($changelog_id) . '" />';
-			$import_modal_html .= '</form>';
-			$import_modal_html .= '</div>';*/
 
 			wp_localize_script( 'cbxchangelog-edit', 'cbxchangelog_edit', apply_filters( 'cbxchangelog_edit_localize_script',
 					[
@@ -702,8 +698,7 @@ class CBXChangelogAdmin {
 						//'import_modal_progress' => '<p>' . esc_html__( 'Please wait, importing', 'cbxchangelog' ) . '</p>',
 						'nonce'               => wp_create_nonce( 'cbxchangelog_nonce' ),
 						'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-					] )
-			);
+					] ));
 
 
 			wp_enqueue_media();
@@ -720,10 +715,8 @@ class CBXChangelogAdmin {
 			wp_enqueue_script( 'pickr' );
 			wp_enqueue_script( 'awesome-notifications' );
 
-//			wp_enqueue_script( 'cbxchangelog-edit' );
 
 			wp_enqueue_script( 'cbxchangelog-edit' );
-
 		}//end only for post add/edit screen
 
 

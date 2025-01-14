@@ -173,12 +173,13 @@ class CBXChangelog {
 
 		add_action( 'add_meta_boxes', [ $plugin_admin, 'add_meta_boxes_form' ] );
 
+
 		//meta save
 		add_action( 'save_post', [ $plugin_admin, 'metabox_save' ], 10, 3 ); //save meta
 
+
 		add_filter( 'manage_edit-cbxchangelog_columns', [ $plugin_admin, 'cbxchangelog_add_new_columns' ] );
 		add_action( 'manage_cbxchangelog_posts_custom_column', [ $plugin_admin, 'cbxchangelog_manage_columns' ] );
-
 
 		add_action( 'admin_enqueue_scripts', [ $plugin_admin, 'enqueue_styles' ] );
 		add_action( 'admin_enqueue_scripts', [ $plugin_admin, 'enqueue_scripts' ] );

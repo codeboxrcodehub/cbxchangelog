@@ -79,7 +79,6 @@
 
         //sorting single feature
         $('#cbxchangelog_wrapper .release-feature-wrap').each(function (index, element) {
-
             var $element = $(element);
 
             //sort sponsor item
@@ -112,10 +111,7 @@
 
             //sorting single feature
             $('#cbxchangelog_wrapper .release-feature-wrap').each(function (index, element) {
-
                 var $element = $(element);
-
-                //console.log($element);
 
                 //sort sponsor item
                 $element.sortable({
@@ -129,9 +125,7 @@
                     itemSelector     : 'p.feature',
                     containerSelector: $element,
                 });
-
             });
-
         });
 
         //remove any release
@@ -172,12 +166,9 @@
                                 });
 
                                 new AWN(awn_options).success(data.message);
-
-                                //window.location.href = data.url;
                             } else {
                                 new AWN(awn_options).alert(data.message);
                             }
-
                         }//end of success
                     });//end of ajax
                 }
@@ -269,21 +260,12 @@
         $('.wrap').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-addedit-wrapper');
         $('#search-submit').addClass('button primary');
         $('#post-query-submit').addClass('button primary');
-        //$('.button.action').addClass('button outline primary');
         $('.button.action').addClass('button primary');
         $('.page-title-action').addClass('button primary');
         $('#save-post').addClass('button primary');
-        //$('#doaction').addClass('button primary');
         $('#publish').addClass('button primary');
-
-        //$(cbxchangelog_admin_js_vars.global_setting_link_html).insertAfter('.page-title-action');
         $('#screen-meta').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-logs-wrapper');
         $('#screen-options-apply').addClass('primary');
-
-
-        //$('#post-search-input').attr('placeholder', cbxchangelog_edit.placeholder.search);
-
-
     });
 
 })(jQuery);
