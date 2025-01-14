@@ -102,6 +102,12 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 1.1.10</p>
+                            <ul>
+                                <li>[fixed] Changelog added at top from edit screen save error fixed! [Sorry for the inconvenience]</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 1.1.9</p>
                             <ul>
                                 <li>[new] Added new shortcode param ‘count’ , 0 means all, any value more than 0 show as specific number of changelogs</li>

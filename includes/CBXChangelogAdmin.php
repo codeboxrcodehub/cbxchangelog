@@ -320,9 +320,18 @@ class CBXChangelogAdmin {
 			$submitted_values = isset( $_POST['cbxchangelog_logs'] ) ? wp_unslash( $_POST['cbxchangelog_logs'] ) : []; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			$meta_data = CBXChangelogHelper::get_changelog_data( $post_id );
+			$meta_data->reindexUsedKeys();//let's confirm the usedKeys are not messed or rearranged
 			$used_keys = $meta_data->getUsedKeys();
+			$nextIndex = max($used_keys) + 1;
+
+
+
 			//let's reset as we need to honor the index order to display
 			$meta_data->resetRows();
+			$meta_data->settNextIndex($nextIndex);
+
+
+
 
 			foreach ( $submitted_values as $value ) {
 				$valid_change_log = [];
@@ -384,12 +393,9 @@ class CBXChangelogAdmin {
 				}*/
 
 
-				if ( $id > 0 ) {
-					$valid_change_log['id'] = $id;
-				}
 
+				$valid_change_log['id'] = $id == 0 ? $meta_data->getNextIndex() : $id;
 				$meta_data->insert( $valid_change_log );
-
 
 				unset( $valid_change_log );
 				//$valid_change_logs[] = $valid_change_log;

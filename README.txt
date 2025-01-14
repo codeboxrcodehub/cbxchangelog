@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.1
-Stable tag: 1.1.9
+Stable tag: 1.1.10
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,9 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 1.1.10 =
+* [fixed] Changelog added at top from edit screen save error fixed! [Sorry for the inconvenience]
+
 = 1.1.9 =
 * [new] Added new shortcode param 'count' , 0 means all, any value more than 0 show as specific number of changelogs
 * [new] Dashboard changelog edit screenshot has two buttons for adding change log 1. Add changelog at bottom, 2. Add changelog at top
