@@ -48,14 +48,14 @@ class CBXChangelogAdmin {
 	private $version;
 
 
-	private $settings_api;
+	private $settings;
 	protected $plugin_basename;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param string $plugin_name The name of this plugin.
-	 * @param string $version The version of this plugin.
+	 * @param  string  $plugin_name  The name of this plugin.
+	 * @param  string  $version  The version of this plugin.
 	 *
 	 * @since    1.0.0
 	 *
@@ -71,7 +71,7 @@ class CBXChangelogAdmin {
 		$this->plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $plugin_name . '.php' );
 
 		//get instance of setting api
-		$this->settings_api = new CBXChangelogSettings();
+		$this->settings = new CBXChangelogSettings();
 	}//end of constructor
 
 	/**
@@ -79,10 +79,10 @@ class CBXChangelogAdmin {
 	 */
 	public function setting_init() {
 		//set the settings
-		$this->settings_api->set_sections( $this->get_settings_sections() );
-		$this->settings_api->set_fields( $this->get_settings_fields() );
+		$this->settings->set_sections( $this->get_settings_sections() );
+		$this->settings->set_fields( $this->get_settings_fields() );
 		//initialize settings
-		$this->settings_api->admin_init();
+		$this->settings->admin_init();
 	}//end setting_init
 
 	/**
@@ -109,7 +109,7 @@ class CBXChangelogAdmin {
 	 * @since    3.7.0
 	 */
 	public function init_post_types() {
-		//$setting = $this->settings_api;
+		//$setting = $this->settings;
 
 		$post_type = 'cbxchangelog';
 		$post_slug = 'cbxchangelog';
@@ -182,7 +182,7 @@ class CBXChangelogAdmin {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo cbxchangelog_get_template_html( 'admin/settings.php', [
 			'admin_ref' => $this,
-			'settings'  => $this->settings_api
+			'settings'  => $this->settings
 		] );
 	}//end menu_settings
 
@@ -235,7 +235,7 @@ class CBXChangelogAdmin {
 			echo cbxchangelog_get_template_html( 'admin/metabox_changelogs.php',
 				[
 					'admin_ref' => $this,
-					'settings'  => $this->settings_api,
+					'settings'  => $this->settings,
 					'post_id'   => $post_id,
 					'post_type' => $post_type,
 					'post'      => $post,
@@ -258,7 +258,7 @@ class CBXChangelogAdmin {
 			echo cbxchangelog_get_template_html( 'admin/metabox_shortcode.php',
 				[
 					'admin_ref' => $this,
-					'settings'  => $this->settings_api,
+					'settings'  => $this->settings,
 					'post_id'   => $post_id,
 					'post_type' => $post_type,
 				]
@@ -409,10 +409,11 @@ class CBXChangelogAdmin {
 		if ( isset( $_POST['cbxchangelog_extra'] ) && is_array( $_POST['cbxchangelog_extra'] ) && sizeof( $_POST['cbxchangelog_extra'] ) > 0 ) {
 			$extras = isset( $_POST['cbxchangelog_extra'] ) ? wp_unslash( $_POST['cbxchangelog_extra'] ) : []; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-			$extras['show_url']      = isset( $extras['show_url'] ) ? intval( $extras['show_url'] ) : 1;
-			$extras['show_label']    = isset( $extras['show_label'] ) ? intval( $extras['show_label'] ) : 1;
-			$extras['show_date']     = isset( $extras['show_date'] ) ? intval( $extras['show_date'] ) : 1;
-			$extras['relative_date'] = isset( $extras['relative_date'] ) ? intval( $extras['relative_date'] ) : 0;
+			$extras['show_url']      = isset( $extras['show_url'] ) ? absint( $extras['show_url'] ) : 1;
+			$extras['show_label']    = isset( $extras['show_label'] ) ? absint( $extras['show_label'] ) : 1;
+			$extras['group_label']   = isset( $extras['group_label'] ) ? absint( $extras['group_label'] ) : 0;
+			$extras['show_date']     = isset( $extras['show_date'] ) ? absint( $extras['show_date'] ) : 1;
+			$extras['relative_date'] = isset( $extras['relative_date'] ) ? absint( $extras['relative_date'] ) : 0;
 			$extras['layout']        = isset( $extras['layout'] ) ? sanitize_text_field( wp_unslash( $extras['layout'] ) ) : 'prepros';
 			$extras['order']         = isset( $extras['order'] ) ? sanitize_text_field( wp_unslash( $extras['order'] ) ) : 'desc';
 			$extras['orderby']       = isset( $extras['orderby'] ) ? sanitize_text_field( wp_unslash( $extras['orderby'] ) ) : 'order'; //'order' == 'default'
@@ -634,23 +635,23 @@ class CBXChangelogAdmin {
 
 			wp_localize_script( 'cbxchangelog-edit', 'cbxchangelog_edit', apply_filters( 'cbxchangelog_edit_localize_script',
 				[
-					'deleteconfirm'       => esc_html__( 'Are you sure?', 'cbxchangelog' ),
-					'deleteconfirm_desc'  => esc_html__( 'Are you sure to delete this item?', 'cbxchangelog' ),
-					'deleteconfirm_all_releases'  => esc_html__( 'Note: This process can not be undone. This process is going to delete all releases for this post/article. When done this window will reload.', 'cbxchangelog' ),
-					'deleteconfirmok'     => esc_html__( 'Sure', 'cbxchangelog' ),
-					'deleteconfirmcancel' => esc_html__( 'Oh! No', 'cbxchangelog' ),
-					'deletelastitem'      => esc_html__( 'This only feature can not be deleted. Either edit or delete the total release.', 'cbxchangelog' ),
-					'copycmds'            => [
+					'deleteconfirm'              => esc_html__( 'Are you sure?', 'cbxchangelog' ),
+					'deleteconfirm_desc'         => esc_html__( 'Are you sure to delete this item?', 'cbxchangelog' ),
+					'deleteconfirm_all_releases' => esc_html__( 'Note: This process can not be undone. This process is going to delete all releases for this post/article. When done this window will reload.', 'cbxchangelog' ),
+					'deleteconfirmok'            => esc_html__( 'Sure', 'cbxchangelog' ),
+					'deleteconfirmcancel'        => esc_html__( 'Oh! No', 'cbxchangelog' ),
+					'deletelastitem'             => esc_html__( 'This only feature can not be deleted. Either edit or delete the total release.', 'cbxchangelog' ),
+					'copycmds'                   => [
 						'copy'       => esc_html__( 'Copy', 'cbxchangelog' ),
 						'copied'     => esc_html__( 'Copied', 'cbxchangelog' ),
 						'copy_tip'   => esc_html__( 'Click to copy', 'cbxchangelog' ),
 						'copied_tip' => esc_html__( 'Copied to clipboard', 'cbxchangelog' ),
 					],
-					'placeholder'         => [
+					'placeholder'                => [
 						'select' => esc_html__( 'Please Select', 'cbxchangelog' ),
 						'search' => esc_html__( 'Search...', 'cbxchangelog' ),
 					],
-					'pickr_i18n'          => [
+					'pickr_i18n'                 => [
 						// Strings visible in the UI
 						'ui:dialog'       => esc_html__( 'color picker dialog', 'cbxchangelog' ),
 						'btn:toggle'      => esc_html__( 'toggle color picker dialog', 'cbxchangelog' ),
@@ -669,7 +670,7 @@ class CBXChangelogAdmin {
 						'aria:hue'        => esc_html__( 'hue selection slider', 'cbxchangelog' ),
 						'aria:opacity'    => esc_html__( 'selection slider', 'cbxchangelog' ),
 					],
-					'awn_options'         => [
+					'awn_options'                => [
 						'tip'           => esc_html__( 'Tip', 'cbxchangelog' ),
 						'info'          => esc_html__( 'Info', 'cbxchangelog' ),
 						'success'       => esc_html__( 'Success', 'cbxchangelog' ),
@@ -680,7 +681,7 @@ class CBXChangelogAdmin {
 						'confirmOk'     => esc_html__( 'OK', 'cbxchangelog' ),
 						'confirmCancel' => esc_html__( 'Cancel', 'cbxchangelog' )
 					],
-					'validation'          => [
+					'validation'                 => [
 						'required'    => esc_html__( 'This field is required.', 'cbxchangelog' ),
 						'remote'      => esc_html__( 'Please fix this field.', 'cbxchangelog' ),
 						'email'       => esc_html__( 'Please enter a valid email address.', 'cbxchangelog' ),
@@ -698,12 +699,12 @@ class CBXChangelogAdmin {
 						'min'         => esc_html__( 'Please enter a value greater than or equal to {0}.', 'cbxchangelog' ),
 						'recaptcha'   => esc_html__( 'Please check the captcha.', 'cbxchangelog' ),
 					],
-					'lang'                => get_user_locale(),
+					'lang'                       => get_user_locale(),
 					//'import_modal'        => $import_modal_html,
 					//'import_modal_progress' => '<p>' . esc_html__( 'Please wait, importing', 'cbxchangelog' ) . '</p>',
-					'nonce'               => wp_create_nonce( 'cbxchangelog_nonce' ),
-					'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-					'resync'              => [
+					'nonce'                      => wp_create_nonce( 'cbxchangelog_nonce' ),
+					'ajaxurl'                    => admin_url( 'admin-ajax.php' ),
+					'resync'                     => [
 						'confirm'          => esc_html__( 'Are you sure to resync?', 'cbxchangelog' ),
 						'confirm_desc'     => esc_html__( 'Note: This process can not be undone. Resync(top to bottom) will resync release no/ID with changelog index as seen in admin edit screen. First item id will be 1, 2nd will be 2 and so on. When done, this screen will reload.', 'cbxchangelog' ),
 						'confirm_desc_alt' => esc_html__( 'Note: This process can not be undone. Resync(bottom to top) will resync release no/ID with changelog index as seen in admin edit screen. Last item id will be 1, 2nd from last will be 2 and so on. When done, this screen will reload.', 'cbxchangelog' ),
@@ -827,7 +828,7 @@ class CBXChangelogAdmin {
 	/**
 	 * Show action links on the plugin screen.
 	 *
-	 * @param mixed $links Plugin Action links.
+	 * @param  mixed  $links  Plugin Action links.
 	 *
 	 * @return  array
 	 */
@@ -845,10 +846,10 @@ class CBXChangelogAdmin {
 	 *
 	 * @access  public
 	 *
-	 * @param array $links_array An array of the plugin's metadata
-	 * @param string $plugin_file_name Path to the plugin file
-	 * @param array $plugin_data An array of plugin data
-	 * @param string $status Status of the plugin
+	 * @param  array  $links_array  An array of the plugin's metadata
+	 * @param  string  $plugin_file_name  Path to the plugin file
+	 * @param  array  $plugin_data  An array of plugin data
+	 * @param  string  $status  Status of the plugin
 	 *
 	 * @return  array       $links_array
 	 */
@@ -977,7 +978,7 @@ class CBXChangelogAdmin {
 		}
 
 		$pro_addon_version  = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
-		$pro_latest_version = '1.1.6';
+		$pro_latest_version = '1.1.7';
 
 
 		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {
@@ -1016,7 +1017,6 @@ class CBXChangelogAdmin {
 
 		// Check the transient to see if we've just activated the plugin
 		if ( get_transient( 'cbxchangelog_activated_notice' ) ) {
-
 			echo '<div class="notice notice-success is-dismissible" style="border-color: #2153cc !important;">';
 
 			/* translators: 1. Plugin version  */
@@ -1160,17 +1160,19 @@ class CBXChangelogAdmin {
 		$vendors_path_part = CBXCHANGELOG_ROOT_PATH . 'assets/vendors/';
 
 
-		$setting               = $this->settings_api;
-		$show_label_default    = intval( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
-		$show_date_default     = intval( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
-		$show_url_default      = intval( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
-		$relative_date_default = intval( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
+		$setting               = $this->settings;
+		$show_label_default    = absint( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
+		$show_date_default     = absint( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
+		$show_url_default      = absint( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
+		$group_label_default   = absint( $setting->get_field( 'group_label', 'cbxchangelog_general', 0 ) );
+		$relative_date_default = absint( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
 
 		$layout = $setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' );
 
 		$show_label_default    = ( $show_label_default ) ? 'true' : '';
 		$show_date_default     = ( $show_date_default ) ? 'true' : '';
 		$show_url_default      = ( $show_url_default ) ? 'true' : '';
+		$group_label_default   = ( $group_label_default ) ? 'true' : '';
 		$relative_date_default = ( $relative_date_default ) ? 'true' : '';
 
 		$order_options = [];
@@ -1264,6 +1266,7 @@ class CBXChangelogAdmin {
 					'show_label'         => esc_html__( 'Show Label', 'cbxchangelog' ),
 					'show_date'          => esc_html__( 'Show Date', 'cbxchangelog' ),
 					'show_url'           => esc_html__( 'Show Url', 'cbxchangelog' ),
+					'group_label'        => esc_html__( 'Group Label', 'cbxchangelog' ),
 					'relative_date'      => esc_html__( 'Show Relative Date', 'cbxchangelog' ),
 					'layout'             => esc_html__( 'Choose layout', 'cbxchangelog' ),
 					'layout_options'     => $layout_options,
@@ -1308,6 +1311,10 @@ class CBXChangelogAdmin {
 						'show_url'      => [
 							'type'    => 'string',
 							'default' => $show_url_default,
+						],
+						'group_label'      => [
+							'type'    => 'string',
+							'default' => $group_label_default,
 						],
 						'relative_date' => [
 							'type'    => 'string',
@@ -1363,6 +1370,10 @@ class CBXChangelogAdmin {
 		$params['show_url'] = isset( $attr['show_url'] ) ? $attr['show_url'] : 'true';
 		//$params['show_url'] = ( $params['show_url'] == 'true' ) ? 1 : 0;
 		$params['show_url'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['show_url'] );
+
+		$params['group_label'] = isset( $attr['group_label'] ) ? $attr['group_label'] : 'true';
+		//$params['group_label'] = ( $params['group_label'] == 'true' ) ? 1 : 0;
+		$params['group_label'] = CBXChangelogHelper::block_editor_true_meta_empty( $params['group_label'] );
 
 		$params['relative_date'] = isset( $attr['relative_date'] ) ? $attr['relative_date'] : 'true';
 		//$params['relative_date'] = ( $params['relative_date'] == 'true' ) ? 1 : 0;

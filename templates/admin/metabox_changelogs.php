@@ -101,6 +101,7 @@ if ( ! is_array( $meta_extra ) ) {
 
 
 $meta_extra['show_url']      = $show_url = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
+$meta_extra['group_label']      = $group_label = isset( $meta_extra['group_label'] ) ? absint( $meta_extra['group_label'] ) : 0;
 $meta_extra['show_label']    = $show_label = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
 $meta_extra['show_date']     = $show_date = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
 $meta_extra['relative_date'] = $relative_date = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
@@ -139,6 +140,14 @@ $more_v_svg = cbxchangelog_load_svg( 'icon_more_v_white' );
             <select name="cbxchangelog_extra[show_url]" id="show_url">
                 <option value="1" <?php selected( $show_url, 1 ); ?> ><?php esc_html_e( 'Yes', 'cbxchangelog' ); ?></option>
                 <option value="0" <?php selected( $show_url, 0 ); ?> ><?php esc_html_e( 'No', 'cbxchangelog' ); ?></option>
+            </select>
+        </label>
+
+        <label for="group_label" class="group_label_wrap">
+		    <?php esc_html_e( 'Group Label', 'cbxchangelog' ); ?>
+            <select name="cbxchangelog_extra[group_label]" id="group_label">
+                <option value="1" <?php selected( $group_label, 1 ); ?> ><?php esc_html_e( 'Yes', 'cbxchangelog' ); ?></option>
+                <option value="0" <?php selected( $group_label, 0 ); ?> ><?php esc_html_e( 'No', 'cbxchangelog' ); ?></option>
             </select>
         </label>
 

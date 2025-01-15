@@ -52,7 +52,7 @@ class CBXChangelogUninstall {
         }
 
 		$settings = new CBXChangelogSettings();
-		$delete_global_config = $settings->get_option( 'delete_global_config', 'cbxchangelog_tools', 'no' );
+		$delete_global_config = $settings->get_field( 'delete_global_config', 'cbxchangelog_tools', 'no' );
 
 		if ( $delete_global_config == 'yes' ) {
             //before hook

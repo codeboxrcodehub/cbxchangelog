@@ -390,7 +390,17 @@ class CBXChangelogHelper {
 						0 => esc_html__( 'No', 'cbxchangelog' )
 					]
 				],
-
+				'group_label'     => [
+					'name'    => 'group_label',
+					'label'   => esc_html__( 'Group label', 'cbxchangelog' ),
+					'desc'    => esc_html__( 'Show same type labels one after another or as group', 'cbxchangelog' ),
+					'type'    => 'radio',
+					'default' => 0,
+					'options' => [
+						1 => esc_html__( 'Yes', 'cbxchangelog' ),
+						0 => esc_html__( 'No', 'cbxchangelog' ),
+					]
+				],
 				'layout'         => [
 					'name'    => 'layout',
 					'label'   => esc_html__( 'Choose layout', 'cbxchangelog' ),

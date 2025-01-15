@@ -63,6 +63,15 @@ do_action( 'cbxchangelog_form_admin_start', $instance, $this );
         </select>
     </p>
     <p>
+        <label for="<?php echo esc_attr($this->get_field_id( 'group_label' )); ?>"><?php esc_html_e( 'Group Label', "cbxchangelog" ); ?></label>
+        <select class="widefat" name="<?php echo esc_attr($this->get_field_name( 'group_label' )); ?>"
+                id="<?php echo esc_attr($this->get_field_id( 'group_label' )); ?>">
+            <option value="" <?php selected( '', $group_label ); ?> ><?php esc_html_e( 'Choose from post meta', 'cbxchangelog' ); ?></option>
+            <option value="1" <?php selected( 1, $group_label ); ?> ><?php esc_html_e( 'Yes', 'cbxchangelog' ); ?></option>
+            <option value="0" <?php selected( 0, $group_label ); ?> ><?php esc_html_e( 'No', 'cbxchangelog' ); ?></option>
+        </select>
+    </p>
+    <p>
         <label for="<?php echo esc_attr($this->get_field_id( 'layout' )); ?>"><?php esc_html_e( 'Choose layout', "cbxchangelog" ); ?></label>
         <select class="widefat" name="<?php echo esc_attr($this->get_field_name( 'layout' )); ?>"
                 id="<?php echo esc_attr($this->get_field_id( 'layout' )); ?>">

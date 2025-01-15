@@ -102,6 +102,15 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.1</p>
+                            <ul>
+                                <li> [fixed] Fixed function missing error for method 'getPaginatedRows'</li>
+                                <li> [improvement] Added some new helper methods</li>
+                                <li> [fixed] Fixed function missing error for method 'getPaginatedRows'</li>
+                                <li> [new] Show single changelog items/features by group (Show Added, Fixed etc as grouped)</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.0</p>
                             <ul>
                                 <li> [fixed] Fixed saving only single changelog from dashboard edit screen</li>
@@ -131,22 +140,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[fixed] Fixed the changelog edit screen error "Connection lost. Saving has been disabled until you are reconnected. This post is being backed up in your browser, just in case."</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.7</p>
-                            <ul>
-                                <li>[fixed] Fixed the order issue in changelog edit screen</li>
-                                <li>[new] Added new order by param 'id', here is release id, please note, release id and dashboard display index is not same.</li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.6</p>
-                            <ul>
-                                <li>[new] New dashboard style</li>
-                                <li>[new] Plugin check version V1.3.1 compatible</li>
-                                <li>[updated] WordPress core V6.7.1 compatible</li>
-                                <li>[new] SVG icon added everywhere</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -157,6 +150,13 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <div class="cbx-backend-settings-row">
+                                <p>Version - 1.1.7</p>
+                                <ul>
+                                    <li>[new] WordPress readme file's changelog import feature</li>
+                                    <li>[updated] CBX Changelog core plugin V2.0.1 compatible</li>
+                                </ul>
+                            </div>
                             <div class="cbx-backend-settings-row">
                                 <p>Version - 1.1.6</p>
                                 <ul>

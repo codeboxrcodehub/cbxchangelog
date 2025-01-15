@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,7 @@ This helps to write changes log for any digital products, projects releases. Any
 * All Setting Export/Import (From 1.1.1)
 * Single Setting tab Export/Import (From 1.1.1)
 * Reset Setting tab (From 1.1.1)
+* Import wordpress readme file (From 1.1.7)
 
 
 == Installation ==
@@ -73,6 +74,12 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.1 =
+* [fixed] Fixed function missing error for method 'getPaginatedRows'
+* [new] Show labels by group feature added
+* [updated] All type widgets updated
+* [improvement] Added some new helper methods
+
 = 2.0.0 =
 * [fixed] Fixed saving only single changelog from dashboard edit screen
 * [new] Added new feature to resync release no/id with dashboard edit screen display index(from top to bottom)

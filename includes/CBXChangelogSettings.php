@@ -321,7 +321,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_text( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+				$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			}
 			$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 			$type = isset( $args['type'] ) ? $args['type'] : 'text';
@@ -341,7 +341,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @param array $args settings field args
 		 */
 		function callback_email( $args ) {
-			$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+			$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 			$type  = isset( $args['type'] ) ? $args['type'] : 'text';
 
@@ -375,7 +375,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_number( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+				$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			}
 
 			$size        = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
@@ -404,7 +404,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_textarea( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = esc_textarea( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+				$value = esc_textarea( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			}
 			$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 
@@ -428,7 +428,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_checkbox( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+				$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			}
 
 			$html_id = "{$args['section']}_{$args['id']}";
@@ -456,7 +456,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 			$sortable = isset( $args['sortable'] ) ? intval( $args['sortable'] ) : 0;
 
 			if ( $value === null ) {
-				$value = $this->get_option( $args['id'], $args['section'], $args['default'] );
+				$value = $this->get_field( $args['id'], $args['section'], $args['default'] );
 			}
 
 			if ( ! is_array( $value ) ) {
@@ -519,7 +519,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_radio( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = $this->get_option( $args['id'], $args['section'], $args['default'] );
+				$value = $this->get_field( $args['id'], $args['section'], $args['default'] );
 			}
 
 			$display_inline       = isset( $args['inline'] ) ? absint( $args['inline'] ) : 1;
@@ -556,7 +556,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @return void
 		 */
 		function callback_select( $args ) {
-			$value = $this->get_option( $args['id'], $args['section'], $args['default'] );
+			$value = $this->get_field( $args['id'], $args['section'], $args['default'] );
 
 			$multi      = isset( $args['multi'] ) ? intval( $args['multi'] ) : 0;
 			$multi_name = ( $multi ) ? '[]' : '';
@@ -625,7 +625,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @return void
 		 */
 		function callback_multiselect( $args ) {
-			$value = $this->get_option( $args['id'], $args['section'], $args['default'] );
+			$value = $this->get_field( $args['id'], $args['section'], $args['default'] );
 
 			if ( ! is_array( $value ) ) {
 				$value = [];
@@ -688,7 +688,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_wysiwyg( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = $this->get_option( $args['id'], $args['section'], $args['default'] );
+				$value = $this->get_field( $args['id'], $args['section'], $args['default'] );
 			}
 			$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : '500px';
 
@@ -721,7 +721,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @param  array  $args  settings field args
 		 */
 		function callback_file( $args ) {
-			$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+			$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 
 			//$id    = $args['section'] . '[' . $args['id'] . ']';
@@ -752,7 +752,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 */
 		function callback_color( $args, $value = null ) {
 			if ( $value === null ) {
-				$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+				$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			}
 
 			$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
@@ -779,7 +779,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @return void
 		 */
 		function callback_password( $args ) {
-			$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['default'] ) );
+			$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
 			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 
 			$html_id = "{$args['section']}_{$args['id']}";
@@ -805,7 +805,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 			$default   = $args['default'];
 			$fields    = isset( $args['fields'] ) ? $args['fields'] : [];
 			$allow_new = isset( $args['allow_new'] ) ? intval( $args['allow_new'] ) : 0;
-			$value     = $this->get_option( $args['id'], $args['section'], $args['default'] );
+			$value     = $this->get_field( $args['id'], $args['section'], $args['default'] );
 
 
 			if ( ! is_array( $value ) ) {
@@ -1045,7 +1045,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		 * @return string
 		 */
 		function get_opt( $option, $section, $default = '' ) {
-			return $this->get_option( $option, $section, $default );
+			return $this->get_field( $option, $section, $default );
 		}//end method get_option
 
 		/**

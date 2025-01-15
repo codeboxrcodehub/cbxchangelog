@@ -76,6 +76,18 @@ class CBXChangeLog_WPBWidget extends WPBakeryShortCode {
 					[
 						"type"        => "dropdown",
 						'admin_label' => false,
+						"heading"     => esc_html__( "Group Label", 'cbxchangelog' ),
+						"param_name"  => "group_label",
+						'value'       => [
+							esc_html__( 'Choose from post meta', 'cbxchangelog' ) => '',
+							esc_html__( 'Yes', 'cbxchangelog' )                   => 1,
+							esc_html__( 'No', 'cbxchangelog' )                    => 0,
+						],
+						'std'         => 0,
+					],
+					[
+						"type"        => "dropdown",
+						'admin_label' => false,
 						"heading"     => esc_html__( "Show date", 'cbxchangelog' ),
 						"param_name"  => "show_date",
 						'value'       => [

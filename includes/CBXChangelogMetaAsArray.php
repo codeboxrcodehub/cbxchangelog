@@ -60,7 +60,7 @@ class CBXChangelogMetaAsArray {
 	public function settNextIndex($nextIndex) {
 		//don't allow already used keys as nextIndex
 		if(in_array($nextIndex, $this->usedKeys)){
-			$nextIndex = cbxchangelog_custom_max($this->usedKeys) + 1;
+			$nextIndex = $this->cbxchangelog_custom_max($this->usedKeys) + 1;
 		}
 
 		$this->nextIndex = $nextIndex;
@@ -80,12 +80,12 @@ class CBXChangelogMetaAsArray {
 			// Ensure the provided primary key is unique
 			foreach ( $this->data as $dataRow ) {
 				if ( isset( $dataRow[ $primaryKey ] ) && $dataRow[ $primaryKey ] === $row[ $primaryKey ] ) {
-					throw new InvalidArgumentException( "Primary key {$row[$primaryKey]} already exists." );
+					throw new InvalidArgumentException( "Primary key {$row[$primaryKey]} already exists." ); //phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 			}
 
 			// Update nextIndex if the provided primary key is greater than it
-			$this->nextIndex = cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
+			$this->nextIndex = $this->cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
 		}
 
 		// Add the new key to usedKeys if not already present
@@ -96,10 +96,10 @@ class CBXChangelogMetaAsArray {
 		// Add the new row to the data
 		$this->data[] = $row;
 		$this->saveData();
-	}
+	}//end function insert_backup
 
 	// Insert a new row or update if primary key exists
-	public function insert( $row ) {
+	public function insert_backup_2( $row ) {
 		$primaryKey = $this->primaryKey;
 
 		// Check if the primary key field exists in the row
@@ -119,7 +119,7 @@ class CBXChangelogMetaAsArray {
 			}
 
 			// Update nextIndex if the provided primary key is greater than it
-			$this->nextIndex = cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
+			$this->nextIndex = $this->cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
 		}
 
 		// Add the new key to usedKeys if not already present
@@ -129,6 +129,51 @@ class CBXChangelogMetaAsArray {
 
 		// Add the new row to the data
 		$this->data[] = $row;
+		$this->saveData();
+	}//end method insert_backup_2
+
+	/**
+	 * Insert a new row or update if primary key exists
+	 *
+	 * @param $row
+	 * @param int $position position = 0 means bottom, 1 mean top/begin
+	 *
+	 * @return void
+	 */
+	public function insert( $row, $position = 0 ) {
+		$primaryKey = $this->primaryKey;
+
+		// Check if the primary key field exists in the row
+		if ( ! isset( $row[ $primaryKey ] ) ) {
+			// Auto-generate the primary key using the next available index
+			$row[ $primaryKey ] = $this->nextIndex;
+			$this->nextIndex ++; // Increment the next index
+		} else {
+			// Check if a row with the given primary key already exists
+			foreach ( $this->data as $dataRow ) {
+				if ( isset( $dataRow[ $primaryKey ] ) && $dataRow[ $primaryKey ] === $row[ $primaryKey ] ) {
+					// Update the existing row
+					$this->update( $row[ $primaryKey ], $row );
+					return;
+				}
+			}
+
+			// Update nextIndex if the provided primary key is greater than it
+			$this->nextIndex = $this->cbxchangelog_custom_max( $this->nextIndex, $row[ $primaryKey ] + 1 );
+		}
+
+		// Add the new key to usedKeys if not already present
+		if ( ! in_array( $row[ $primaryKey ], $this->usedKeys, true ) ) {
+			$this->usedKeys[] = $row[ $primaryKey ];
+		}
+
+		// Insert the row at the specified position
+		if ( $position === 1 ) {
+			array_unshift( $this->data, $row );
+		} else {
+			$this->data[] = $row;
+		}
+
 		$this->saveData();
 	}//end method insert
 
@@ -171,7 +216,7 @@ class CBXChangelogMetaAsArray {
 		}
 
 		// If no row with the matching primary key was found, throw an exception
-		throw new OutOfBoundsException( "Row with primary key $key does not exist." );
+		throw new OutOfBoundsException( "Row with primary key $key does not exist." ); //phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 	}
 
 	// Delete a row by primary key
@@ -196,7 +241,7 @@ class CBXChangelogMetaAsArray {
 			}
 		}
 
-		throw new OutOfBoundsException( "Row with primary key $key does not exist." );
+		throw new OutOfBoundsException( "Row with primary key $key does not exist." ); //phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 	}//end method delete
 
 	// Get all rows with optional sorting
@@ -228,6 +273,22 @@ class CBXChangelogMetaAsArray {
 
 		return array_values( $data );
 	}//end method getAll
+
+	public function getPaginatedRows( $page = 1, $perPage = 10, $orderBy = null, $order = 'asc' ) {
+		$data = $this->getAll( $orderBy, $order );
+
+		$totalRows     = count( $data );
+		$start         = ( $page - 1 ) * $perPage;
+		$paginatedData = array_slice( $data, $start, $perPage );
+
+		return [
+			'data'        => $paginatedData,
+			'totalRows'   => $totalRows,
+			'currentPage' => $page,
+			'perPage'     => $perPage,
+			'totalPages'  => ceil( $totalRows / $perPage ),
+		];
+	}//end method getPaginatedRows
 
 
 	// Reset all rows and properties to their initial state
@@ -262,7 +323,7 @@ class CBXChangelogMetaAsArray {
 		}
 
 		// Update nextIndex as max of usedKeys + 1 or reset to 1 if no keys are present
-		$this->nextIndex = ! empty( $this->usedKeys ) ? cbxchangelog_custom_max( $this->usedKeys ) + 1 : 1;
+		$this->nextIndex = ! empty( $this->usedKeys ) ? $this->cbxchangelog_custom_max( $this->usedKeys ) + 1 : 1;
 
 		// Save the updated data and usedKeys
 		$this->saveData();
@@ -307,4 +368,21 @@ class CBXChangelogMetaAsArray {
 		// Save the updated data and usedKeys
 		$this->saveData();
 	}//end method syncPrimaryKeyWithIndexReverse
+
+	/**
+	 * Custom max function alternative to php max() that can handle empty array or no inputs
+	 *
+	 * @param ...$values
+	 *
+	 * @return int
+	 */
+	private function cbxchangelog_custom_max(...$values): int {
+		// If a single array is passed as the first argument
+		if (count($values) === 1 && is_array($values[0])) {
+			$values = $values[0];
+		}
+
+		// If the array is empty or no arguments were passed, return 0
+		return empty($values) ? 0 : max($values);
+	}//end function cbxchangelog_custom_max
 }//end class CBXChangelogMetaAsArray
