@@ -99,6 +99,24 @@ class CBXChangelog {
 		return self::$instance;
 	}//end method instance
 
+	/**
+	 * Cloning is forbidden.
+	 *
+	 * @since 2.0.2
+	 */
+	public function __clone() {
+		cbxchangelog_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'cbxchangelog' ), '2.0.2' );
+	}//end method clone
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @since 2.0.2
+	 */
+	public function __wakeup() {
+		cbxchangelog_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'cbxchangelog' ), '2.0.2' );
+	}//end method wakeup
+
 
 	/**
 	 * Load the required dependencies for this plugin.

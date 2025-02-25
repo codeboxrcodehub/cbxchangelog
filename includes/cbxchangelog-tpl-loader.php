@@ -66,7 +66,7 @@ function cbxchangelog_get_template( $template_name, $args = [], $template_path =
 
 	if ( ! file_exists( $located ) ) {
 		/* translators: %s template */
-		wc_doing_it_wrong( __FUNCTION__, sprintf( __( '%s does not exist.', 'cbxchangelog' ), '<code>' . $located . '</code>' ), '1.0.0' );
+		cbxchangelog_doing_it_wrong( __FUNCTION__, sprintf( __( '%s does not exist.', 'cbxchangelog' ), '<code>' . $located . '</code>' ), '1.0.0' );
 
 		return;
 	}

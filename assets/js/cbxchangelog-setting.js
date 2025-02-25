@@ -112,6 +112,8 @@
 
         //add chooser
         $('.selecttwo-select-wrapper').each(function (index, element) {
+            var $element = $(element);
+
             $('.selecttwo-select').select2({
                 placeholder: cbxchangelog_setting.please_select,
                 allowClear: false,
@@ -124,6 +126,7 @@
         var $setting_page = $('#cbxchangelog-setting');
         var $setting_nav = $setting_page.find('.setting-tabs-nav');
         var activetab = '';
+
         if (typeof (localStorage) !== 'undefined') {
             activetab = localStorage.getItem('cbxchangelogactivetab');
         }
@@ -235,6 +238,7 @@
         $('.setting_heading').each(function (index, element) {
             var $element = $(element);
             var $element_parent = $element.parent('td');
+
             $element_parent.attr('colspan', 2);
             $element_parent.prev('th').remove();
             $element_parent.parent('tr').removeAttr('class');
@@ -245,6 +249,7 @@
         $('.setting_subheading').each(function (index, element) {
             var $element = $(element);
             var $element_parent = $element.parent('td');
+
             $element_parent.attr('colspan', 2);
             $element_parent.prev('th').remove();
             $element_parent.parent('tr').removeAttr('class');
@@ -303,18 +308,17 @@
             });
         });
 
-        //var adjustment_photo;
-        /*$('.multicheck_fields_sortable').sortable({
+
+        $('.checkbox_fields_sortable').sortable({
             vertical: true,
-            handle: '.multicheck_field_handle',
-            containerSelector: '.multicheck_fields',
-            itemSelector: '.multicheck_field',
-            placeholder: 'multicheck_field_placeholder'
-        });*/
+            handle: '.checkbox_field_handle',
+            containerSelector: '.checkbox_fields',
+            itemSelector: '.checkbox_field',
+            placeholder: 'checkbox_field_placeholder'
+        });
 
-
-        $(".checkbox_fields_check_actions").on(
-            "click",
+        $('.checkbox_fields_check_actions').on(
+            'click',
             ".checkbox_fields_check_action_call",
             function (e) {
                 e.preventDefault();
@@ -322,24 +326,24 @@
                 var $this = $(this);
                 $this
                     .parent()
-                    .next(".checkbox_fields")
-                    .find(":checkbox")
-                    .prop("checked", true);
+                    .next('.checkbox_fields')
+                    .find(':checkbox')
+                    .prop('checked', true);
             }
         );
 
         $(".checkbox_fields_check_actions").on(
-            "click",
-            ".checkbox_fields_check_action_ucall",
+            'click',
+            '.checkbox_fields_check_action_ucall',
             function (e) {
                 e.preventDefault();
 
                 var $this = $(this);
                 $this
                     .parent()
-                    .next(".checkbox_fields")
-                    .find(":checkbox")
-                    .prop("checked", false);
+                    .next('.checkbox_fields')
+                    .find(':checkbox')
+                    .prop('checked', false);
             }
         );
 
@@ -365,7 +369,7 @@
         });
 
         $("#cbxchangelog_resetinfo_wrap").on(
-            "click",
+            'click',
             ".cbxchangelog_setting_options_check_action_call",
             function (e) {
                 e.preventDefault();
@@ -376,7 +380,7 @@
         );
 
         $("#cbxchangelog_resetinfo_wrap").on(
-            "click",
+            'click',
             ".cbxchangelog_setting_options_check_action_ucall",
             function (e) {
                 e.preventDefault();

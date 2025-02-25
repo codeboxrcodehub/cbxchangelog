@@ -14,9 +14,7 @@ class CBXChangelogHelper {
 	public static function supported_post_types() {
 		$allowed_post_types = [ 'cbxchangelog' ];
 
-		$allowed_post_types = apply_filters( 'cbxchangelog_post_types_support', $allowed_post_types );
-
-		return $allowed_post_types;
+		return apply_filters( 'cbxchangelog_post_types_support', $allowed_post_types );
 	}//end supported_post_types
 
 
@@ -176,7 +174,7 @@ class CBXChangelogHelper {
 	/**
 	 * Setup a post object and store the original loop item so we can reset it later
 	 *
-	 * @param  obj  $post_to_setup  The post that we want to use from our custom loop
+	 * @param obj $post_to_setup The post that we want to use from our custom loop
 	 */
 	public static function setup_admin_postdata( $post_to_setup ) {
 		//only on the admin side
@@ -225,7 +223,7 @@ class CBXChangelogHelper {
 	/**
 	 * Add utm params to any url
 	 *
-	 * @param  string  $url
+	 * @param string $url
 	 *
 	 * @return string
 	 */
@@ -390,7 +388,7 @@ class CBXChangelogHelper {
 						0 => esc_html__( 'No', 'cbxchangelog' )
 					]
 				],
-				'group_label'     => [
+				'group_label'    => [
 					'name'    => 'group_label',
 					'label'   => esc_html__( 'Group label', 'cbxchangelog' ),
 					'desc'    => esc_html__( 'Show same type labels one after another or as group', 'cbxchangelog' ),
@@ -621,8 +619,8 @@ class CBXChangelogHelper {
 	/**
 	 * Get changelog by post id in ready format
 	 *
-	 * @param  integer  $post_id
-	 * @param  integer  $release_id
+	 * @param integer $post_id
+	 * @param integer $release_id
 	 *
 	 * @return array|mixed
 	 * @since 1.1.6
@@ -639,7 +637,7 @@ class CBXChangelogHelper {
 	/**
 	 * Get changelog data by post id
 	 *
-	 * @param  integer  $post_id
+	 * @param integer $post_id
 	 *
 	 *
 	 * @return CBXChangelogMetaAsArray
@@ -694,6 +692,100 @@ class CBXChangelogHelper {
 
 		return $changelog;
 	}//end method parse_wordpress_readme_changelog
+
+	/**
+	 * Parse keepachangelog.com changelog https://keepachangelog.com/en/1.1.0/
+	 *
+	 * @param $text
+	 *
+	 * @return array
+	 * @since 2.0.2
+	 */
+	public static function parse_keepachangelog_changelog( $text ) {
+		/*$lines          = explode( "\n", $text );
+		$changelog      = [];
+		$currentVersion = '';
+		$currentSection = '';
+
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
+
+			if ( preg_match( '/^## \[(.*?)\] - (\d{4}-\d{2}-\d{2})$/', $line, $matches ) ) {
+				$currentVersion               = $matches[1];
+				$changelog[ $currentVersion ] = [
+					'date'     => $matches[2],
+					'sections' => []
+				];
+			} elseif ( preg_match( '/^## \[(.*?)\]$/', $line, $matches ) ) {
+				$currentVersion               = $matches[1];
+				$changelog[ $currentVersion ] = [
+					//'date'     => 'Unreleased',
+					'date'     => current_time( 'Y-m-d' ),
+					'sections' => []
+				];
+			} elseif ( preg_match( '/^### (.+)$/', $line, $matches ) ) {
+				$currentSection                                              = $matches[1];
+				$changelog[ $currentVersion ]['sections'][ $currentSection ] = [];
+			} elseif ( preg_match( '/^- (.+)$/', $line, $matches ) ) {
+				if ( $currentVersion && $currentSection ) {
+					$changelog[ $currentVersion ]['sections'][ $currentSection ][] = $matches[1];
+				}
+			}
+		}
+
+		return $changelog;*/
+
+		$lines = explode("\n", $text);
+		$changelog = [];
+		$currentVersion = null;
+		$currentSection = null;
+
+		foreach ($lines as $line) {
+			$line = trim($line);
+
+			// Match version with date (e.g., "## [1.1.1] - 2023-03-05")
+			if (preg_match('/^## \[(.*?)\] - (\d{4}-\d{2}-\d{2})$/', $line, $matches)) {
+				$currentVersion = $matches[1];
+				$changelog[$currentVersion] = [
+					'date' => $matches[2],
+					'sections' => []
+				];
+				$currentSection = null; // Reset section when a new version is encountered
+
+				// Match version without date (e.g., "## [Unreleased]")
+			} elseif (preg_match('/^## \[(.*?)\]$/', $line, $matches)) {
+				$currentVersion = $matches[1];
+				$changelog[$currentVersion] = [
+					'date' => 'Unreleased',
+					'sections' => []
+				];
+				$currentSection = null; // Reset section when a new version is encountered
+
+				// Match section headers (e.g., "### Added")
+			} elseif (preg_match('/^### (.+)$/', $line, $matches)) {
+				$currentSection = $matches[1];
+				if ($currentVersion !== null) {
+					$changelog[$currentVersion]['sections'][$currentSection] = [];
+				}
+
+				// Match list items (e.g., "- Some change")
+			} elseif (preg_match('/^- (.+)$/', $line, $matches)) {
+				if ($currentVersion !== null && $currentSection !== null) {
+					$changelog[$currentVersion]['sections'][$currentSection][] = $matches[1];
+				}
+
+				// Handle multiline list items (continuation lines without a "-")
+			} elseif (!empty($line) && $currentVersion !== null && $currentSection !== null && !preg_match('/^-/', $line)) {
+				$lastItemIndex = count($changelog[$currentVersion]['sections'][$currentSection]) - 1;
+				if ($lastItemIndex >= 0) {
+					// Append to the last list item
+					$changelog[$currentVersion]['sections'][$currentSection][$lastItemIndex] .= " " . $line;
+				}
+			}
+		}
+
+		return $changelog;
+	}//end method parse_keepachangelog_changelog
 
 	public static function block_editor_true_meta_empty( $value ) {
 		$arr = [

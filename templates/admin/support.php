@@ -3,8 +3,7 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-?>
-<?php
+
 $plugin_url = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/product/cbx-changelog-for-wordpress/' );
 $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangelog-doc/' );
 ?>
@@ -102,6 +101,15 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.3</p>
+                            <ul>
+                                <li>[updated] WordPress core 6.7.2 compatibility checked</li>
+                                <li>[updated] Pro Addon V1.1.9 released</li>
+                                <li>[updated] Misc improvements</li>
+                                <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.1</p>
                             <ul>
                                 <li> [fixed] Fixed function missing error for method 'getPaginatedRows'</li>
@@ -119,27 +127,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li> [new] Added new feature to delete all releases with one single click from the dashboard edit screen</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.10</p>
-                            <ul>
-                                <li>[fixed] Changelog added at top from edit screen save error fixed! [Sorry for the inconvenience]</li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.9</p>
-                            <ul>
-                                <li>[new] Added new shortcode param ‘count’ , 0 means all, any value more than 0 show as specific number of changelogs</li>
-                                <li>[new] Dashboard changelog edit screenshot has two buttons for adding change log 1. Add changelog at bottom, 2. Add changelog at top</li>
-                                <li>[update] All type widgets updated for ‘count’</li>
-                                <li>[update] All widget types updated</li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 1.1.8</p>
-                            <ul>
-                                <li>[fixed] Fixed the changelog edit screen error "Connection lost. Saving has been disabled until you are reconnected. This post is being backed up in your browser, just in case."</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -151,10 +138,12 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     <div class="content">
                         <div class="cbx-backend-settings-row">
                             <div class="cbx-backend-settings-row">
-                                <p>Version - 1.1.7</p>
+                                <p>Version - 1.1.9</p>
                                 <ul>
-                                    <li>[new] WordPress readme file's changelog import feature</li>
-                                    <li>[updated] CBX Changelog core plugin V2.0.1 compatible</li>
+                                    <li>[updated] WordPress 6.7.2 compatibility checked</li>
+                                    <li>[updated] Core plugin updated to V2.0.3</li>
+                                    <li>[updated] Misc improvements</li>
+                                    <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
                                 </ul>
                             </div>
                             <div class="cbx-backend-settings-row">
@@ -170,15 +159,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <p>Version - 1.1.5</p>
                                 <ul>
                                     <li>[fixed] hugo style fixed<li>
-                                </ul>
-                            </div>
-                            <div class="cbx-backend-settings-row">
-                                <p>
-                                    Version - 1.1.4
-                                </p>
-                                <ul>
-                                    <li>[fixed] Setting improvement & Export/Import fixes<li>
-                                    <li>[improvements] Single section reset now ask confirmation before doing the operation<li>
                                 </ul>
                             </div>
                         </div>

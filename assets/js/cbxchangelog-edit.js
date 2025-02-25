@@ -367,16 +367,18 @@
             containerSelector: 'div#cbxchangelog_wrapper'
         });
 
+        if(cbxchangelog_edit.current_post_type == 'cbxchangelog'){
+            $('.wrap').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-addedit-wrapper');
+            $('#search-submit').addClass('button primary');
+            $('#post-query-submit').addClass('button primary');
+            $('.button.action').addClass('button primary');
+            $('.page-title-action').addClass('button primary');
+            $('#save-post').addClass('button primary');
+            $('#publish').addClass('button primary');
+            $('#screen-meta').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-logs-wrapper');
+            $('#screen-options-apply').addClass('primary');
+        }
 
-        $('.wrap').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-addedit-wrapper');
-        $('#search-submit').addClass('button primary');
-        $('#post-query-submit').addClass('button primary');
-        $('.button.action').addClass('button primary');
-        $('.page-title-action').addClass('button primary');
-        $('#save-post').addClass('button primary');
-        $('#publish').addClass('button primary');
-        $('#screen-meta').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-logs-wrapper');
-        $('#screen-options-apply').addClass('primary');
     });
 
 })(jQuery);

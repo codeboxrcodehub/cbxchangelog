@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-15 13:38+0000\n"
+"POT-Creation-Date: 2025-02-25 04:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/"
 
 #. 1. Time difference
-#: includes/CBXChangelogHelper.php:256
+#: includes/CBXChangelogHelper.php:254
 #, php-format
 msgctxt "%s = human-readable time difference"
 msgid "%s ago"
@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 
 #. translators:translators: %s: plugin setting url for licence
-#: includes/CBXChangelogAdmin.php:989
+#: includes/CBXChangelogAdmin.php:991
 #, php-format
 msgid ""
 "<strong>Note:</strong> CBX Changelog Pro Addon is custom plugin. This plugin "
@@ -67,42 +67,42 @@ msgstr ""
 msgid "Add New Release(Top)"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:31
+#: includes/CBXChangelogHelper.php:29
 msgid "Added"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1558
+#: includes/CBXChangelogAdmin.php:1560
 msgid "All releases for this current post are deleted successfully"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:414
+#: includes/CBXChangelogHelper.php:412
 msgid "Append change logs"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:415
+#: includes/CBXChangelogHelper.php:413
 msgid ""
 "Append change logs for changelog post type. If you disable this then you "
 "have to use the shortcode method to display change log information inside "
 "changelog post type's content"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:639
+#: includes/CBXChangelogAdmin.php:642
 msgid "Are you sure to delete this item?"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:770
+#: includes/CBXChangelogAdmin.php:774
 msgid "Are you sure to remove all steps?"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:769
+#: includes/CBXChangelogAdmin.php:773
 msgid "Are you sure to remove this step?"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:708
+#: includes/CBXChangelogAdmin.php:711
 msgid "Are you sure to resync?"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:638 includes/CBXChangelogAdmin.php:773
+#: includes/CBXChangelogAdmin.php:641 includes/CBXChangelogAdmin.php:777
 msgid "Are you sure?"
 msgstr ""
 
@@ -116,15 +116,15 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1186
+#: includes/CBXChangelogAdmin.php:1188
 msgid "Ascending Order"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:677 includes/CBXChangelogAdmin.php:798
+#: includes/CBXChangelogAdmin.php:680 includes/CBXChangelogAdmin.php:802
 msgid "Attention"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1261
+#: includes/CBXChangelogAdmin.php:1263
 msgid "Block Settings"
 msgstr ""
 
@@ -133,30 +133,30 @@ msgstr ""
 msgid "Brief release note(Supports markdown syntax, if enabled in settings)"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:84
+#: includes/CBXChangelogHelper.php:82
 msgid "Built in post types"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:661 includes/CBXChangelogAdmin.php:682
-#: includes/CBXChangelogAdmin.php:782 includes/CBXChangelogAdmin.php:803
+#: includes/CBXChangelogAdmin.php:664 includes/CBXChangelogAdmin.php:685
+#: includes/CBXChangelogAdmin.php:786 includes/CBXChangelogAdmin.php:807
 msgid "Cancel"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:666 includes/CBXChangelogAdmin.php:787
+#: includes/CBXChangelogAdmin.php:669 includes/CBXChangelogAdmin.php:791
 msgid "cancel and close"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1127
+#: includes/CBXChangelogAdmin.php:1129
 msgid "CBX Blocks"
 msgstr ""
 
 #. Name of the plugin
-#: includes/CBXChangelogAdmin.php:1257
+#: includes/CBXChangelogAdmin.php:1259
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:27
 msgid "CBX Changelog"
 msgstr ""
 
-#: templates/admin/support.php:203
+#: templates/admin/support.php:179
 msgid "CBX Changelog Plugin Details"
 msgstr ""
 
@@ -165,11 +165,11 @@ msgid "CBX Changelog plugin requires PHP 7.4 or higher!"
 msgstr ""
 
 #: cbxchangelog.php:77
-msgid "CBX Changelog plugin requires WordPress 3.5 or higher!"
+msgid "CBX Changelog plugin requires WordPress 5.3 or higher!"
 msgstr ""
 
 #. 1. External product url
-#: includes/CBXChangelogAdmin.php:1094
+#: includes/CBXChangelogAdmin.php:1096
 #, php-format
 msgid ""
 "CBX Changelog Pro has extended features and more controls, <a style=\"color: "
@@ -186,7 +186,7 @@ msgstr ""
 msgid "CBX Changelog Widget"
 msgstr ""
 
-#: templates/admin/support.php:21
+#: templates/admin/support.php:20
 msgid "CBX Changelog: Support & Docs"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "CBXChangelog Widget Setting"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1264
+#: includes/CBXChangelogAdmin.php:1266
 msgid "Change Log ID"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "Changelog"
 msgstr ""
 
-#: templates/admin/support.php:100
+#: templates/admin/support.php:99
 msgid "Changelog Core Plugin"
 msgstr ""
 
@@ -232,15 +232,15 @@ msgstr ""
 msgid "Changelog id missing or changelog doesn't exists"
 msgstr ""
 
-#: templates/admin/support.php:148
+#: templates/admin/support.php:133
 msgid "Changelog Pro Addon"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1420
+#: includes/CBXChangelogAdmin.php:1422
 msgid "Changelog reset setting html loaded successfully"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1444
+#: includes/CBXChangelogAdmin.php:1446
 msgid "Changelog setting reset scheduled successfully"
 msgstr ""
 
@@ -253,7 +253,7 @@ msgid "Changelogs"
 msgstr ""
 
 #. 1. Documentation url 2. Log listing dashboard url
-#: includes/CBXChangelogAdmin.php:1058
+#: includes/CBXChangelogAdmin.php:1060
 #, php-format
 msgid ""
 "Check <a style=\"color: #6648fe !important; font-weight: bold;\" "
@@ -263,7 +263,7 @@ msgid ""
 msgstr ""
 
 #. 1. Plugin setting url 2. Documentation link
-#: includes/CBXChangelogAdmin.php:1028
+#: includes/CBXChangelogAdmin.php:1030
 #, php-format
 msgid ""
 "Check <a style=\"color:#005ae0 !important; font-weight: bold;\" "
@@ -271,7 +271,7 @@ msgid ""
 "weight: bold;\" href=\"%2$s\" target=\"_blank\">Documentation</a>"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:489 includes/CBXChangelogSettings.php:476
+#: includes/CBXChangelogHelper.php:487 includes/CBXChangelogSettings.php:476
 msgid "Check All"
 msgstr ""
 
@@ -283,8 +283,8 @@ msgstr ""
 msgid "Choose File"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1191 includes/CBXChangelogAdmin.php:1212
-#: includes/CBXChangelogHelper.php:65
+#: includes/CBXChangelogAdmin.php:1193 includes/CBXChangelogAdmin.php:1214
+#: includes/CBXChangelogHelper.php:63
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:111
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:125
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:139
@@ -308,7 +308,7 @@ msgstr ""
 msgid "Choose from post meta"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1271 includes/CBXChangelogHelper.php:406
+#: includes/CBXChangelogAdmin.php:1273 includes/CBXChangelogHelper.php:404
 #: templates/admin/metabox_changelogs.php:155
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:182
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:116
@@ -316,16 +316,20 @@ msgstr ""
 msgid "Choose layout"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:51
+#: includes/CBXChangelogHelper.php:49
 msgid "Classic Plain"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:662 includes/CBXChangelogAdmin.php:783
+#: includes/CBXChangelogAdmin.php:665 includes/CBXChangelogAdmin.php:787
 msgid "Clear"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:667 includes/CBXChangelogAdmin.php:788
+#: includes/CBXChangelogAdmin.php:670 includes/CBXChangelogAdmin.php:792
 msgid "clear and close"
+msgstr ""
+
+#: includes/CBXChangelogSettings.php:920
+msgid "Clear Permalinks"
 msgstr ""
 
 #: templates/admin/metabox_changelogs.php:63
@@ -338,8 +342,8 @@ msgstr ""
 msgid "Click to clipboard"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:481 includes/CBXChangelogAdmin.php:595
-#: includes/CBXChangelogAdmin.php:647 includes/CBXChangelogAdmin.php:766
+#: includes/CBXChangelogAdmin.php:481 includes/CBXChangelogAdmin.php:597
+#: includes/CBXChangelogAdmin.php:650 includes/CBXChangelogAdmin.php:770
 #: templates/admin/metabox_shortcode.php:25
 msgid "Click to copy"
 msgstr ""
@@ -361,7 +365,7 @@ msgstr ""
 msgid "Click to show/hide"
 msgstr ""
 
-#: includes/CBXChangelogSettings.php:61
+#: includes/CBXChangelog.php:108 includes/CBXChangelogSettings.php:61
 msgid "Cloning is forbidden."
 msgstr ""
 
@@ -369,7 +373,7 @@ msgstr ""
 msgid "Codeboxr"
 msgstr ""
 
-#: templates/admin/support.php:285
+#: templates/admin/support.php:261
 msgid "Codeboxr News Updates"
 msgstr ""
 
@@ -377,46 +381,46 @@ msgstr ""
 msgid "Codeboxr Widgets"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:668 includes/CBXChangelogAdmin.php:789
+#: includes/CBXChangelogAdmin.php:671 includes/CBXChangelogAdmin.php:793
 msgid "color input field"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:656 includes/CBXChangelogAdmin.php:777
+#: includes/CBXChangelogAdmin.php:659 includes/CBXChangelogAdmin.php:781
 msgid "color picker dialog"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:669 includes/CBXChangelogAdmin.php:790
+#: includes/CBXChangelogAdmin.php:672 includes/CBXChangelogAdmin.php:794
 msgid "color selection area"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:658 includes/CBXChangelogAdmin.php:779
+#: includes/CBXChangelogAdmin.php:661 includes/CBXChangelogAdmin.php:783
 msgid "color swatch"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:37
+#: includes/CBXChangelogHelper.php:35
 msgid "Compatibility"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:680 includes/CBXChangelogAdmin.php:801
+#: includes/CBXChangelogAdmin.php:683 includes/CBXChangelogAdmin.php:805
 msgid "Confirmation"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:594 includes/CBXChangelogAdmin.php:646
-#: includes/CBXChangelogAdmin.php:765
+#: includes/CBXChangelogAdmin.php:596 includes/CBXChangelogAdmin.php:649
+#: includes/CBXChangelogAdmin.php:769
 msgid "Copied"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:596 includes/CBXChangelogAdmin.php:648
-#: includes/CBXChangelogAdmin.php:767
+#: includes/CBXChangelogAdmin.php:598 includes/CBXChangelogAdmin.php:651
+#: includes/CBXChangelogAdmin.php:771
 msgid "Copied to clipboard"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:593 includes/CBXChangelogAdmin.php:645
-#: includes/CBXChangelogAdmin.php:764
+#: includes/CBXChangelogAdmin.php:595 includes/CBXChangelogAdmin.php:648
+#: includes/CBXChangelogAdmin.php:768
 msgid "Copy"
 msgstr ""
 
-#: templates/admin/support.php:231
+#: templates/admin/support.php:207
 msgid "Core Plugin Support"
 msgstr ""
 
@@ -432,7 +436,7 @@ msgstr ""
 msgid "Count(0 = all, -1 = Choose from post meta)"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1277
+#: includes/CBXChangelogAdmin.php:1279
 msgid "Count(0 = all, -1 = from post meta)"
 msgstr ""
 
@@ -440,7 +444,7 @@ msgstr ""
 msgid "Count(0 = all, -1 = use from post meta)"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1207
+#: includes/CBXChangelogAdmin.php:1209
 #: templates/admin/metabox_changelogs.php:171
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:198
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:129
@@ -448,7 +452,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1197
+#: includes/CBXChangelogAdmin.php:1199
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:196
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:127
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:94
@@ -475,7 +479,7 @@ msgstr ""
 msgid "Delete Feature"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:435
+#: includes/CBXChangelogHelper.php:433
 msgid ""
 "Delete Global Config data and custom table created by this plugin on "
 "uninstall."
@@ -486,7 +490,7 @@ msgstr ""
 msgid "Delete Release"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:36
+#: includes/CBXChangelogHelper.php:34
 msgid "Deprecated"
 msgstr ""
 
@@ -500,7 +504,7 @@ msgstr ""
 msgid "Descending"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1181
+#: includes/CBXChangelogAdmin.php:1183
 msgid "Descending Order"
 msgstr ""
 
@@ -512,11 +516,11 @@ msgstr ""
 msgid "Displays CBX Changelog widget"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:864
+#: includes/CBXChangelogAdmin.php:866
 msgid "Documentation"
 msgstr ""
 
-#: templates/admin/support.php:213
+#: templates/admin/support.php:189
 msgid "Documentation & User Guide"
 msgstr ""
 
@@ -538,7 +542,7 @@ msgstr ""
 msgid "Edit Changelog"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:678 includes/CBXChangelogAdmin.php:799
+#: includes/CBXChangelogAdmin.php:681 includes/CBXChangelogAdmin.php:803
 msgid "Error"
 msgstr ""
 
@@ -547,17 +551,17 @@ msgstr ""
 msgid "External url"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:32
+#: includes/CBXChangelogHelper.php:30
 msgid "Fixed"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:487
+#: includes/CBXChangelogHelper.php:485
 msgid ""
 "Following option values created by this plugin(including addon) from "
 "WordPress core option table"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:862
+#: includes/CBXChangelogAdmin.php:864
 msgid "Free Support"
 msgstr ""
 
@@ -565,7 +569,7 @@ msgstr ""
 msgid "From bottom: LAst row will get id 1, 2nd from last will get id 2 ..."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1237
+#: includes/CBXChangelogAdmin.php:1239
 msgid "From post meta"
 msgstr ""
 
@@ -573,35 +577,35 @@ msgstr ""
 msgid "From top: First row will get id 1, 2nd row will get id 2 ..."
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:304
+#: includes/CBXChangelogHelper.php:302
 msgid "General"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:334
+#: includes/CBXChangelogHelper.php:332
 msgid "General Settings"
 msgstr ""
 
-#: templates/admin/support.php:39
+#: templates/admin/support.php:38
 msgid "Get Free & Pro Addons"
 msgstr ""
 
-#: templates/admin/support.php:27
+#: templates/admin/support.php:26
 msgid "Global Settings"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1269
+#: includes/CBXChangelogAdmin.php:1271
 #: templates/admin/metabox_changelogs.php:147
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:79
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:66
 msgid "Group Label"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:395
+#: includes/CBXChangelogHelper.php:393
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:136
 msgid "Group label"
 msgstr ""
 
-#: templates/admin/support.php:192
+#: templates/admin/support.php:168
 msgid "Help & Supports"
 msgstr ""
 
@@ -617,37 +621,37 @@ msgstr ""
 msgid "http://codeboxr.com/product/cbx-changelog-for-wordpress/"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:670 includes/CBXChangelogAdmin.php:791
+#: includes/CBXChangelogAdmin.php:673 includes/CBXChangelogAdmin.php:795
 msgid "hue selection slider"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:341
+#: includes/CBXChangelogHelper.php:339
 msgid ""
 "If selected, then markdown will be parsed while displaying release note or "
 "any single feature"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:34
+#: includes/CBXChangelogHelper.php:32
 msgid "Improved"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:675 includes/CBXChangelogAdmin.php:796
+#: includes/CBXChangelogAdmin.php:678 includes/CBXChangelogAdmin.php:800
 msgid "Info"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1263
+#: includes/CBXChangelogAdmin.php:1265
 msgid "Leave empty to hide"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:679 includes/CBXChangelogAdmin.php:800
+#: includes/CBXChangelogAdmin.php:682 includes/CBXChangelogAdmin.php:804
 msgid "Loading"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:327
+#: includes/CBXChangelogHelper.php:325
 msgid "Loading ..."
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:340
+#: includes/CBXChangelogHelper.php:338
 msgid "Markdown Support"
 msgstr ""
 
@@ -660,11 +664,11 @@ msgstr ""
 msgid "New Features/Changes"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:712 includes/CBXChangelogAdmin.php:772
-#: includes/CBXChangelogHelper.php:346 includes/CBXChangelogHelper.php:357
-#: includes/CBXChangelogHelper.php:368 includes/CBXChangelogHelper.php:379
-#: includes/CBXChangelogHelper.php:390 includes/CBXChangelogHelper.php:401
-#: includes/CBXChangelogHelper.php:420 includes/CBXChangelogHelper.php:439
+#: includes/CBXChangelogAdmin.php:715 includes/CBXChangelogAdmin.php:776
+#: includes/CBXChangelogHelper.php:344 includes/CBXChangelogHelper.php:355
+#: includes/CBXChangelogHelper.php:366 includes/CBXChangelogHelper.php:377
+#: includes/CBXChangelogHelper.php:388 includes/CBXChangelogHelper.php:399
+#: includes/CBXChangelogHelper.php:418 includes/CBXChangelogHelper.php:437
 #: templates/admin/metabox_changelogs.php:123
 #: templates/admin/metabox_changelogs.php:130
 #: templates/admin/metabox_changelogs.php:136
@@ -688,7 +692,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1232
+#: includes/CBXChangelogAdmin.php:1234
 msgid "no"
 msgstr ""
 
@@ -711,7 +715,7 @@ msgid ""
 "doesn't change."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:710
+#: includes/CBXChangelogAdmin.php:713
 msgid ""
 "Note: This process can not be undone. Resync(bottom to top) will resync "
 "release no/ID with changelog index as seen in admin edit screen. Last item "
@@ -719,44 +723,44 @@ msgid ""
 "reload."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:709
+#: includes/CBXChangelogAdmin.php:712
 msgid ""
 "Note: This process can not be undone. Resync(top to bottom) will resync "
 "release no/ID with changelog index as seen in admin edit screen. First item "
 "id will be 1, 2nd will be 2 and so on. When done, this screen will reload."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:640
+#: includes/CBXChangelogAdmin.php:643
 msgid ""
 "Note: This process can not be undone. This process is going to delete all "
 "releases for this post/article. When done this window will reload."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:642
+#: includes/CBXChangelogAdmin.php:645
 msgid "Oh! No"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:681 includes/CBXChangelogAdmin.php:802
+#: includes/CBXChangelogAdmin.php:684 includes/CBXChangelogAdmin.php:806
 msgid "OK"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:434
+#: includes/CBXChangelogHelper.php:432
 msgid "On Uninstall delete plugin data"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:774
+#: includes/CBXChangelogAdmin.php:778
 msgid "Once you delete, it's gone forever. You can not revert it back."
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:495 includes/CBXChangelogHelper.php:516
+#: includes/CBXChangelogHelper.php:493 includes/CBXChangelogHelper.php:514
 msgid "Option ID"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:494 includes/CBXChangelogHelper.php:515
+#: includes/CBXChangelogHelper.php:492 includes/CBXChangelogHelper.php:513
 msgid "Option Name"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1273
+#: includes/CBXChangelogAdmin.php:1275
 #: templates/admin/metabox_changelogs.php:175
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:207
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:136
@@ -764,7 +768,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1275
+#: includes/CBXChangelogAdmin.php:1277
 #: templates/admin/metabox_changelogs.php:167
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:192
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:124
@@ -772,7 +776,7 @@ msgstr ""
 msgid "Order By"
 msgstr ""
 
-#: templates/admin/support.php:248
+#: templates/admin/support.php:224
 msgid "Other WordPress Plugins"
 msgstr ""
 
@@ -780,80 +784,80 @@ msgstr ""
 msgid "Parent Item:"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:700
+#: includes/CBXChangelogAdmin.php:703
 msgid "Please check the captcha."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:690
+#: includes/CBXChangelogAdmin.php:693
 msgid "Please enter a valid date ( ISO )."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:689
+#: includes/CBXChangelogAdmin.php:692
 msgid "Please enter a valid date."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:687
+#: includes/CBXChangelogAdmin.php:690
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:691
+#: includes/CBXChangelogAdmin.php:694
 msgid "Please enter a valid number."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:688
+#: includes/CBXChangelogAdmin.php:691
 msgid "Please enter a valid URL."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:696
+#: includes/CBXChangelogAdmin.php:699
 msgid "Please enter a value between {0} and {1} characters long."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:697
+#: includes/CBXChangelogAdmin.php:700
 msgid "Please enter a value between {0} and {1}."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:699
+#: includes/CBXChangelogAdmin.php:702
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:698
+#: includes/CBXChangelogAdmin.php:701
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:695
+#: includes/CBXChangelogAdmin.php:698
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:694
+#: includes/CBXChangelogAdmin.php:697
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:692
+#: includes/CBXChangelogAdmin.php:695
 msgid "Please enter only digits."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:693
+#: includes/CBXChangelogAdmin.php:696
 msgid "Please enter the same value again."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:686
+#: includes/CBXChangelogAdmin.php:689
 msgid "Please fix this field."
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:435
+#: includes/CBXChangelogHelper.php:433
 msgid ""
 "Please note that this process can not be undone and it is recommended to "
 "keep full database backup before doing this."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:599 includes/CBXChangelogAdmin.php:651
-#: includes/CBXChangelogAdmin.php:760 includes/CBXChangelogSettings.php:576
+#: includes/CBXChangelogAdmin.php:601 includes/CBXChangelogAdmin.php:654
+#: includes/CBXChangelogAdmin.php:764 includes/CBXChangelogSettings.php:576
 #: includes/CBXChangelogSettings.php:637
 msgid "Please Select"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1504 includes/CBXChangelogAdmin.php:1533
-#: includes/CBXChangelogAdmin.php:1570
+#: includes/CBXChangelogAdmin.php:1506 includes/CBXChangelogAdmin.php:1535
+#: includes/CBXChangelogAdmin.php:1572
 msgid "Post id or release id wrong."
 msgstr ""
 
@@ -867,11 +871,11 @@ msgctxt "Post Type Singular Name"
 msgid "Changelog"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:50
+#: includes/CBXChangelogHelper.php:48
 msgid "Prepros(Default)"
 msgstr ""
 
-#: templates/admin/support.php:241
+#: templates/admin/support.php:217
 msgid "Pro Addon Support"
 msgstr ""
 
@@ -883,7 +887,7 @@ msgstr ""
 msgid "Re-sync release no/ID with index(top to bottom)"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:384
+#: includes/CBXChangelogHelper.php:382
 msgid "Relative date"
 msgstr ""
 
@@ -896,11 +900,11 @@ msgstr ""
 msgid "Release Date"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1491
+#: includes/CBXChangelogAdmin.php:1493
 msgid "Release deleted successfully"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1265
+#: includes/CBXChangelogAdmin.php:1267
 msgid "Release ID"
 msgstr ""
 
@@ -910,7 +914,7 @@ msgstr ""
 msgid "Release ID/No"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1292
+#: includes/CBXChangelogAdmin.php:1294
 msgid "Release logs"
 msgstr ""
 
@@ -919,7 +923,7 @@ msgstr ""
 msgid "Release No"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1202
+#: includes/CBXChangelogAdmin.php:1204
 #: templates/admin/metabox_changelogs.php:170
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:96
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:197
@@ -938,47 +942,47 @@ msgstr ""
 msgid "Release Url"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1520
+#: includes/CBXChangelogAdmin.php:1522
 msgid "Releases(release no/id) resync with index successfully"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:35
+#: includes/CBXChangelogHelper.php:33
 msgid "Removed"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:757
+#: includes/CBXChangelogAdmin.php:761
 msgid "Request failed, please reload the page."
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:445
+#: includes/CBXChangelogHelper.php:443
 msgid "Reset all data"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:446
+#: includes/CBXChangelogHelper.php:444
 msgid "Reset Data"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:446
+#: includes/CBXChangelogHelper.php:444
 msgid "Reset option values and all tables created by this plugin"
 msgstr ""
 
-#: templates/admin/support.php:221
+#: templates/admin/support.php:197
 msgid "Review & Rate CBX Changelog Plugin"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:863
+#: includes/CBXChangelogAdmin.php:865
 msgid "Reviews"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:660 includes/CBXChangelogAdmin.php:781
+#: includes/CBXChangelogAdmin.php:663 includes/CBXChangelogAdmin.php:785
 msgid "Save"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:665 includes/CBXChangelogAdmin.php:786
+#: includes/CBXChangelogAdmin.php:668 includes/CBXChangelogAdmin.php:790
 msgid "save and close"
 msgstr ""
 
-#: includes/CBXChangelogSettings.php:1133 templates/admin/settings.php:41
+#: includes/CBXChangelogSettings.php:1161 templates/admin/settings.php:41
 msgid "Save Settings"
 msgstr ""
 
@@ -986,15 +990,15 @@ msgstr ""
 msgid "Search Changelog"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:762
+#: includes/CBXChangelogAdmin.php:766
 msgid "Search here"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:600 includes/CBXChangelogAdmin.php:652
+#: includes/CBXChangelogAdmin.php:602 includes/CBXChangelogAdmin.php:655
 msgid "Search..."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:671 includes/CBXChangelogAdmin.php:792
+#: includes/CBXChangelogAdmin.php:674 includes/CBXChangelogAdmin.php:796
 msgid "selection slider"
 msgstr ""
 
@@ -1009,7 +1013,7 @@ msgstr ""
 msgid "Setting"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:837
+#: includes/CBXChangelogAdmin.php:839
 msgid "Settings"
 msgstr ""
 
@@ -1017,7 +1021,7 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1267
+#: includes/CBXChangelogAdmin.php:1269
 #: templates/admin/metabox_changelogs.php:127
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:38
 msgid "Show Date"
@@ -1028,7 +1032,7 @@ msgstr ""
 msgid "Show date"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1266
+#: includes/CBXChangelogAdmin.php:1268
 #: templates/admin/metabox_changelogs.php:120
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:55
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:29
@@ -1039,7 +1043,7 @@ msgstr ""
 msgid "Show label"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1270
+#: includes/CBXChangelogAdmin.php:1272
 msgid "Show Relative Date"
 msgstr ""
 
@@ -1050,37 +1054,37 @@ msgstr ""
 msgid "Show Relative date"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:362
+#: includes/CBXChangelogHelper.php:360
 msgid "Show Release Date"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:363
+#: includes/CBXChangelogHelper.php:361
 msgid "Show release date in frontend"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:352
+#: includes/CBXChangelogHelper.php:350
 msgid ""
 "Show release item labels (example: added, fixed, deleted etc) while "
 "displaying in frontend"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:351
+#: includes/CBXChangelogHelper.php:349
 msgid "Show Release Labels"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:373
+#: includes/CBXChangelogHelper.php:371
 msgid "Show Release url"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:374
+#: includes/CBXChangelogHelper.php:372
 msgid "Show release url in frontend"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:396
+#: includes/CBXChangelogHelper.php:394
 msgid "Show same type labels one after another or as group"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1268
+#: includes/CBXChangelogAdmin.php:1270
 #: templates/admin/metabox_changelogs.php:139
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:122
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:67
@@ -1093,13 +1097,13 @@ msgstr ""
 msgid "Show/hide"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:385
+#: includes/CBXChangelogHelper.php:383
 msgid "Show/Hide Relative date "
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1424 includes/CBXChangelogAdmin.php:1449
-#: includes/CBXChangelogAdmin.php:1495 includes/CBXChangelogAdmin.php:1524
-#: includes/CBXChangelogAdmin.php:1562
+#: includes/CBXChangelogAdmin.php:1426 includes/CBXChangelogAdmin.php:1451
+#: includes/CBXChangelogAdmin.php:1497 includes/CBXChangelogAdmin.php:1526
+#: includes/CBXChangelogAdmin.php:1564
 msgid "Sorry, you don't have enough permission"
 msgstr ""
 
@@ -1114,7 +1118,7 @@ msgstr ""
 msgid "Sort Releases"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:676 includes/CBXChangelogAdmin.php:797
+#: includes/CBXChangelogAdmin.php:679 includes/CBXChangelogAdmin.php:801
 msgid "Success"
 msgstr ""
 
@@ -1122,12 +1126,12 @@ msgstr ""
 msgid "Support & Docs"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:641
+#: includes/CBXChangelogAdmin.php:644
 msgid "Sure"
 msgstr ""
 
 #. 1. Plugin version
-#: includes/CBXChangelogAdmin.php:1023
+#: includes/CBXChangelogAdmin.php:1025
 #, php-format
 msgid ""
 "Thanks for installing/deactivating <strong>CBX Changelog</strong> V%s - "
@@ -1135,61 +1139,61 @@ msgid ""
 msgstr ""
 
 #. 1. Plugin version
-#: includes/CBXChangelogAdmin.php:1053
+#: includes/CBXChangelogAdmin.php:1055
 #, php-format
 msgid ""
 "Thanks for upgrading <strong>CBX Changelog</strong> V%s , enjoy the new "
 "features and bug fixes - Codeboxr Team"
 msgstr ""
 
-#: templates/admin/support.php:72
+#: templates/admin/support.php:71
 msgid "Third Party plugin Integration"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:685
+#: includes/CBXChangelogAdmin.php:688
 msgid "This field is required."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:643
+#: includes/CBXChangelogAdmin.php:646
 msgid ""
 "This only feature can not be deleted. Either edit or delete the total "
 "release."
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:674 includes/CBXChangelogAdmin.php:795
+#: includes/CBXChangelogAdmin.php:677 includes/CBXChangelogAdmin.php:799
 msgid "Tip"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:1262
+#: includes/CBXChangelogAdmin.php:1264
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:11
 msgid "Title"
 msgstr ""
 
-#: includes/CBXChangelogSettings.php:1108
+#: includes/CBXChangelogSettings.php:1136
 msgid "Toggle All Sections"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:657 includes/CBXChangelogAdmin.php:778
+#: includes/CBXChangelogAdmin.php:660 includes/CBXChangelogAdmin.php:782
 msgid "toggle color picker dialog"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:308
+#: includes/CBXChangelogHelper.php:306
 msgid "Tools"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:428
+#: includes/CBXChangelogHelper.php:426
 msgid "Tools Settings"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:870
+#: includes/CBXChangelogAdmin.php:872
 msgid "Try Pro Addon"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:489 includes/CBXChangelogSettings.php:476
+#: includes/CBXChangelogHelper.php:487 includes/CBXChangelogSettings.php:476
 msgid "Uncheck All"
 msgstr ""
 
-#: includes/CBXChangelogSettings.php:70
+#: includes/CBXChangelog.php:117 includes/CBXChangelogSettings.php:70
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
@@ -1197,11 +1201,11 @@ msgstr ""
 msgid "Update Changelog"
 msgstr ""
 
-#: includes/CBXChangelogHelper.php:33
+#: includes/CBXChangelogHelper.php:31
 msgid "Updated"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:659 includes/CBXChangelogAdmin.php:780
+#: includes/CBXChangelogAdmin.php:662 includes/CBXChangelogAdmin.php:784
 msgid "use previous color"
 msgstr ""
 
@@ -1214,11 +1218,11 @@ msgstr ""
 msgid "View Changelog"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:837
+#: includes/CBXChangelogAdmin.php:839
 msgid "View settings"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:761
+#: includes/CBXChangelogAdmin.php:765
 msgid "Window Title"
 msgstr ""
 
@@ -1228,12 +1232,12 @@ msgstr ""
 msgid "Write a new feature for this release"
 msgstr ""
 
-#: includes/CBXChangelogAdmin.php:711 includes/CBXChangelogAdmin.php:771
-#: includes/CBXChangelogAdmin.php:1227 includes/CBXChangelogHelper.php:345
-#: includes/CBXChangelogHelper.php:356 includes/CBXChangelogHelper.php:367
-#: includes/CBXChangelogHelper.php:378 includes/CBXChangelogHelper.php:389
-#: includes/CBXChangelogHelper.php:400 includes/CBXChangelogHelper.php:419
-#: includes/CBXChangelogHelper.php:438
+#: includes/CBXChangelogAdmin.php:714 includes/CBXChangelogAdmin.php:775
+#: includes/CBXChangelogAdmin.php:1229 includes/CBXChangelogHelper.php:343
+#: includes/CBXChangelogHelper.php:354 includes/CBXChangelogHelper.php:365
+#: includes/CBXChangelogHelper.php:376 includes/CBXChangelogHelper.php:387
+#: includes/CBXChangelogHelper.php:398 includes/CBXChangelogHelper.php:417
+#: includes/CBXChangelogHelper.php:436
 #: templates/admin/metabox_changelogs.php:122
 #: templates/admin/metabox_changelogs.php:129
 #: templates/admin/metabox_changelogs.php:135

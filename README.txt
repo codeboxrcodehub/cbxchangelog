@@ -2,8 +2,8 @@
 Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
-Tested up to: 6.7.1
-Stable tag: 2.0.1
+Tested up to: 6.7.2
+Stable tag: 2.0.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,7 @@ This helps to write changes log for any digital products, projects releases. Any
 
 ### CBX Changelog by [Codeboxr](https://codeboxr.com/product/cbx-changelog-for-wordpress/)
 
-📋 [Documentation](https://codeboxr.com/doc/cbxchangelog-doc/) | 🌟 [Upgrade to PRO](https://codeboxr.com/product/cbx-changelog-for-wordpress/#downloadarea) |  👨‍💻 [Free Support](https://wordpress.org/support/plugin/cbxchangelog/) | 🤴 [Pro Support](https://codeboxr.com/contact-us) | 📱 [Contact](https://codeboxr.com/contact-us/)
+>📺 [Live Demo](https://codeboxr.net/wordpress/changelog/cbx-changelog-wordpress-plugin-changelogs/) | 📋 [Documentation](https://codeboxr.com/doc/cbxchangelog-doc/) | 🌟 [Upgrade to PRO](https://codeboxr.com/product/cbx-changelog-for-wordpress/#downloadarea) |  👨‍💻 [Free Support](https://wordpress.org/support/plugin/cbxchangelog/) | 🤴 [Pro Support](https://codeboxr.com/contact-us) | 📱 [Contact](https://codeboxr.com/contact-us/)
 
 **If you think any necessary feature is missing contact with us, we will add in new release. Best way to check the feature is, install the free core version in any dev site and explore**
 
@@ -74,6 +74,13 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.3 =
+* [updated] WordPress core 6.7.2 compatibility checked
+* [updated] Pro Addon V1.1.9 released
+* [updated] Misc improvements
+* [updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled
+
+
 = 2.0.1 =
 * [fixed] Fixed function missing error for method 'getPaginatedRows'
 * [new] Show labels by group feature added

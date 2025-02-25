@@ -59,8 +59,8 @@ if ( ! function_exists( 'cbxchangelog_load_svg' ) ) {
 	/**
 	 * Load an SVG file from a directory.
 	 *
-	 * @param  string  $svg_name  The name of the SVG file (without the .svg extension).
-	 * @param  string  $directory  The directory where the SVG files are stored.
+	 * @param string $svg_name The name of the SVG file (without the .svg extension).
+	 * @param string $directory The directory where the SVG files are stored.
 	 *
 	 * @return string|false The SVG content if found, or false on failure.
 	 * @since 1.0.0
@@ -137,9 +137,9 @@ if ( ! function_exists( 'cbxchangelog_search_2d_array' ) ) {
 	/**
 	 * Searches a 2D array for a specific key and value.
 	 *
-	 * @param  array  $array  The 2D array to search.
-	 * @param  string  $key  The key name to search for.
-	 * @param  mixed  $value  The value to compare against.
+	 * @param array $array The 2D array to search.
+	 * @param string $key The key name to search for.
+	 * @param mixed $value The value to compare against.
 	 *
 	 * @return bool True if a row with the key and value is found, otherwise false.
 	 * @since 2.0.1
@@ -205,41 +205,118 @@ if ( ! function_exists( 'cbxchangelog_label_key_matching' ) ) {
 	}//end method cbxchangelog_label_key_matching
 }
 
-if(!function_exists('cbxchangelog_isValidSemver')){
+if ( ! function_exists( 'cbxchangelog_isValidSemver' ) ) {
 	/**
 	 * Validates if a version string follows Semantic Versioning (SemVer).
 	 *
 	 * @param string $version The version string to validate.
+	 *
 	 * @return bool True if the version follows SemVer, otherwise false.
 	 */
-	function cbxchangelog_isValidSemver($version) {
+	function cbxchangelog_isValidSemver( $version ) {
 		// SemVer regex pattern
 		$semverPattern = '/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' . // Major.Minor.Patch
 		                 '(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?' .    // Optional pre-release
 		                 '(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/'; // Optional build metadata
 
 		// Check if the version matches the pattern
-		return preg_match($semverPattern, $version) === 1;
+		return preg_match( $semverPattern, $version ) === 1;
 	}//end function cbxchangelog_isValidSemver
 }
 
 
-if(!function_exists('cbxchangelog_group_by_labels')){
-	function cbxchangelog_group_by_labels($data) {
+if ( ! function_exists( 'cbxchangelog_group_by_labels' ) ) {
+	function cbxchangelog_group_by_labels( $data ) {
 		$label_options = cbxchangelog_label_keys();
 		// Create an associative array of labels with their priorities (index in $label_options)
-		$label_priorities = array_flip($label_options);
+		$label_priorities = array_flip( $label_options );
 
 		// Sort the $data array using a custom comparison function
-		usort($data, function ($a, $b) use ($label_priorities) {
+		usort( $data, function ( $a, $b ) use ( $label_priorities ) {
 			// Get the priorities for the labels from the $label_priorities array
-			$priorityA = $label_priorities[$a['label']] ?? PHP_INT_MAX;
-			$priorityB = $label_priorities[$b['label']] ?? PHP_INT_MAX;
+			$priorityA = $label_priorities[ $a['label'] ] ?? PHP_INT_MAX;
+			$priorityB = $label_priorities[ $b['label'] ] ?? PHP_INT_MAX;
 
 			// Compare based on priority
 			return $priorityA <=> $priorityB;
-		});
+		} );
 
 		return $data;
 	}//end function cbxchangelog_group_by_labels
+}
+
+if ( ! function_exists( 'cbxchangelog_parse_wordpress_readme' ) ) {
+	/**
+	 * Parse wordpress readme content
+	 *
+	 * @param $readmeContent
+	 *
+	 * @return array
+	 * @since 2.0.2
+	 */
+	function cbxchangelog_parse_wordpress_readme( $readmeContent ) {
+		return CBXChangelogHelper::parse_wordpress_readme_changelog( $readmeContent );
+	}//end function cbxchangelog_parse_wordpress_readme
+}
+
+if ( ! function_exists( 'cbxchangelog_parse_wordpress_readme' ) ) {
+	/**
+	 * Parse keepachangelog.com changelog https://keepachangelog.com/en/1.1.0/
+	 *
+	 * @param $text
+	 *
+	 * @return array
+	 * @since 2.0.2
+	 */
+	function cbxchangelog_parse_keepachangelog( $readmeContent ) {
+		return CBXChangelogHelper::parse_keepachangelog_changelog( $readmeContent );
+	}//end function cbxchangelog_parse_keepachangelog
+}
+
+
+if(!function_exists('cbxchangelog_is_rest_api_request')){
+	/**
+	 * Check if doing rest request
+	 *
+	 * @return bool
+	 */
+	function cbxchangelog_is_rest_api_request() {
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			return true;
+		}
+
+		$REQUEST_URI = isset($_SERVER['REQUEST_URI'])? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
+
+		if ( empty( $REQUEST_URI ) ) {
+			return false;
+		}
+
+		$rest_prefix = trailingslashit( rest_get_url_prefix() );
+
+
+		return ( false !== strpos( $REQUEST_URI, $rest_prefix ) );
+	}//end function cbxchangelog_is_rest_api_request
+}
+
+if(!function_exists('cbxchangelog_doing_it_wrong')){
+	/**
+	 * Wrapper for _doing_it_wrong().
+	 *
+	 * @since  1.0.0
+	 * @param string $function Function used.
+	 * @param string $message Message to log.
+	 * @param string $version Version the message was added in.
+	 */
+	function cbxchangelog_doing_it_wrong( $function, $message, $version ) {
+		// @codingStandardsIgnoreStart
+		$message .= ' Backtrace: ' . wp_debug_backtrace_summary();
+
+		if ( wp_doing_ajax() || cbxchangelog_is_rest_api_request() ) {
+			do_action( 'doing_it_wrong_run', $function, $message, $version );
+			error_log( "{$function} was called incorrectly. {$message}. This message was added in version {$version}." );
+		} else {
+			_doing_it_wrong( $function, $message, $version );
+		}
+		// @codingStandardsIgnoreEnd
+	}//end function cbxchangelog_doing_it_wrong
 }

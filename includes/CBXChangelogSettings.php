@@ -55,19 +55,19 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 		/**
 		 * Cloning is forbidden.
 		 *
-		 * @since 2.1
+		 * @since 2.0.2
 		 */
 		public function __clone() {
-			wc_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'cbxchangelog' ), '2.1' );
+			cbxchangelog_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'cbxchangelog' ), '2.0.2' );
 		}//end method clone
 
 		/**
 		 * Unserializing instances of this class is forbidden.
 		 *
-		 * @since 2.1
+		 * @since 2.0.2
 		 */
 		public function __wakeup() {
-			wc_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'cbxchangelog' ), '2.1' );
+			cbxchangelog_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'cbxchangelog' ), '2.0.2' );
 		}//end method wakeup
 
 		public function __construct() {
@@ -203,6 +203,7 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 
 			// creates our settings in the options table
 			foreach ( $this->settings_sections as $section ) {
+                //phpcs:ignore PluginCheck.CodeAnalysis.SettingSanitization.register_settingDynamic
 				register_setting( $section['id'], $section['id'], [ $this, 'sanitize_options' ] );
 			}
 		}//end method admin_init
@@ -900,6 +901,34 @@ if ( ! class_exists( 'CBXChangelogSettings' ) ):
 
 			echo $html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}//end callback_repeat
+
+		/**
+		 * Displays a text field for a settings field
+		 *
+		 * @param array $args settings field args
+		 */
+		function callback_slug( $args ) {
+			$value = esc_attr( $this->get_field( $args['id'], $args['section'], $args['default'] ) );
+			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
+
+			//$id    = $args['section'] . '[' . $args['id'] . ']';
+			$html_id = "{$args['section']}_{$args['id']}";
+			$html_id = $this->settings_clean_label_for( $html_id );
+
+
+			$label = isset( $args['options']['button_label'] ) ?
+				$args['options']['button_label'] :
+				esc_html__( 'Clear Permalinks', 'cbxchangelog' );
+
+			$html = '<div class="permalink-wrap">';
+			$html .= sprintf( '<input type="text" class="chota-inline %1$s-text permalink-slug" id="%5$s" name="%2$s[%3$s]" value="%4$s"/>',
+				$size, $args['section'], $args['id'], $value, $html_id );
+			$html .= '<input type="button" class="button outline primary clear-permalink" value="' . $label . '" />';
+			$html .= '</div>';
+			$html .= $this->get_field_description( $args );
+
+			echo $html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		} //end method callback_slug
 
 
 		/**

@@ -47,23 +47,24 @@
             }, 1000);
         });
 
-        $('.wrap').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-addedit-wrapper');
-        $('#search-submit').addClass('button primary');
-        $('#post-query-submit').addClass('button primary');
-        //$('.button.action').addClass('button outline primary');
-        $('.button.action').addClass('button primary');
-        $('.page-title-action').addClass('button primary');
-        $('#save-post').addClass('button primary');
-        //$('#doaction').addClass('button primary');
-        $('#publish').addClass('button primary');
+        if(cbxchangelog_listing.current_post_type == 'cbxchangelog') {
+            $('.wrap').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-addedit-wrapper');
+            $('#search-submit').addClass('button primary');
+            $('#post-query-submit').addClass('button primary');
+            //$('.button.action').addClass('button outline primary');
+            $('.button.action').addClass('button primary');
+            $('.page-title-action').addClass('button primary');
+            $('#save-post').addClass('button primary');
+            //$('#doaction').addClass('button primary');
+            $('#publish').addClass('button primary');
 
-        //$(cbxchangelog_admin_js_vars.global_setting_link_html).insertAfter('.page-title-action');
-        $('#screen-meta').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-logs-wrapper');
-        $('#screen-options-apply').addClass('primary');
+            //$(cbxchangelog_admin_js_vars.global_setting_link_html).insertAfter('.page-title-action');
+            $('#screen-meta').addClass('cbx-chota cbxchangelog-page-wrapper cbxchangelog-logs-wrapper');
+            $('#screen-options-apply').addClass('primary');
 
 
-        $('#post-search-input').attr('placeholder', cbxchangelog_listing.placeholder.search);
-
+            $('#post-search-input').attr('placeholder', cbxchangelog_listing.placeholder.search);
+        }
     });
 
 })(jQuery);

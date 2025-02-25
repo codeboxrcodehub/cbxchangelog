@@ -584,25 +584,28 @@ class CBXChangelogAdmin {
 			'in_footer' => true,
 		];
 
-		if ( in_array( $post_type, $allowed_post_types ) && $hook == 'edit.php' && $page == '' ) {
+		//post listing
+		//if ( in_array( $post_type, $allowed_post_types ) && $hook == 'edit.php' && $page == '' ) {
+		if ( $post_type == 'cbxchangelog' && $hook == 'edit.php' && $page == '' ) {
 			wp_register_script( 'cbxchangelog-listing', $js_url_part . 'cbxchangelog-listing.js', [ 'jquery' ], $version, $in_footer );
 
 			wp_localize_script( 'cbxchangelog-listing', 'cbxchangelog_listing', apply_filters( 'cbxchangelog_listing_localize_script',
 					[
-						'copycmds'    => [
+						'copycmds'          => [
 							'copy'       => esc_html__( 'Copy', 'cbxchangelog' ),
 							'copied'     => esc_html__( 'Copied', 'cbxchangelog' ),
 							'copy_tip'   => esc_html__( 'Click to copy', 'cbxchangelog' ),
 							'copied_tip' => esc_html__( 'Copied to clipboard', 'cbxchangelog' ),
 						],
-						'placeholder' => [
+						'placeholder'       => [
 							'select' => esc_html__( 'Please Select', 'cbxchangelog' ),
 							'search' => esc_html__( 'Search...', 'cbxchangelog' ),
-						]
+						],
+						'current_post_type' => $post_type
 					] )
 			);
 			wp_enqueue_script( 'cbxchangelog-listing' );
-		}
+		}//end post listing
 
 
 		//only for post add/edit screen
@@ -711,6 +714,7 @@ class CBXChangelogAdmin {
 						'yes'              => esc_html__( 'Yes', 'cbxchangelog' ),
 						'no'               => esc_html__( 'No', 'cbxchangelog' ),
 					],
+					'current_post_type'          => $post_type
 				] ) );
 
 
@@ -820,8 +824,6 @@ class CBXChangelogAdmin {
 			wp_enqueue_script( 'awesome-notifications' );
 
 			wp_enqueue_script( 'cbxchangelog-setting' );
-
-
 		}//end only for setting page
 	}//end enqueue_scripts
 
@@ -978,7 +980,7 @@ class CBXChangelogAdmin {
 		}
 
 		$pro_addon_version  = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
-		$pro_latest_version = '1.1.7';
+		$pro_latest_version = '1.1.9';
 
 
 		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {
@@ -1312,7 +1314,7 @@ class CBXChangelogAdmin {
 							'type'    => 'string',
 							'default' => $show_url_default,
 						],
-						'group_label'      => [
+						'group_label'   => [
 							'type'    => 'string',
 							'default' => $group_label_default,
 						],
@@ -1454,7 +1456,7 @@ class CBXChangelogAdmin {
 		//before hook
 		do_action( 'cbxchangelog_plugin_reset_before' );
 
-		$plugin_resets = wp_unslash( $_POST );
+		$plugin_resets = isset( $_POST ) ? wp_unslash( $_POST ) : [];
 
 		//delete options
 		do_action( 'cbxchangelog_plugin_options_deleted_before' );

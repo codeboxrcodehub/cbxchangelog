@@ -1,12 +1,6 @@
 <?php
-
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
+ * CBX Changelog core file
  *
  * @link              http://codeboxr.com
  * @since             1.0.0
@@ -16,7 +10,7 @@
  * Plugin Name:       CBX Changelog
  * Plugin URI:        http://codeboxr.com/product/cbx-changelog-for-wordpress/
  * Description:       Easy change log manager for WordPress, use for any product post type or releases notes
- * Version:           2.0.1
+ * Version:           2.0.3
  * Author:            Codeboxr
  * Author URI:        http://codeboxr.com
  * License:           GPL-2.0+
@@ -32,10 +26,17 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 defined( 'CBXCHANGELOG_PLUGIN_NAME' ) or define( 'CBXCHANGELOG_PLUGIN_NAME', 'cbxchangelog' );
-defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.1' );
+defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.3' );
 defined( 'CBXCHANGELOG_ROOT_PATH' ) or define( 'CBXCHANGELOG_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'CBXCHANGELOG_ROOT_URL' ) or define( 'CBXCHANGELOG_ROOT_URL', plugin_dir_url( __FILE__ ) );
 defined( 'CBXCHANGELOG_BASE_NAME' ) or define( 'CBXCHANGELOG_BASE_NAME', plugin_basename( __FILE__ ) );
+
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/CBXChangelog.php';
 
 /**
  * Checking wp version
@@ -71,10 +72,9 @@ function cbxchangelog_compatible_php_version() {
  * This action is documented in includes/class-cbxchangelog-activator.php
  */
 function activate_cbxchangelog() {
-
 	if ( ! cbxchangelog_compatible_wp_version() ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		wp_die( esc_html__( 'CBX Changelog plugin requires WordPress 3.5 or higher!', 'cbxchangelog' ) );
+		wp_die( esc_html__( 'CBX Changelog plugin requires WordPress 5.3 or higher!', 'cbxchangelog' ) );
 	}
 
 	if ( ! cbxchangelog_compatible_php_version() ) {
@@ -104,13 +104,7 @@ register_activation_hook( __FILE__, 'activate_cbxchangelog' );
 register_deactivation_hook( __FILE__, 'deactivate_cbxchangelog' );
 
 
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
 
-
-require plugin_dir_path( __FILE__ ) . 'includes/CBXChangelog.php';
 
 /**
  * Begins execution of the plugin.
