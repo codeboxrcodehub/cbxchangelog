@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.2
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,11 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.4 =
+* [updated] Support page news display updated
+* [updated] Pro Addon V1.2.0 released
+* [updated] Misc improvements
+
 = 2.0.3 =
 * [updated] WordPress core 6.7.2 compatibility checked
 * [updated] Pro Addon V1.1.9 released

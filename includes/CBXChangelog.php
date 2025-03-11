@@ -154,7 +154,8 @@ class CBXChangelog {
 	 * @access   private
 	 */
 	private function define_common_hooks() {
-		add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
+		//add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
+		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
 	}//end method define_common_hooks
 
 	/**

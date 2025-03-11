@@ -101,6 +101,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.4</p>
+                            <ul>
+                                <li>[updated] Support page news display updated</li>
+                                <li[updated] Pro Addon V1.2.0 released</li>
+                                <li>[updated] Misc improvements</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.3</p>
                             <ul>
                                 <li>[updated] WordPress core 6.7.2 compatibility checked</li>
@@ -118,15 +126,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li> [new] Show single changelog items/features by group (Show Added, Fixed etc as grouped)</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 2.0.0</p>
-                            <ul>
-                                <li> [fixed] Fixed saving only single changelog from dashboard edit screen</li>
-                                <li> [new] Added new feature to resync release no/id with dashboard edit screen display index(from top to bottom)</li>
-                                <li> [new] Added new feature to resync release no/id with dashboard edit screen display index(bottom top to top)</li>
-                                <li> [new] Added new feature to delete all releases with one single click from the dashboard edit screen</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -137,6 +136,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <div class="cbx-backend-settings-row">
+                                <p>Version - 1.2.0</p>
+                                <ul>
+                                    <li>[updated] Plugin loader, main classes updated</li>
+                                    <li>[updated] Core plugin updated to V2.0.4</li>
+                                    <li>[updated] Misc improvements</li>
+                                </ul>
+                            </div>
                             <div class="cbx-backend-settings-row">
                                 <p>Version - 1.1.9</p>
                                 <ul>
@@ -153,12 +160,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                     <li>[updated] WordPress core V6.7.1 compatible</li>
                                     <li>[new] SVG icon added everywhere</li>
                                     <li>[updated] CBX Changelog core plugin V1.1.6 compatible</li>
-                                </ul>
-                            </div>
-                            <div class="cbx-backend-settings-row">
-                                <p>Version - 1.1.5</p>
-                                <ul>
-                                    <li>[fixed] hugo style fixed<li>
                                 </ul>
                             </div>
                         </div>
@@ -266,40 +267,28 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                         </div>
                     </div>
                     <div class="content">
-						<?php
+	                    <?php
+	                    $items = CBXChangelogHelper::codeboxr_news_feed();
+	                    if ( $items !== false && count( $items ) > 0 ) {
+		                    foreach ( $items as $item ) {
+			                    $url   = $item['url'];
+			                    $title = $item['title'];
 
-						include_once( ABSPATH . WPINC . '/feed.php' );
-						if ( function_exists( 'fetch_feed' ) ) {
-							//$feed = fetch_feed( 'https://codeboxr.com/feed?post_type=product' );
-							$feed = fetch_feed( 'https://codeboxr.com/feed?post_type=post' );
-							if ( ! is_wp_error( $feed ) ) : $feed->init();
-								$feed->set_output_encoding( 'UTF-8' );     // this is the encoding parameter, and can be left unchanged in almost every case
-								$feed->handle_content_type();              // this double-checks the encoding type
-								$feed->set_cache_duration( 21600 );        // 21,600 seconds is six hours
-								$limit = $feed->get_item_quantity( 10 );   // fetches the 18 most recent RSS feed stories
-								$items = $feed->get_items( 0, $limit );    // this sets the limit and array for parsing the feed
-
-								$blocks = array_slice( $items, 0, 10 );
-
-								//echo '<ul>';
-
-								foreach ( $blocks as $block ) {
-									$url = $block->get_permalink();
-									$url = CBXChangelogHelper::url_utmy( $url ); ?>
-                                    <div class="cbx-backend-settings-row">
-                                        <a href="<?php echo esc_url($url); ?>" target="_blank">
-                                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+			                    echo '<div class="cbx-backend-settings-row">';
+			                    echo '<a href="' . esc_url( $url ) . '" target="_blank">';
+			                    echo '<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                 <defs/>
                                                 <path d="M16.4 9.1L12.2 5c-.3-.3-.7-.3-1-.2s-.6.5-.6.9v1.7H4.2c-.5 0-.9.4-.9.9v3.4c0 .2.1.5.3.7.2.2.4.3.7.3h6.4v1.7c0 .4.2.7.6.9.4.1.8.1 1-.2l4.1-4.2c.4-.5.4-1.3 0-1.8z"
                                                       fill="currentColor"/>
-                                            </svg>
-											<?php echo esc_html($block->get_title()); ?></a>
-                                    </div>
-									<?php
-								}//end foreach
-							endif;
-						}
-						?>
+                                            </svg>';
+
+			                    //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			                    echo $title;
+			                    echo '</a>';
+			                    echo '</div>';
+		                    }//end for loop
+	                    }//if data found
+	                    ?>
                     </div>
                 </div>
             </div>
