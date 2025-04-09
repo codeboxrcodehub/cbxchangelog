@@ -133,6 +133,8 @@ class CBXChangelog {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
+
 		//misc libraries
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/CBXChangelogMetaAsArray.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/CBXChangelogOptionAsArray.php';

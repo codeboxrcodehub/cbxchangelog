@@ -30,6 +30,8 @@
 
     //var MediaUpload = wp.editor.MediaUpload;
 
+    console.log(cbxchangelog_block.pro_addon_active);
+
     var iconEl = el('svg', {width: 24, height: 24},
         el('path', {
             fill: "#212120", d: "M22.9,3.2H8.1C7.5,3.2,7,2.4,7,1.6C7,0.7,7.5,0,8.1,0h14.8C23.5,0,24,0.7,24,1.6\n" +
@@ -93,16 +95,6 @@
                             type    : 'number',
                             value   : Number(props.attributes.release)
                         }),
-                        /*el(ToggleControl,
-                            {
-                                label   : cbxchangelog_block.general_settings.show_label,
-                                onChange: (value) => {
-                                    props.setAttributes({show_label: value});
-                                },
-                                type    : 'number',
-                                checked : props.attributes.show_label
-                            }
-                        ),*/
                         el(SelectControl, {
                             label   : cbxchangelog_block.general_settings.show_label,
                             options : cbxchangelog_block.general_settings.show_label_options,
@@ -143,6 +135,16 @@
                                 });
                             },
                             value   : String(props.attributes.relative_date)
+                        }),
+                        cbxchangelog_block.pro_addon_active && el(SelectControl, {
+                            label   : cbxchangelog_block.general_settings.show_feature_note,
+                            options : cbxchangelog_block.general_settings.show_feature_note_options,
+                            onChange: (value) => {
+                                props.setAttributes({
+                                    show_feature_note: String(value)
+                                });
+                            },
+                            value   : String(props.attributes.show_feature_note)
                         }),
                         el(SelectControl, {
                             label   : cbxchangelog_block.general_settings.layout,

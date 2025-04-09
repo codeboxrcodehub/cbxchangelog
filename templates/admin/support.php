@@ -17,7 +17,7 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     <div class="wp-heading-wrap-left pull-left">
 	                    <?php do_action('cbxchangelog_wpheading_wrap_left_before', 'support'); ?>
                         <h1 class="wp-heading-inline wp-heading-inline-cbxchangelog">
-		                    <?php esc_html_e( 'CBX Changelog: Support & Docs', 'cbxchangelog' ); ?>
+		                    <?php esc_html_e( 'CBX Changelog & Release Note: Support & Docs', 'cbxchangelog' ); ?>
                         </h1>
 	                    <?php do_action('cbxchangelog_wpheading_wrap_left_before', 'support'); ?>
                     </div>
@@ -48,21 +48,20 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                                target="_blank">
                                                 <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage, PluginCheck.CodeAnalysis.Offloading.OffloadedContent  ?>
                                                 <img src="https://codeboxr.com/wp-content/uploads/productshots/9840-profile.png"
-                                                                     alt="CBX Changelog for WordPress"/>
+                                                                     alt="CBX Changelog & Release Note for WordPress"/>
                                             </a>
 
                                         </div>
                                         <div class="feature-card-description">
                                             <h3>
                                                 <a href="<?php echo esc_url( $plugin_url ); ?>"
-                                                   target="_blank">CBX Changelog Pro Addon</a></h3>
-                                            <p>Pro features for CBX Changelog plugin</p>
+                                                   target="_blank">CBX Changelog & Release Note Pro Addon</a></h3>
+                                            <p>Pro features for CBX Changelog & Release Note plugin</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-plugin-Integration">
@@ -101,6 +100,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.5</p>
+                            <ul>
+                                <li>[fixed] Markdown to html conversion issue(multi line parsing was not working) fixed</li>
+                                <li>[updated] Pro Addon V1.2.1 released</li>
+                                <li>[updated] Shortcode and all widgets/blocks are updated</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.4</p>
                             <ul>
                                 <li>[updated] Support page news display updated</li>
@@ -117,15 +124,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 2.0.1</p>
-                            <ul>
-                                <li> [fixed] Fixed function missing error for method 'getPaginatedRows'</li>
-                                <li> [improvement] Added some new helper methods</li>
-                                <li> [fixed] Fixed function missing error for method 'getPaginatedRows'</li>
-                                <li> [new] Show single changelog items/features by group (Show Added, Fixed etc as grouped)</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -136,6 +134,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <div class="cbx-backend-settings-row">
+                                <p>Version - 1.2.1</p>
+                                <ul>
+                                    <li>[new] Single feature note option added</li>
+                                    <li>[fixed] Markdown to html conversion issue fixed</li>
+                                    <li>[updated] Core plugin V2.0.5 released and compatible</li>
+                                </ul>
+                            </div>
                             <div class="cbx-backend-settings-row">
                                 <p>Version - 1.2.0</p>
                                 <ul>
@@ -151,15 +157,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                     <li>[updated] Core plugin updated to V2.0.3</li>
                                     <li>[updated] Misc improvements</li>
                                     <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
-                                </ul>
-                            </div>
-                            <div class="cbx-backend-settings-row">
-                                <p>Version - 1.1.6</p>
-                                <ul>
-                                    <li>[new] Plugin check version V1.3.1 compatible</li>
-                                    <li>[updated] WordPress core V6.7.1 compatible</li>
-                                    <li>[new] SVG icon added everywhere</li>
-                                    <li>[updated] CBX Changelog core plugin V1.1.6 compatible</li>
                                 </ul>
                             </div>
                         </div>
@@ -181,7 +178,7 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                     <path d="M10 2.6c-4.4 0-7.9 3.6-7.9 7.9s3.6 7.9 7.9 7.9 7.9-3.6 7.9-7.9-3.5-7.9-7.9-7.9zm1.7 12.3c-.4.2-.7.3-1 .4-.2.1-.5.1-.8.1-.5 0-.9-.1-1.2-.4-.3-.2-.4-.5-.4-.9v-.4c0-.2.1-.3.1-.5l.5-1.8c0-.2.1-.4.1-.5v-.4c0-.2 0-.4-.1-.5-.1-.1-.3-.2-.5-.2-.1 0-.3 0-.4.1-.2 0-.3.1-.4.1l.1-.6c.3-.1.7-.3 1-.3.3-.1.6-.2.9-.2.5 0 .9.1 1.1.4.3.2.4.5.4.9v.4c0 .2-.1.4-.1.5l-.5 1.9c0 .1-.1.3-.1.5v.4c0 .2.1.4.2.5.1.1.3.1.6.1.1 0 .3 0 .4-.1.2 0 .3-.1.3-.1l-.2.6zm-.1-7.3c-.2.2-.5.3-.9.3-.3 0-.6-.1-.9-.3-.2-.2-.3-.5-.3-.8 0-.3.1-.6.4-.8.2-.2.5-.3.9-.3.3 0 .6.1.9.3.2.2.4.5.4.8-.2.3-.3.6-.5.8z"
                                           fill="currentColor"/>
                                 </svg>
-                                <?php esc_html_e( 'CBX Changelog Plugin Details', 'cbxchangelog' ); ?> </a>
+                                <?php esc_html_e( 'CBX Changelog & Release Note Plugin Details', 'cbxchangelog' ); ?> </a>
                         </div>
                         <div class="cbx-backend-settings-row">
                             <a href="<?php echo esc_url( $doc_url ); ?>" target="_blank">
@@ -232,7 +229,7 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     <div class="content">
                         <?php
                         $top_plugins = [
-	                        //'https://codeboxr.com/product/cbx-changelog-for-wordpress/' => 'CBX Changelog',
+	                        //'https://codeboxr.com/product/cbx-changelog-for-wordpress/' => 'CBX Changelog & Release Note',
 	                        'https://codeboxr.com/product/show-next-previous-article-for-wordpress' => 'CBX Next Previous Article ',
 	                        'https://codeboxr.com/product/cbx-wordpress-bookmark/' => 'CBX Bookmark & Favorite',
                             'https://codeboxr.com/product/cbx-tour-user-walkthroughs-guided-tours-for-wordpress/' => 'CBX Tour – User Walkthroughs/Guided Tours',

@@ -54,8 +54,8 @@ class CBXChangelogAdmin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param  string  $plugin_name  The name of this plugin.
-	 * @param  string  $version  The version of this plugin.
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
 	 *
 	 * @since    1.0.0
 	 *
@@ -160,7 +160,7 @@ class CBXChangelogAdmin {
 		//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
-		$settings_page_hook = add_submenu_page( 'edit.php?post_type=cbxchangelog', esc_html__( 'CBX Changelog Settings', 'cbxchangelog' ), esc_html__( 'Setting', 'cbxchangelog' ), 'manage_options', 'cbxchangelog-settings', [
+		$settings_page_hook = add_submenu_page( 'edit.php?post_type=cbxchangelog', esc_html__( 'CBX Changelog & Release Note Settings', 'cbxchangelog' ), esc_html__( 'Setting', 'cbxchangelog' ), 'manage_options', 'cbxchangelog-settings', [
 			$this,
 			'menu_settings'
 		] );
@@ -380,6 +380,8 @@ class CBXChangelogAdmin {
 				}
 				//end features
 
+				$valid_change_log = apply_filters( 'cbxchangelog_valid_change_log_note_save', $valid_change_log, $value );
+
 				//if ( $id > 0 && in_array( $id, $used_keys ) ) {
 				/*if ( $id > 0 ) {
 					//update
@@ -418,6 +420,8 @@ class CBXChangelogAdmin {
 			$extras['order']         = isset( $extras['order'] ) ? sanitize_text_field( wp_unslash( $extras['order'] ) ) : 'desc';
 			$extras['orderby']       = isset( $extras['orderby'] ) ? sanitize_text_field( wp_unslash( $extras['orderby'] ) ) : 'order'; //'order' == 'default'
 			$extras['count']         = isset( $extras['count'] ) ? absint( $extras['count'] ) : 0;
+
+			$extras = apply_filters( 'cbxchangelog_extra_meta_save', $extras, $post_id, $post, $update );
 
 			if ( ! in_array( $extras['orderby'], [ 'order', 'id', 'date' ] ) ) {
 				$extras['orderby'] = 'order';
@@ -830,7 +834,7 @@ class CBXChangelogAdmin {
 	/**
 	 * Show action links on the plugin screen.
 	 *
-	 * @param  mixed  $links  Plugin Action links.
+	 * @param mixed $links Plugin Action links.
 	 *
 	 * @return  array
 	 */
@@ -848,10 +852,10 @@ class CBXChangelogAdmin {
 	 *
 	 * @access  public
 	 *
-	 * @param  array  $links_array  An array of the plugin's metadata
-	 * @param  string  $plugin_file_name  Path to the plugin file
-	 * @param  array  $plugin_data  An array of plugin data
-	 * @param  string  $status  Status of the plugin
+	 * @param array $links_array An array of the plugin's metadata
+	 * @param string $plugin_file_name Path to the plugin file
+	 * @param array $plugin_data An array of plugin data
+	 * @param string $status Status of the plugin
 	 *
 	 * @return  array       $links_array
 	 */
@@ -980,7 +984,7 @@ class CBXChangelogAdmin {
 		}
 
 		$pro_addon_version  = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
-		$pro_latest_version = '1.2.0';
+		$pro_latest_version = '1.2.1';
 
 
 		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {
@@ -988,7 +992,7 @@ class CBXChangelogAdmin {
 			$plugin_manual_update = 'https://codeboxr.com/manual-update-pro-addon/';
 
 			/* translators:translators: %s: plugin setting url for licence */
-			$custom_message = wp_kses( sprintf( __( '<strong>Note:</strong> CBX Changelog Pro Addon is custom plugin. This plugin can not be auto update from dashboard/plugin manager. For manual update please check <a target="_blank" href="%1$s">documentation</a>. <strong style="color: red;">It seems this plugin\'s current version is older than %2$s . To get the latest pro addon features, this plugin needs to upgrade to %2$s or later.</strong>', 'cbxchangelog' ),
+			$custom_message = wp_kses( sprintf( __( '<strong>Note:</strong> CBX Changelog & Release Note Pro Addon is custom plugin. This plugin can not be auto update from dashboard/plugin manager. For manual update please check <a target="_blank" href="%1$s">documentation</a>. <strong style="color: red;">It seems this plugin\'s current version is older than %2$s . To get the latest pro addon features, this plugin needs to upgrade to %2$s or later.</strong>', 'cbxchangelog' ),
 				esc_url( $plugin_manual_update ), $pro_latest_version ), [
 				'strong' => [ 'style' => [] ],
 				'a'      => [ 'href' => [], 'target' => [] ]
@@ -1022,7 +1026,7 @@ class CBXChangelogAdmin {
 			echo '<div class="notice notice-success is-dismissible" style="border-color: #2153cc !important;">';
 
 			/* translators: 1. Plugin version  */
-			echo '<p>' . sprintf( wp_kses( __( 'Thanks for installing/deactivating <strong>CBX Changelog</strong> V%s - Codeboxr Team',
+			echo '<p>' . sprintf( wp_kses( __( 'Thanks for installing/deactivating <strong>CBX Changelog & Release Note</strong> V%s - Codeboxr Team',
 					'cbxchangelog' ), [ 'strong' => [] ] ),
 					esc_attr( CBXCHANGELOG_PLUGIN_VERSION ) ) . '</p>';
 
@@ -1052,7 +1056,7 @@ class CBXChangelogAdmin {
 				echo '<div class="notice notice-success is-dismissible" style="border-color: #2153cc !important;">';
 
 				/* translators: 1. Plugin version  */
-				echo '<p>' . sprintf( wp_kses( __( 'Thanks for upgrading <strong>CBX Changelog</strong> V%s , enjoy the new features and bug fixes - Codeboxr Team',
+				echo '<p>' . sprintf( wp_kses( __( 'Thanks for upgrading <strong>CBX Changelog & Release Note</strong> V%s , enjoy the new features and bug fixes - Codeboxr Team',
 						'cbxchangelog' ), [ 'strong' => [] ] ),
 						esc_attr( CBXCHANGELOG_PLUGIN_VERSION ) ) . '</p>';
 
@@ -1093,7 +1097,7 @@ class CBXChangelogAdmin {
 
 		} else {
 			/* translators: 1. External product url */
-			echo '<div class="notice notice-success is-dismissible" style="border-color: #2153cc !important;"><p>' . sprintf( wp_kses( __( 'CBX Changelog Pro has extended features and more controls, <a style="color: #6648fe !important; font-weight: bold;" target="_blank" href="%s">try it</a>  - Codeboxr Team',
+			echo '<div class="notice notice-success is-dismissible" style="border-color: #2153cc !important;"><p>' . sprintf( wp_kses( __( 'CBX Changelog & Release Note Pro has extended features and more controls, <a style="color: #6648fe !important; font-weight: bold;" target="_blank" href="%s">try it</a>  - Codeboxr Team',
 					'cbxchangelog' ), [
 					'a' => [
 						'href'  => [],
@@ -1162,14 +1166,14 @@ class CBXChangelogAdmin {
 		$vendors_path_part = CBXCHANGELOG_ROOT_PATH . 'assets/vendors/';
 
 
-		$setting               = $this->settings;
-		$show_label_default    = absint( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
-		$show_date_default     = absint( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
-		$show_url_default      = absint( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
-		$group_label_default   = absint( $setting->get_field( 'group_label', 'cbxchangelog_general', 0 ) );
-		$relative_date_default = absint( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
+		$settings              = $this->settings;
+		$show_label_default    = absint( $settings->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
+		$show_date_default     = absint( $settings->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
+		$show_url_default      = absint( $settings->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
+		$group_label_default   = absint( $settings->get_field( 'group_label', 'cbxchangelog_general', 0 ) );
+		$relative_date_default = absint( $settings->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
 
-		$layout = $setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' );
+		$layout = $settings->get_field( 'layout', 'cbxchangelog_general', 'prepros' );
 
 		$show_label_default    = ( $show_label_default ) ? 'true' : '';
 		$show_date_default     = ( $show_date_default ) ? 'true' : '';
@@ -1231,7 +1235,7 @@ class CBXChangelogAdmin {
 		];
 
 		$show_label_options[] = [
-			'label' => esc_html__( 'no', 'cbxchangelog' ),
+			'label' => esc_html__( 'No', 'cbxchangelog' ),
 			'value' => '',
 		];
 
@@ -1256,9 +1260,10 @@ class CBXChangelogAdmin {
 
 		$js_vars = apply_filters( 'cbxchangelog_block_js_vars',
 			[
-				'block_title'      => esc_html__( 'CBX Changelog', 'cbxchangelog' ),
+				'block_title'      => esc_html__( 'CBX Changelog & Release Note', 'cbxchangelog' ),
 				'block_category'   => 'cbxchangelog',
 				'block_icon'       => 'universal-access-alt',
+				'pro_addon_active' => 0,
 				'general_settings' => [
 					'heading'            => esc_html__( 'Block Settings', 'cbxchangelog' ),
 					'title'              => esc_html__( 'Title', 'cbxchangelog' ),
@@ -1398,7 +1403,7 @@ class CBXChangelogAdmin {
 			$params_html .= ' ' . $key . '="' . $value . '" ';
 		}
 
-		return '[cbxchangelog' . $params_html . ']';
+		return '[cbxchangelog ' . $params_html . ']';
 	}//end cbxchangelog_block_render
 
 	/**
@@ -1553,7 +1558,7 @@ class CBXChangelogAdmin {
 	 * @return void
 	 */
 	public function delete_releases() {
-//security check
+		//security check
 		check_ajax_referer( 'cbxchangelog_nonce', 'security' );
 
 		$msg            = [];

@@ -110,6 +110,9 @@ do_action( 'cbxchangelog_form_admin_start', $instance, $this );
         <input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'count' )); ?>"
                name="<?php echo esc_attr($this->get_field_name( 'count' )); ?>" type="number" step="1" min="-1" value="<?php echo intval($count); ?>"/>
     </p>
+    <?php
+        do_action( 'cbxchangelog_classic_widget_form_extend', $instance, $this );
+    ?>
 
     <input type="hidden" id="<?php echo esc_attr($this->get_field_id( 'submit' )); ?>"
            name="<?php echo esc_attr($this->get_field_name( 'submit' )); ?>" value="1"/>

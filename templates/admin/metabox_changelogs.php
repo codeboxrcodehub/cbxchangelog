@@ -47,44 +47,60 @@ echo '<!-- mustache template -->
             </div>
             <p class="release-label">' . esc_html__( 'New Features/Changes', 'cbxchangelog' ) . '</p>
             <div class="release-feature-wrap" data-boxincrement="{{increment}}">
-                <p class="feature" data-boxincrement="{{increment}}">
-                    <input required  class="regular-text"  type="text" name="cbxchangelog_logs[{{increment}}][feature][]" value="" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '" />
-                    <select class="regular-text" name="cbxchangelog_logs[{{increment}}][label][]">
-                        ';
-$label_options = CbxchangelogHelper::cbxchangelog_labels();
-foreach ( $label_options as $label_key => $label_name ) {
-	echo sprintf( '<option value="%s" >%s</option>',
-		esc_attr( $label_key ), esc_attr( $label_name ) );
+                <div class="feature" data-boxincrement="{{increment}}">
+                    <div class="feature_main">
+                        <input required  class="regular-text"  type="text" name="cbxchangelog_logs[{{increment}}][feature][]" value="" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '" />
+                        <select class="regular-text" name="cbxchangelog_logs[{{increment}}][label][]">';
+                            $label_options = CbxchangelogHelper::cbxchangelog_labels();
+                            foreach ( $label_options as $label_key => $label_name ) {
+                                echo sprintf( '<option value="%s" >%s</option>',
+                                    esc_attr( $label_key ), esc_attr( $label_name ) );
 
-}
-echo '</select>
-                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '"  href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
-                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
-                    <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
-                </p>
+                            }
+                            echo '</select>';
+
+                            $log_edit_feature_action_buttons = '';
+                            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up"  aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>';
+                            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>';
+                            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>';
+                            
+                            echo apply_filters( 'cbxchangelog_log_edit_feature_action_buttons', $log_edit_feature_action_buttons ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo '</div>'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+                    do_action('cbxchangelog_log_edit_js_feature_inside_end');
+                    
+                echo '</div>
             </div>
             <div class="clearfix"></div>
 		</div>
 	</div>
 </script>';
-
+//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 echo '<!-- mustache template -->
 <script id="feature_template" type="x-tmpl-mustache">
-	<p class="feature" data-boxincrement="{{increment}}">
-		<input  class="regular-text" type="text" name="cbxchangelog_logs[{{increment}}][feature][]" value="" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '">
-		<select class="regular-text" name="cbxchangelog_logs[{{increment}}][label][]">
-		';
-$label_options = CbxchangelogHelper::cbxchangelog_labels();
-foreach ( $label_options as $label_key => $label_name ) {
-	echo sprintf( '<option value="%s" >%s</option>',
-		esc_attr( $label_key ), esc_attr( $label_name ) );
+	<div class="feature" data-boxincrement="{{increment}}">
+        <div class="feature_main">
+            <input  class="regular-text" type="text" name="cbxchangelog_logs[{{increment}}][feature][]" value="" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '">
+            <select class="regular-text" name="cbxchangelog_logs[{{increment}}][label][]">
+            ';
+            $label_options = CbxchangelogHelper::cbxchangelog_labels();
+            foreach ( $label_options as $label_key => $label_name ) {
+                echo sprintf( '<option value="%s" >%s</option>',
+                    esc_attr( $label_key ), esc_attr( $label_name ) );
 
-}
-echo '</select>
-		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
-		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
-		<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
-	</p>
+            }
+            echo '</select>'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+            $log_edit_feature_action_buttons = '';
+            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up"  aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>';
+            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>';
+            $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>';
+            
+            echo apply_filters( 'cbxchangelog_log_edit_feature_action_buttons', $log_edit_feature_action_buttons); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</div>'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        do_action('cbxchangelog_log_edit_js_feature_inside_end');
+    //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped               
+    echo '</div>
 </script>
 ';
 
@@ -183,6 +199,7 @@ $more_v_svg = cbxchangelog_load_svg( 'icon_more_v_white' );
             <input id="count" type="number" min="0" step="1" name="cbxchangelog_extra[count]"
                    value="<?php echo absint( $count ); ?>"/>
         </label>
+        <?php do_action( 'cbxchangelog_meta_toolbar_extra', $meta_extra ); ?>
     </div>
     <div class="clear clearfix"></div>
 
@@ -255,8 +272,11 @@ $nextIndex = $counter = $meta_data->getNextIndex();
 
 				$feature = isset( $box['feature'] ) ? wp_unslash( $box['feature'] ) : [];
 				$label   = isset( $box['label'] ) ? wp_unslash( $box['label'] ) : [];
+				
+
 				$feature = ( ! is_array( $feature ) ) ? [] : array_filter( $feature );
 				$label   = ( ! is_array( $label ) ) ? [] : array_filter( $label );
+				
 
 				echo '
 				<div class="cbxchangelog_release" data-boxincrement="' . absint( $index ) . '">
@@ -291,22 +311,31 @@ $nextIndex = $counter = $meta_data->getNextIndex();
 						$single_feature = esc_html( $single_feature );
 						$label_options  = CbxchangelogHelper::cbxchangelog_labels();
 						echo '
-                                        <p class="feature" data-boxincrement="' . absint( $index ) . '">
-                                            <input required class="regular-text"  type="text" name="cbxchangelog_logs[' . absint( $index ) . '][feature][]" value="' . esc_attr( $single_feature ) . '" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '" />
-                                            
-                                            <select class="regular-text" name="cbxchangelog_logs[' . absint( $index ) . '][label][]">';
-						foreach ( $label_options as $label_key => $label_name ) {
-							$found_label = isset( $label[ $f_index ] ) ? $label[ $f_index ] : 'added';
-							echo sprintf( '<option value="%s" ' . selected( $found_label, $label_key, false ) . ' >%s</option>',
-								esc_attr( $label_key ), esc_attr( $label_name ) );
+                            <div class="feature" data-boxincrement="' . absint( $index ) . '">
+                                <div class="feature_main">
+                                    <input required class="regular-text"  type="text" name="cbxchangelog_logs[' . absint( $index ) . '][feature][]" value="' . esc_attr( $single_feature ) . '" placeholder="' . esc_html__( 'Write a new feature for this release', 'cbxchangelog' ) . '" />
+                                    
+                                    <select class="regular-text" name="cbxchangelog_logs[' . absint( $index ) . '][label][]">';
+                                    foreach ( $label_options as $label_key => $label_name ) {
+                                        $found_label = isset( $label[ $f_index ] ) ? $label[ $f_index ] : 'added';
+                                        echo sprintf( '<option value="%s" ' . selected( $found_label, $label_key, false ) . ' >%s</option>',
+                                            esc_attr( $label_key ), esc_attr( $label_name ) );
 
-						}
-						echo '</select>
-                                            <a data-balloon-pos="up"  aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>
-                                            <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>
-                                            <a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>
-                                        </p>
-                                    ';
+                                    }
+                                    
+                                    echo '</select>';
+
+
+                                    $log_edit_feature_action_buttons = '';
+                                    $log_edit_feature_action_buttons .= '<a data-balloon-pos="up"  aria-label="' . esc_attr__( 'Drag and drop for sort', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Sort Features', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-move move-feature"></a>';
+                                    $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to delete', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Delete Feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-minus trash-feature"></a>';
+                                    $log_edit_feature_action_buttons .= '<a data-balloon-pos="up" aria-label="' . esc_attr__( 'Click to add new', 'cbxchangelog' ) . '" href="#" title="' . esc_html__( 'Add new feature', 'cbxchangelog' ) . '"  class="cbx-icon cbx-icon-plus add-feature"></a>';
+                                    
+                                    echo apply_filters( 'cbxchangelog_log_edit_feature_action_buttons', $log_edit_feature_action_buttons, $index, $f_index );  //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                echo '</div>';  //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+                                do_action('cbxchangelog_log_edit_feature_inside_end' , $index, $f_index , $box);
+                            echo '</div>';
 					}//end for loop
 				}//end if
 

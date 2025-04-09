@@ -1,16 +1,16 @@
 <?php
 /**
- * CBX Changelog core file
+ * CBX Changelog & Release Notecore file
  *
  * @link              http://codeboxr.com
  * @since             1.0.0
  * @package           Cbxchangelog
  *
  * @wordpress-plugin
- * Plugin Name:       CBX Changelog
+ * Plugin Name:       CBX Changelog & Release Note
  * Plugin URI:        http://codeboxr.com/product/cbx-changelog-for-wordpress/
  * Description:       Easy change log manager for WordPress, use for any product post type or releases notes
- * Version:           2.0.4
+ * Version:           2.0.5
  * Author:            Codeboxr
  * Author URI:        http://codeboxr.com
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 defined( 'CBXCHANGELOG_PLUGIN_NAME' ) or define( 'CBXCHANGELOG_PLUGIN_NAME', 'cbxchangelog' );
-defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.4' );
+defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.5' );
 defined( 'CBXCHANGELOG_ROOT_PATH' ) or define( 'CBXCHANGELOG_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'CBXCHANGELOG_ROOT_URL' ) or define( 'CBXCHANGELOG_ROOT_URL', plugin_dir_url( __FILE__ ) );
 defined( 'CBXCHANGELOG_BASE_NAME' ) or define( 'CBXCHANGELOG_BASE_NAME', plugin_basename( __FILE__ ) );
@@ -74,12 +74,12 @@ function cbxchangelog_compatible_php_version() {
 function activate_cbxchangelog() {
 	if ( ! cbxchangelog_compatible_wp_version() ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		wp_die( esc_html__( 'CBX Changelog plugin requires WordPress 5.3 or higher!', 'cbxchangelog' ) );
+		wp_die( esc_html__( 'CBX Changelog & Release Note plugin requires WordPress 5.3 or higher!', 'cbxchangelog' ) );
 	}
 
 	if ( ! cbxchangelog_compatible_php_version() ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		wp_die( esc_html__( 'CBX Changelog plugin requires PHP 7.4 or higher!', 'cbxchangelog' ) );
+		wp_die( esc_html__( 'CBX Changelog & Release Note plugin requires PHP 7.4 or higher!', 'cbxchangelog' ) );
 	}
 
 	//register_uninstall_hook( __FILE__, 'uninstall_cbxchangelog' );

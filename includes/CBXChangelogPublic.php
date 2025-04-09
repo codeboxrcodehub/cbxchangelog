@@ -7,6 +7,7 @@ use CBXChangeLogElemWidget;
 use CBXChangelogHelper;
 use CBXChangelogSettings;
 use Michelf\Markdown;
+use Michelf\MarkdownExtra;
 
 /**
  * The public-facing functionality of the plugin.
@@ -53,8 +54,8 @@ class CBXChangelogPublic {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param  string  $plugin_name  The name of the plugin.
-	 * @param  string  $version  The version of this plugin.
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
 	 *
 	 * @since    1.0.0
 	 *
@@ -91,30 +92,39 @@ class CBXChangelogPublic {
 
 		$setting = $this->settings;
 		//default values from global settings param
-		$show_label_default    = absint( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
-		$group_label_default    = absint( $setting->get_field( 'group_label', 'cbxchangelog_general', 0 ) );
-		$show_date_default     = absint( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
-		$show_url_default      = absint( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
-		$relative_date_default = absint( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
-		$layout                = sanitize_text_field( wp_unslash( $setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' ) ) );
+		$show_label        = absint( $setting->get_field( 'show_label', 'cbxchangelog_general', 1 ) );
+		$group_label       = absint( $setting->get_field( 'group_label', 'cbxchangelog_general', 0 ) );
+		$show_date         = absint( $setting->get_field( 'show_date', 'cbxchangelog_general', 1 ) );
+		$show_url          = absint( $setting->get_field( 'show_url', 'cbxchangelog_general', 1 ) );
+		//$show_feature_note = absint( $setting->get_field( 'show_feature_note', 'cbxchangelog_general', 0 ) );
+		$relative_date     = absint( $setting->get_field( 'relative_date', 'cbxchangelog_general', 0 ) );
+		$layout            = sanitize_text_field( wp_unslash( $setting->get_field( 'layout', 'cbxchangelog_general', 'prepros' ) ) );
 
+		$shortcode_default_atts = [
+			'title'             => '',
+			'id'                => 0,
+			//cbxchangelog type post id
+			'release'           => 0,
+			//individual release, index starts from 1
+			'show_label'        => $show_label,
+			'show_date'         => $show_date,
+			'show_url'          => $show_url,
+			'relative_date'     => $relative_date,
+			'layout'            => $layout,
+			//'show_feature_note' => $show_feature_note,//part of pro
+			'orderby'           => 'default',
+			//'default = saved order, date = sort by date
+			'order'             => 'desc',
+			//asc, desc
+			'count'             => 0,
+			//number of items to show, 0 means unlimited or all
+			'group_label'       => $group_label,
+			//display labels by group, same type labels will display in group
+		];
 
-		$atts = shortcode_atts(
-			[
-				'title'         => '',
-				'id'            => 0,//cbxchangelog type post id
-				'release'       => 0,//individual release, index starts from 1
-				'show_label'    => $show_label_default,
-				'show_date'     => $show_date_default,
-				'show_url'      => $show_url_default,
-				'relative_date' => $relative_date_default,
-				'layout'        => $layout,
-				'orderby'       => 'default', //'default = saved order, date = sort by date
-				'order'         => 'desc',    //asc, desc
-				'count'         => 0,         //number of items to show, 0 means unlimited or all
-				'group_label'   => $group_label_default,         //display labels by group, same type labels will display in group
-			],
-			$atts, 'cbxchangelog' );
+		$shortcode_default_atts = apply_filters( 'cbxchangelog_shortcode_default_atts', $shortcode_default_atts );
+
+		$atts = shortcode_atts( $shortcode_default_atts, $atts, 'cbxchangelog' );
 
 
 		if ( $atts['id'] == 0 && is_singular( 'cbxchangelog' ) ) {
@@ -130,22 +140,23 @@ class CBXChangelogPublic {
 		}
 
 
-
 		//meta values
-		$meta_extra                  = get_post_meta( $atts['id'], '_cbxchangelog_extra', true );
+		$meta_extra = get_post_meta( $atts['id'], '_cbxchangelog_extra', true );
 
-		$meta_extra['show_url']      = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
-		$meta_extra['show_label']    = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
-		$meta_extra['group_label']   = isset( $meta_extra['group_label'] ) ? absint( $meta_extra['group_label'] ) : 0;
-		$meta_extra['show_date']     = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
-		$meta_extra['relative_date'] = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
-		$meta_extra['layout']        = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
-		$meta_extra['orderby']       = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'order';
-		$meta_extra['order']         = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
-		$meta_extra['count']         = isset( $meta_extra['count'] ) ? absint( $meta_extra['count'] ) : 0;
+		//$meta_extra['show_feature_note'] = isset( $meta_extra['show_feature_note'] ) ? absint( $meta_extra['show_feature_note'] ) : 0;
+		$meta_extra['show_url']          = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
+		$meta_extra['show_label']        = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
+		$meta_extra['group_label']       = isset( $meta_extra['group_label'] ) ? absint( $meta_extra['group_label'] ) : 0;
+		$meta_extra['show_date']         = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
+		$meta_extra['relative_date']     = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
+		$meta_extra['layout']            = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
+		$meta_extra['orderby']           = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'order';
+		$meta_extra['order']             = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
+		$meta_extra['count']             = isset( $meta_extra['count'] ) ? absint( $meta_extra['count'] ) : 0;
 
-
-
+		/*if ( $atts['show_feature_note'] == '' ) {
+			$atts['show_feature_note'] = $meta_extra['show_feature_note'];
+		}*/
 
 		if ( $atts['show_url'] == '' ) {
 			$atts['show_url'] = $meta_extra['show_url'];
@@ -215,48 +226,17 @@ class CBXChangelogPublic {
 		$atts['count'] = $count = absint( $atts['count'] );
 
 
-		$show_label    = isset( $atts['show_label'] ) ? absint( $atts['show_label'] ) : 1;
-		$group_label   = isset( $atts['group_label'] ) ? absint( $atts['group_label'] ) : 0;
-		$show_date     = isset( $atts['show_date'] ) ? absint( $atts['show_date'] ) : 1;
-		$show_url      = isset( $atts['show_url'] ) ? absint( $atts['show_url'] ) : 1;
-		$relative_date = isset( $atts['relative_date'] ) ? absint( $atts['relative_date'] ) : 0;
-		$layout        = isset( $atts['layout'] ) ? sanitize_text_field( wp_unslash( $atts['layout'] ) ) : 'prepros';
-
-		/*if ( $show_label == '' || $show_date == '' || $show_url == '' || $relative_date == '' || $layout == '' ) {
-			$meta_extra = get_post_meta( $atts['id'], '_cbxchangelog_extra', true );
-
-			$show_url_meta      = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
-			$show_label_meta    = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
-			$show_date_meta     = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
-			$relative_date_meta = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
-			$layout_meta        = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
-
-
-			if ( $show_url == '' ) {
-				$show_url = absint( $show_url_meta ); //take from post meta
-			}
-
-			if ( $show_label == '' ) {
-				$show_label = absint( $show_label_meta ); //take from post meta
-			}
-
-			if ( $show_date == '' ) {
-				$show_date = absint( $show_date_meta ); //take from post meta
-			}
-
-			if ( $relative_date == '' ) {
-				$relative_date = absint( $relative_date_meta ); //take from post meta
-			}
-			if ( $layout == '' ) {
-				$layout = sanitize_text_field( wp_unslash( $layout_meta ) ); //take from post meta
-			}
-		}*/
+		//$show_feature_note = isset( $atts['show_feature_note'] ) ? absint( $atts['show_feature_note'] ) : 0;
+		$show_label        = isset( $atts['show_label'] ) ? absint( $atts['show_label'] ) : 1;
+		$group_label       = isset( $atts['group_label'] ) ? absint( $atts['group_label'] ) : 0;
+		$show_date         = isset( $atts['show_date'] ) ? absint( $atts['show_date'] ) : 1;
+		$show_url          = isset( $atts['show_url'] ) ? absint( $atts['show_url'] ) : 1;
+		$relative_date     = isset( $atts['relative_date'] ) ? absint( $atts['relative_date'] ) : 0;
+		$layout            = isset( $atts['layout'] ) ? sanitize_text_field( wp_unslash( $atts['layout'] ) ) : 'prepros';
 
 		$use_markdown = intval( $setting->get_field( 'use_markdown', 'cbxchangelog_general', 0 ) );
-		if ( $use_markdown ) {
-			//require plugin_dir_path( dirname( __FILE__ ) ) . 'includes/markdown/Michelf/Markdown.inc.php';
-			require plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
-		}
+
+		$atts = apply_filters( 'cbxchangelog_shortcode_final_atts', $atts, $meta_extra );
 
 
 		//loop to print
@@ -273,24 +253,6 @@ class CBXChangelogPublic {
 
 		$release = absint( $atts['release'] );
 
-		/*$meta = CBXChangelogHelper::get_changelog( $atts['id'], $release );
-
-		if ( sizeof( $meta ) == 0 ) {
-			return '';
-		}
-		$change_logs = $meta;
-
-		if ( $order_by == 'date' ) {
-			$order_dir = SORT_DESC;
-			if ( $order == 'asc' ) {
-				$order_dir = SORT_ASC;
-			}
-			array_multisort( array_column( $change_logs, 'date' ), $order_dir, $change_logs );
-		} elseif ( $order_by == 'default' ) {
-			if ( $order == 'asc' ) {
-				$change_logs = array_reverse( $change_logs );
-			}
-		}*/
 
 		if ( $release > 0 ) {
 			//get specific release log, no hassle for sortings
@@ -328,7 +290,7 @@ class CBXChangelogPublic {
 			$version      = isset( $change_log['version'] ) ? esc_attr( $change_log['version'] ) : '';
 			$url          = isset( $change_log['url'] ) ? esc_url( $change_log['url'] ) : '';
 			$date         = isset( $change_log['date'] ) ? esc_attr( $change_log['date'] ) : '';
-			$release_note = isset( $change_log['note'] ) ? esc_textarea( $change_log['note'] ) : '';
+			$release_note = isset( $change_log['note'] ) ? $change_log['note'] : '';
 
 			$output_html .= '<div class="cbxchangelog_release_header">';
 			$output_html .= '<div class="cbxchangelog_version">' . $version . '</div>';
@@ -344,25 +306,27 @@ class CBXChangelogPublic {
 			$output_html .= '<div class="cbxchangelog_release_inner">';
 			if ( $release_note != '' ) {
 				$release_note = do_shortcode( $release_note );
-				if ( $use_markdown ) {
-					$release_note = $this->do_parsemarkdown( $release_note );
-				}
-				$output_html .= '<div class="cbxchangelog_note">' . wpautop( $release_note ) . '</div>';
-			}
 
+				if ( $use_markdown ) {
+					$release_note = MarkdownExtra::defaultTransform( $release_note );
+				}
+				$output_html .= '<div class="cbxchangelog_note">' . wpautop( wptexturize( $release_note ) ) . '</div>';
+			}
 
 			$features = isset( $change_log['feature'] ) ? $change_log['feature'] : [];
 			$features = ( ! is_array( $features ) ) ? [] : array_filter( $features );
 			$labels   = isset( $change_log['label'] ) ? $change_log['label'] : [];
 			$labels   = ( ! is_array( $labels ) ) ? [] : array_filter( $labels );
 
-
 			$labels_with_features = [];
 			foreach ( $labels as $label_index => $label ) {
-				$labels_with_features[] = [ 'label' => $label, 'feature' => $features[ $label_index ] ];
+				$temp_label_with_feature = [ 'label' => $label, 'feature' => $features[ $label_index ] ];
+				$labels_with_features[]  = apply_filters( 'cbxchangelog_label_with_feature', $temp_label_with_feature, $change_log, $label_index );
+
+				//$labels_with_features[] = [ 'label' => $label, 'feature' => $features[ $label_index ] ];
 			}
 
-			if($group_label){
+			if ( $group_label ) {
 				$labels_with_features = cbxchangelog_group_by_labels( $labels_with_features );
 			}
 
@@ -390,11 +354,15 @@ class CBXChangelogPublic {
 					}
 
 					$output_html .= '<div class="cbxchangelog_feature">' . $single_feature . '</div>';
-					$output_html .= '</div>';//cbxchangelog_log
+
+					$output_html .= apply_filters( 'cbxchangelog_release_after_feature', $labels_features, $atts, $output_html );
+
+					$output_html .= '</div>';//cbxchangelog_log					
 				}
 
 				$output_html .= '</div>'; //cbxchangelog_features
 			}
+
 
 			//handle url
 			if ( $show_url && $url != '' ) {
@@ -443,16 +411,19 @@ class CBXChangelogPublic {
 					$meta_extra = [];
 				}
 
-				$meta_extra['show_label']    = $show_label = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
-				$meta_extra['show_date']     = $show_date = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
-				$meta_extra['relative_date'] = $relative_date = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
-				$meta_extra['layout']        = $layout = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
+				$atts = [];
 
-				$meta_extra['group_label'] = $group_label = isset( $meta_extra['group_label'] ) ? absint( $meta_extra['group_label'] ) : 0;
-				$meta_extra['show_url'] = $show_url = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
-				$meta_extra['orderby']  = $order_by = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'default';
-				$meta_extra['order']    = $order = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
-				$meta_extra['count']    = $count = isset( $meta_extra['count'] ) ? absint( $meta_extra['order'] ) : 0;
+				//$atts['show_feature_note'] = $show_feature_note = isset( $meta_extra['show_feature_note'] ) ? absint( $meta_extra['show_feature_note'] ) : 0; //handled from pro addon
+				$atts['show_label']        = $show_label = isset( $meta_extra['show_label'] ) ? absint( $meta_extra['show_label'] ) : 1;
+				$atts['show_date']         = $show_date = isset( $meta_extra['show_date'] ) ? absint( $meta_extra['show_date'] ) : 1;
+				$atts['relative_date']     = $relative_date = isset( $meta_extra['relative_date'] ) ? absint( $meta_extra['relative_date'] ) : 0;
+				$atts['layout']            = $layout = isset( $meta_extra['layout'] ) ? sanitize_text_field( wp_unslash( $meta_extra['layout'] ) ) : 'prepros';
+
+				$atts['group_label'] = $group_label = isset( $meta_extra['group_label'] ) ? absint( $meta_extra['group_label'] ) : 0;
+				$atts['show_url']    = $show_url = isset( $meta_extra['show_url'] ) ? absint( $meta_extra['show_url'] ) : 1;
+				$atts['orderby']     = $order_by = isset( $meta_extra['orderby'] ) ? sanitize_text_field( wp_unslash( $meta_extra['orderby'] ) ) : 'default';
+				$atts['order']       = $order = isset( $meta_extra['order'] ) ? sanitize_text_field( wp_unslash( $meta_extra['order'] ) ) : 'desc';
+				$atts['count']       = $count = isset( $meta_extra['count'] ) ? absint( $meta_extra['count'] ) : 0;
 
 				if ( $order_by == 'order' ) {
 					$order_by = 'default';
@@ -464,16 +435,26 @@ class CBXChangelogPublic {
 				$order_keys = cbxchangelog_get_order_keys();
 				if ( ! in_array( $order, $order_keys ) ) {
 					$order = 'desc';
+					$atts['order'] = $order;
 				}
 
 				$order_by_keys = cbxchangelog_get_orderby_keys();
 				if ( ! in_array( $order_by, $order_by_keys ) ) {
 					$order_by = 'default';
+					$atts['orderby'] = $order_by;
 				}
 
-				$content_shortcode = do_shortcode( '[cbxchangelog id="' . $post_id . '" count="' . $count . '" show_url="' . $show_url . '"  group_label="'.$group_label.'" orderby="' . $order_by . '" order="' . $order . '" show_label="' . $show_label . '" show_date="' . $show_date . '" relative_date= "' . $relative_date . '" layout= "' . $layout . '"]' );
+				$atts['id'] = $post_id;
 
-				$content .= '<div class="cbxchangelog_shortcode_content">' . $content_shortcode . '</div>';
+				$atts = apply_filters('cbxchangelog_params_atts', $atts, $meta_extra);
+
+				$attr_html = '';
+				foreach ( $atts as $key => $value ) {
+					$attr_html .= ' ' . $key . '="' . esc_attr( $value ) . '" ';
+				}
+
+				$content_shortcode = do_shortcode( '[cbxchangelog '.$attr_html.']' );
+				$content           .= '<div class="cbxchangelog_shortcode_content">' . $content_shortcode . '</div>';
 			}
 		}
 

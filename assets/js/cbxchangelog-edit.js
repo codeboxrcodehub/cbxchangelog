@@ -210,6 +210,22 @@
 
         });
 
+        //show/hide feature note
+        $changelog_wrapper.on('click', '.add-feature-note', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $parent = $this.parents('.feature');
+            //$parent.find('.feature_note_textarea').toggle();
+            $parent.find('.feature_note').toggle();
+
+           /* var $counter = $parent.data('boxincrement');
+
+            var rendered = Mustache.render($feature_template, {increment: $counter});
+            $parent.prepend(rendered);*/
+
+        });
+
         //remove any feature
         $changelog_wrapper.on('click', '.trash-feature', function (e) {
             e.preventDefault();
@@ -372,6 +388,13 @@
             $('#search-submit').addClass('button primary');
             $('#post-query-submit').addClass('button primary');
             $('.button.action').addClass('button primary');
+            $('.save-post-status').addClass('button primary mt-10');
+            $('.save-post-visibility').addClass('button primary mt-10');
+            $('.save-timestamp').addClass('button primary mt-10');
+            $('.preview.button').addClass('button secondary');
+            $('.cancel-post-status').addClass('button secondary mt-10');
+            $('.cancel-post-visibility').addClass('button secondary mt-10');
+            $('.cancel-timestamp').addClass('button secondary mt-10');
             $('.page-title-action').addClass('button primary');
             $('#save-post').addClass('button primary');
             $('#publish').addClass('button primary');

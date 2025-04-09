@@ -44,10 +44,10 @@ class CBXChangelogWidget extends WP_Widget {
 
 		parent::__construct(
 			$this->get_widget_slug(),
-			esc_html__( 'CBX Changelog Widget', 'cbxchangelog' ),
+			esc_html__( 'CBX Changelog & Release Note Widget', 'cbxchangelog' ),
 			[
 				'classname'   => $this->get_widget_slug() . '-widget',
-				'description' => esc_html__( 'Displays CBX Changelog widget', 'cbxchangelog' )
+				'description' => esc_html__( 'Displays CBX Changelog & Release Note widget', 'cbxchangelog' )
 			]
 		);
 
@@ -89,44 +89,59 @@ class CBXChangelogWidget extends WP_Widget {
 
 		$instance = apply_filters( 'cbxchangelog_widget_instance', $instance );
 
-		$instance['post_id'] = $post_id = isset( $instance['post_id'] ) ? absint( $instance['post_id'] ) : 0;
-		$instance['release'] = $release = isset( $instance['release'] ) ? absint( $instance['release'] ) : 0;
+		$atts = [];
 
-		$instance['show_label']    = $show_label = isset( $instance['show_label'] ) ? sanitize_text_field( wp_unslash( $instance['show_label'] ) ) : 1;
-		$instance['show_url']      = $show_url = isset( $instance['show_url'] ) ? sanitize_text_field( wp_unslash( $instance['show_url'] ) ) : 1;
-		$instance['group_label']   = $group_label = isset( $instance['group_label'] ) ? sanitize_text_field( wp_unslash( $instance['group_label'] ) ) : 0;
-		$instance['show_date']     = $show_date = isset( $instance['show_date'] ) ? sanitize_text_field( wp_unslash( $instance['show_date'] ) ) : 1;
-		$instance['relative_date'] = $relative_date = isset( $instance['relative_date'] ) ? sanitize_text_field( wp_unslash( $instance['relative_date'] ) ) : 0;
-		$instance['layout']        = $layout = isset( $instance['layout'] ) ? sanitize_text_field( wp_unslash( $instance['layout'] ) ) : 'prepros';
-		$instance['orderby']       = $orderby = isset( $instance['orderby'] ) ? sanitize_text_field( wp_unslash( $instance['orderby'] ) ) : 'default';
-		$instance['order']         = $order = isset( $instance['order'] ) ? sanitize_text_field( wp_unslash( $instance['order'] ) ) : 'desc';
+		$atts['id'] =  isset( $instance['post_id'] ) ? absint( $instance['post_id'] ) : 0;
+		$atts['release'] = isset( $instance['release'] ) ? absint( $instance['release'] ) : 0;
 
-		$instance['count'] = $count = isset( $instance['count'] ) ? intval( $instance['count'] ) : 0;
+		$atts['show_label']    =  isset( $instance['show_label'] ) ? sanitize_text_field( wp_unslash( $instance['show_label'] ) ) : 1;
+		$atts['show_url']      = isset( $instance['show_url'] ) ? sanitize_text_field( wp_unslash( $instance['show_url'] ) ) : 1;
+		$atts['group_label']   = isset( $instance['group_label'] ) ? sanitize_text_field( wp_unslash( $instance['group_label'] ) ) : 0;
+		$atts['show_date']     = isset( $instance['show_date'] ) ? sanitize_text_field( wp_unslash( $instance['show_date'] ) ) : 1;
+		$atts['relative_date'] = isset( $instance['relative_date'] ) ? sanitize_text_field( wp_unslash( $instance['relative_date'] ) ) : 0;
+		$atts['layout']        = isset( $instance['layout'] ) ? sanitize_text_field( wp_unslash( $instance['layout'] ) ) : 'prepros';
+		$atts['orderby']       = isset( $instance['orderby'] ) ? sanitize_text_field( wp_unslash( $instance['orderby'] ) ) : 'default';
+		$atts['order']         = isset( $instance['order'] ) ? sanitize_text_field( wp_unslash( $instance['order'] ) ) : 'desc';
+
+		$atts['count'] = isset( $instance['count'] ) ? intval( $instance['count'] ) : 0;
 
 
 		extract( $instance );
 
 		if ( $orderby == '' ) {
 			$orderby = 'default';
+			$atts['orderby'] = $orderby;
 		}
 		if ( $order == '' ) {
 			$order = 'desc';
+			$atts['order'] = $order;
 		}
 
 
 		$order_keys = cbxchangelog_get_order_keys();
 		if ( ! in_array( $order, $order_keys ) ) {
 			$order = 'desc';
+			$atts['order'] = $order;
 		}
 
 		$order_by_keys = cbxchangelog_get_orderby_keys();
 		if ( ! in_array( $orderby, $order_by_keys ) ) {
 			$orderby = 'default';
+			$atts['orderby'] = $orderby;
 		}
 
 
+
 		if ( absint( $post_id ) > 0 && ( false !== get_post_status( $post_id ) ) ) {
-			$widget_string .= do_shortcode( '[cbxchangelog count="' . $count . '" orderby="' . $orderby . '" order="' . $order . '" id="' . $post_id . '" release="' . $release . '" group_label="'.$group_label.'" show_label="' . $show_label . '"  show_url="' . $show_url . '" show_date="' . $show_date . '" relative_date="' . $relative_date . '" layout="' . $layout . '"]' );
+			$atts = apply_filters('cbxchangelog_params_atts', $atts, $meta_extra);
+
+			$attr_html = '';
+			foreach ( $atts as $key => $value ) {
+				$attr_html .= ' ' . $key . '="' . esc_attr( $value ) . '" ';
+			}
+
+			$widget_string .= do_shortcode( '[cbxchangelog '.$attr_html.']' );
+		
 		} else {
 			$widget_string .= '<p class="cbxchangelog-info cbxchangelog_missing">' . esc_html__( 'Changelog id missing or changelog doesn\'t exists', 'cbxchangelog' ) . '</p>';
 		}
@@ -143,7 +158,6 @@ class CBXChangelogWidget extends WP_Widget {
 	 * @param  array old_instance The previous instance of values before the update.
 	 */
 	public function update( $new_instance, $old_instance ) {
-
 		$instance = $old_instance;
 
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );

@@ -24,8 +24,8 @@ class CBXChangeLog_WPBWidget extends WPBakeryShortCode {
 
 		// Map the block with vc_map()
 		vc_map( [
-			"name"        => esc_html__( "CBX Changelog", 'cbxchangelog' ),
-			"description" => esc_html__( "CBX Changelog Widget", 'cbxchangelog' ),
+			"name"        => esc_html__( "CBX Changelog & Release Note", 'cbxchangelog' ),
+			"description" => esc_html__( "CBX Changelog & Release Note Widget", 'cbxchangelog' ),
 			"base"        => "cbxchangelog",
 			"icon"        => CBXCHANGELOG_ROOT_URL . 'assets/images/icon.png',
 			"category"    => esc_html__( 'CBX Widgets', 'cbxchangelog' ),
