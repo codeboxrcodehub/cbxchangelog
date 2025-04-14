@@ -100,6 +100,12 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.6</p>
+                            <ul>
+                                <li>[fixed] Bug fixed for feature note related display logic, fixed error msg.</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.5</p>
                             <ul>
                                 <li>[fixed] Markdown to html conversion issue(multi line parsing was not working) fixed</li>
@@ -115,15 +121,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[updated] Misc improvements</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 2.0.3</p>
-                            <ul>
-                                <li>[updated] WordPress core 6.7.2 compatibility checked</li>
-                                <li>[updated] Pro Addon V1.1.9 released</li>
-                                <li>[updated] Misc improvements</li>
-                                <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -134,6 +131,13 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <div class="cbx-backend-settings-row">
+                                <p>Version - 1.2.2</p>
+                                <ul>
+                                    <li>[updated] Feature note display hook adjusted</li>
+                                    <li>[updated] Adjusted error msg display</li>
+                                </ul>
+                            </div>
                             <div class="cbx-backend-settings-row">
                                 <p>Version - 1.2.1</p>
                                 <ul>
@@ -148,15 +152,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                     <li>[updated] Plugin loader, main classes updated</li>
                                     <li>[updated] Core plugin updated to V2.0.4</li>
                                     <li>[updated] Misc improvements</li>
-                                </ul>
-                            </div>
-                            <div class="cbx-backend-settings-row">
-                                <p>Version - 1.1.9</p>
-                                <ul>
-                                    <li>[updated] WordPress 6.7.2 compatibility checked</li>
-                                    <li>[updated] Core plugin updated to V2.0.3</li>
-                                    <li>[updated] Misc improvements</li>
-                                    <li>[updated] Except cbxchangelog , other post type screen extra modification than core wordpress style is disabled</li>
                                 </ul>
                             </div>
                         </div>

@@ -355,7 +355,10 @@ class CBXChangelogPublic {
 
 					$output_html .= '<div class="cbxchangelog_feature">' . $single_feature . '</div>';
 
-					$output_html .= apply_filters( 'cbxchangelog_release_after_feature', $labels_features, $atts, $output_html );
+					$release_after_feature = '';
+					$release_after_feature = apply_filters( 'cbxchangelog_release_after_feature', $release_after_feature, $labels_features, $atts);
+
+					$output_html .= $release_after_feature;
 
 					$output_html .= '</div>';//cbxchangelog_log					
 				}

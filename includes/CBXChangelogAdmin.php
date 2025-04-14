@@ -984,7 +984,7 @@ class CBXChangelogAdmin {
 		}
 
 		$pro_addon_version  = CBXChangelogHelper::get_any_plugin_version( 'cbxchangelogpro/cbxchangelogpro.php' );
-		$pro_latest_version = '1.2.1';
+		$pro_latest_version = '1.2.2';
 
 
 		if ( $pro_addon_version != '' && version_compare( $pro_addon_version, $pro_latest_version, '<' ) ) {

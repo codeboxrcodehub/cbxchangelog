@@ -3,7 +3,7 @@ Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
 Tested up to: 6.7.2
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,9 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.6 =
+* [fixed] Bug fixed for feature note related display logic, fixed error msg.
+
 = 2.0.5 =
 * [fixed] Markdown to html conversion issue(multi line parsing was not working) fixed
 * [updated] Pro Addon V1.2.1 released
