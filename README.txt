@@ -2,8 +2,8 @@
 Contributors: codeboxr, manchumahara
 Tags: changelog,history,release,version,product log
 Requires at least: 5.3
-Tested up to: 6.7.2
-Stable tag: 2.0.6
+Tested up to: 6.8
+Stable tag: 2.0.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,11 @@ This helps to write changes log for any digital products, projects releases. Any
 
 
 == Changelog ==
+= 2.0.7 =
+* [fixed] Fixed elementor bug https://wordpress.org/support/topic/wrong-order-in-cbxchangelog-widget/#post-18472230
+* [updated] WordPress core 6.8 compatibility checked
+* [updated] Elementor widget icon updated
+
 = 2.0.6 =
 * [fixed] Bug fixed for feature note related display logic, fixed error msg.
 

@@ -10,7 +10,7 @@
  * Plugin Name:       CBX Changelog & Release Note
  * Plugin URI:        http://codeboxr.com/product/cbx-changelog-for-wordpress/
  * Description:       Easy change log manager for WordPress, use for any product post type or releases notes
- * Version:           2.0.6
+ * Version:           2.0.7
  * Author:            Codeboxr
  * Author URI:        http://codeboxr.com
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 defined( 'CBXCHANGELOG_PLUGIN_NAME' ) or define( 'CBXCHANGELOG_PLUGIN_NAME', 'cbxchangelog' );
-defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.6' );
+defined( 'CBXCHANGELOG_PLUGIN_VERSION' ) or define( 'CBXCHANGELOG_PLUGIN_VERSION', '2.0.7' );
 defined( 'CBXCHANGELOG_ROOT_PATH' ) or define( 'CBXCHANGELOG_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'CBXCHANGELOG_ROOT_URL' ) or define( 'CBXCHANGELOG_ROOT_URL', plugin_dir_url( __FILE__ ) );
 defined( 'CBXCHANGELOG_BASE_NAME' ) or define( 'CBXCHANGELOG_BASE_NAME', plugin_basename( __FILE__ ) );

@@ -5,7 +5,7 @@
 }
 .cbxchangelog-icon:before {
     content: ' ';
-    background-image: url('icon.png');
+    background-image: url('../../../assets/images/icon_log_white.svg');
     width: 26px;
     height: 26px;
     display: block;

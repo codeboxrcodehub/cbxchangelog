@@ -100,6 +100,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.7</p>
+                            <ul>
+                                <li>[fixed] Fixed elementor bug <a href="https://wordpress.org/support/topic/wrong-order-in-cbxchangelog-widget/#post-18472230">https://wordpress.org/support/topic/wrong-order-in-cbxchangelog-widget/#post-18472230</a></li>
+                                <li>[updated] WordPress core 6.8 compatibility checked</li>
+                                <li>[updated] Elementor widget icon updated</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.6</p>
                             <ul>
                                 <li>[fixed] Bug fixed for feature note related display logic, fixed error msg.</li>
@@ -111,14 +119,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[fixed] Markdown to html conversion issue(multi line parsing was not working) fixed</li>
                                 <li>[updated] Pro Addon V1.2.1 released</li>
                                 <li>[updated] Shortcode and all widgets/blocks are updated</li>
-                            </ul>
-                        </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 2.0.4</p>
-                            <ul>
-                                <li>[updated] Support page news display updated</li>
-                                <li[updated] Pro Addon V1.2.0 released</li>
-                                <li>[updated] Misc improvements</li>
                             </ul>
                         </div>
                     </div>

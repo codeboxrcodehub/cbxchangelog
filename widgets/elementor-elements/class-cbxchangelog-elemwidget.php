@@ -263,6 +263,9 @@ class CBXChangeLog_ElemWidget extends \Elementor\Widget_Base {
 
 		$atts['count'] = isset( $settings['cbxchangelog_count'] ) ? intval( $settings['cbxchangelog_count'] ) : 0;   //0 = means all, greater than 0 means any specific
 
+		$orderby = $atts['orderby'];
+		$order = $atts['order'];
+
 		if ( $orderby == '' ) {
 			$orderby = 'default';
 			$atts['orderby'] = $orderby;
