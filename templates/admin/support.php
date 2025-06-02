@@ -100,6 +100,12 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <p>Version - 2.0.8</p>
+                            <ul>
+                                <li>[fixed] PHP Compatibility check on plugin loading.</li>
+                            </ul>
+                        </div>
+                        <div class="cbx-backend-settings-row">
                             <p>Version - 2.0.7</p>
                             <ul>
                                 <li>[fixed] Fixed elementor bug <a href="https://wordpress.org/support/topic/wrong-order-in-cbxchangelog-widget/#post-18472230">https://wordpress.org/support/topic/wrong-order-in-cbxchangelog-widget/#post-18472230</a></li>
@@ -113,14 +119,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                 <li>[fixed] Bug fixed for feature note related display logic, fixed error msg.</li>
                             </ul>
                         </div>
-                        <div class="cbx-backend-settings-row">
-                            <p>Version - 2.0.5</p>
-                            <ul>
-                                <li>[fixed] Markdown to html conversion issue(multi line parsing was not working) fixed</li>
-                                <li>[updated] Pro Addon V1.2.1 released</li>
-                                <li>[updated] Shortcode and all widgets/blocks are updated</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="cbx-backend-card dashboard-changelog">
@@ -131,6 +129,14 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                     </div>
                     <div class="content">
                         <div class="cbx-backend-settings-row">
+                            <div class="cbx-backend-settings-row">
+                                <p>Version - 1.2.3</p>
+                                <ul>
+                                    <li>[fixed] PHP version check fixed and improved</li>
+                                    <li>[updated] WordPress 6.8 compatibility checked</li>
+                                    <li>[updated] Core plugin V2.0.8 released and compatible</li>
+                                </ul>
+                            </div>
                             <div class="cbx-backend-settings-row">
                                 <p>Version - 1.2.2</p>
                                 <ul>
@@ -144,14 +150,6 @@ $doc_url    = CBXChangelogHelper::url_utmy( 'https://codeboxr.com/doc/cbxchangel
                                     <li>[new] Single feature note option added</li>
                                     <li>[fixed] Markdown to html conversion issue fixed</li>
                                     <li>[updated] Core plugin V2.0.5 released and compatible</li>
-                                </ul>
-                            </div>
-                            <div class="cbx-backend-settings-row">
-                                <p>Version - 1.2.0</p>
-                                <ul>
-                                    <li>[updated] Plugin loader, main classes updated</li>
-                                    <li>[updated] Core plugin updated to V2.0.4</li>
-                                    <li>[updated] Misc improvements</li>
                                 </ul>
                             </div>
                         </div>

@@ -73,12 +73,18 @@ class CBXChangelog {
 		$this->version     = CBXCHANGELOG_PLUGIN_VERSION;
 
 
-		$this->load_dependencies();
+		if ( cbxchangelog_compatible_php_version() ) {
+			$this->load_dependencies();
 
 
-		$this->define_common_hooks();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+			$this->define_common_hooks();
+			$this->define_admin_hooks();
+			$this->define_public_hooks();
+		}
+		else{
+			add_action( 'admin_notices', [ $this, 'php_version_notice' ] );
+		}
+
 	}//end of constructor
 
 	/**
@@ -270,7 +276,6 @@ class CBXChangelog {
 
 		//Wpbakery
 		add_action( 'vc_before_init', [ $plugin_public, 'vc_before_init_actions' ] ); //priority set to 12 from default 10
-
 	}//end define_public_hooks
 
 	/**
@@ -293,4 +298,16 @@ class CBXChangelog {
 	public function get_version() {
 		return $this->version;
 	}//end method get_version
+
+	/**
+	 * Show php version notice in dashboard
+	 *
+	 * @return void
+	 */
+	public function php_version_notice() {
+		echo '<div class="error"><p>';
+		/* translators: PHP required version */
+		echo sprintf(esc_html__( 'CBX Changelog & Release Note requires at least PHP %s. Please upgrade PHP to run CBX Changelog & Release Note.', 'cbxchangelog' ), esc_attr(CBXCHANGELOG_PHP_MIN_VERSION));
+		echo '</p></div>';
+	}//end method php_version_notice
 }//end method CBXChangelog

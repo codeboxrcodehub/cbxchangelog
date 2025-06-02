@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-09 17:25+0000\n"
+"POT-Creation-Date: 2025-06-01 03:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -156,15 +156,15 @@ msgstr ""
 msgid "CBX Changelog & Release Note"
 msgstr ""
 
-#: templates/admin/support.php:181
+#: templates/admin/support.php:182
 msgid "CBX Changelog & Release Note Plugin Details"
 msgstr ""
 
-#: cbxchangelog.php:82
+#: cbxchangelog.php:84
 msgid "CBX Changelog & Release Note plugin requires PHP 7.4 or higher!"
 msgstr ""
 
-#: cbxchangelog.php:77
+#: cbxchangelog.php:79
 msgid "CBX Changelog & Release Note plugin requires WordPress 5.3 or higher!"
 msgstr ""
 
@@ -175,6 +175,13 @@ msgid ""
 "CBX Changelog & Release Note Pro has extended features and more controls, <a "
 "style=\"color: #6648fe !important; font-weight: bold;\" target=\"_blank\" "
 "href=\"%s\">try it</a>  - Codeboxr Team"
+msgstr ""
+
+#: includes/CBXChangelog.php:310
+#, php-format
+msgid ""
+"CBX Changelog & Release Note requires at least PHP %s. Please upgrade PHP to "
+"run CBX Changelog & Release Note."
 msgstr ""
 
 #: includes/CBXChangelogAdmin.php:163
@@ -232,7 +239,7 @@ msgstr ""
 msgid "Changelog id missing or changelog doesn't exists"
 msgstr ""
 
-#: templates/admin/support.php:132
+#: templates/admin/support.php:135
 msgid "Changelog Pro Addon"
 msgstr ""
 
@@ -365,7 +372,7 @@ msgstr ""
 msgid "Click to show/hide"
 msgstr ""
 
-#: includes/CBXChangelog.php:108 includes/CBXChangelogSettings.php:61
+#: includes/CBXChangelog.php:114 includes/CBXChangelogSettings.php:61
 msgid "Cloning is forbidden."
 msgstr ""
 
@@ -373,11 +380,11 @@ msgstr ""
 msgid "Codeboxr"
 msgstr ""
 
-#: templates/admin/support.php:263
+#: templates/admin/support.php:264
 msgid "Codeboxr News Updates"
 msgstr ""
 
-#: includes/CBXChangelogPublic.php:536
+#: includes/CBXChangelogPublic.php:539
 msgid "Codeboxr Widgets"
 msgstr ""
 
@@ -420,7 +427,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: templates/admin/support.php:209
+#: templates/admin/support.php:210
 msgid "Core Plugin Support"
 msgstr ""
 
@@ -520,7 +527,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: templates/admin/support.php:191
+#: templates/admin/support.php:192
 msgid "Documentation & User Guide"
 msgstr ""
 
@@ -605,7 +612,7 @@ msgstr ""
 msgid "Group label"
 msgstr ""
 
-#: templates/admin/support.php:170
+#: templates/admin/support.php:171
 msgid "Help & Supports"
 msgstr ""
 
@@ -655,7 +662,7 @@ msgstr ""
 msgid "Markdown Support"
 msgstr ""
 
-#: includes/CBXChangelogPublic.php:374
+#: includes/CBXChangelogPublic.php:377
 msgid "More details about this release"
 msgstr ""
 
@@ -773,7 +780,7 @@ msgstr ""
 msgid "Order By"
 msgstr ""
 
-#: templates/admin/support.php:226
+#: templates/admin/support.php:227
 msgid "Other WordPress Plugins"
 msgstr ""
 
@@ -872,7 +879,7 @@ msgstr ""
 msgid "Prepros(Default)"
 msgstr ""
 
-#: templates/admin/support.php:219
+#: templates/admin/support.php:220
 msgid "Pro Addon Support"
 msgstr ""
 
@@ -963,7 +970,7 @@ msgstr ""
 msgid "Reset option values and all tables created by this plugin"
 msgstr ""
 
-#: templates/admin/support.php:199
+#: templates/admin/support.php:200
 msgid "Review & Rate CBX Changelog Plugin"
 msgstr ""
 
@@ -1000,7 +1007,7 @@ msgid "selection slider"
 msgstr ""
 
 #: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:89
-#: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:290
+#: widgets/elementor-elements/class-cbxchangelog-elemwidget.php:293
 #: widgets/vc-element/class-cbxchangelog-wpbwidget.php:41
 #: widgets/classic-widgets/cbxchangelog-widget/views/admin.php:17
 msgid "Set Post ID(Change log post type or other supported)"
@@ -1190,7 +1197,7 @@ msgstr ""
 msgid "Uncheck All"
 msgstr ""
 
-#: includes/CBXChangelog.php:117 includes/CBXChangelogSettings.php:70
+#: includes/CBXChangelog.php:123 includes/CBXChangelogSettings.php:70
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
